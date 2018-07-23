@@ -16,7 +16,7 @@ Type 1 Diabetes is an autoimmune disease in which the pancreas produces little o
 Possibly, but it's also likely that he has Type 2 Diabetes, which is far more common.
 
 #### What is Type 2 Diabetes?
-Type 2 is
+Type 2 Diabetes is a chronic condition in which the body resists insulin, or it doesn't produce enough insulin.
 
 ## Screenshots
 Coming Soon
@@ -28,7 +28,7 @@ This app is for many types of users:
 3. Dexcom
 
 ### UI Flow
-![UI Flow handwritten draft](https://github.com/KatiLong/react-capstone/blob/master/github-images/uiflowv1.jpg)
+![UI Flow handwritten draft](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/uiflowv1.jpg)
 
 ### Wireframe _main
 ![Wireframe _Main]()
