@@ -15,7 +15,8 @@ function Login (props) {
                         <label for="login-password">Password</label>
                         <input type="text" id="login-password" class="password" placeholder="WhereNdwurld24" value="where2018" required/>
                         <br/>
-                        <button type="submit" class="submit-button" id="login-button">Sign In</button>
+                        <Link to='/dashboard'><button type="submit" class="submit-button" id="login-button">Sign In</button></Link>
+
                         <br/>
                         <Link to='/register'><p>Need to <span id="change-form-signup">Signup?</span></p></Link>
                     </fieldset>

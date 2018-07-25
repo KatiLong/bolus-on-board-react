@@ -17,8 +17,10 @@ function Signup () {
                         <label for="signup-password">Password</label>
                         <input type="text" id="signup-password" class="password" placeholder="WhereNdwurld24" value="where2018" required/>
                         <br/>
-                        <button type="submit" class="submit-button">Sign In</button>
+
+                        <Link to='/register/disclaimer'><button type="submit" class="submit-button">Sign In</button></Link>
                         <br/>
+
                         <Link to='/'><p id="signup-p">Have an account? <span id="change-form-login">Login</span></p></Link>
 
                     </fieldset>
@@ -26,10 +28,10 @@ function Signup () {
                 <div class="demo-account">
                     <h6>Demo Account</h6>
                     <div class="demo-info">
-                    <p>Username: carmen@gmail.com</p>
-                    <br/>
-                    <p>Password: where2018</p>
-                </div>
+                        <p>Username: carmen@gmail.com</p>
+                        <br/>
+                        <p>Password: where2018</p>
+                    </div>
                 </div>
             </section>
         </div>
