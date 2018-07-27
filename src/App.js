@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 import Login from './components/login';
 import Signup from './components/signup';
 import Disclaimer from './components/disclaimer';
-import UserDashboard from './components/user-dashboard';
-import Bolus from './components/bolus';
-import Basal from './components/basal';
-import BloodGlucose from './components/bg';
-import A1c from './components/a1c';
+import UserDashboard from './components/dashboard/user-dashboard';
+import Bolus from './components/dashboard/bolus';
+import Basal from './components/dashboard/basal';
+import BloodGlucose from './components/dashboard/bg';
+import A1c from './components/dashboard/a1c';
+import Settings from './components/settings/settings';
+import Logs from './components/logs';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -25,6 +27,8 @@ class App extends Component {
                 <Route exact path='/dashboard/basal' component={Basal}/>
                 <Route exact path='/dashboard/blood-glucose' component={BloodGlucose}/>
                 <Route exact path='/dashboard/a1c' component={A1c}/>
+                <Route exact path='/settings' component={Settings}/>
+                <Route exact path='/logs' component={Logs}/>
             </div>
         </Router>
     );

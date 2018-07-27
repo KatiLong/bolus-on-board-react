@@ -1,17 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { handleBolus } from '../../actions';
+import { connect } from 'react-redux';
 
-function Bolus () {
+function Bolus (props) {
+    console.log(props);
     return (
         <div>
-            <form id="bolus-form" action="#root">
+            <form
+                id="bolus-form"
+                action="#root"
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    let insulinType = event.target.insulinType.value;
+                    console.log(insulinType);
+                    //pass in object
+                    props.dispatch(handleBolus(insulinType, props.history));
+                }}
+            >
 
                 <fieldset>
 
                     <label for="insulin-type">Insulin Type</label>
-                    <select id="insulin-type">
+                    <select id="insulin-type" name="insulinType" defaultValue="Humalog">
                         <option value="Fiasp">Fiasp</option>
-                        <option value="Humalog" selected>Humalog</option>
+                        <option value="Humalog">Humalog</option>
                         <option value="Novolog">Novolog</option>
                         <option value="Insulin R">Insulin R</option>
                     </select>
@@ -52,4 +65,4 @@ function Bolus () {
     )
 }
 
-export default Bolus;
+export default connect()(Bolus);

@@ -30,7 +30,6 @@ function Login (props) {
                     </div>
                 </div>
             </section>
-            <h1>Login Page</h1>
 
         </div>
     )

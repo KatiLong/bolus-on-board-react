@@ -25,6 +25,13 @@ function UserDashboard (props) {
                 <Link to='/dashboard/basal'><button type="button" id="basal-trigger" class="dash-button dash-4">Basal</button></Link>
                 <Link to='/dashboard/a1c'><button type="button" id="a1c-trigger" class="dash-button dash-4">A1c</button></Link>
 
+
+
+                <div class="lower-dash-buttons">
+                    <Link to='/settings/'><button type="button" id="settings-trigger" class="dash-button dash-2">Settings</button></Link>
+
+                    <Link to='/logs/'><button type="button" id="logs-trigger" class="dash-button dash-2">Logs</button></Link>
+                </div>
             </section>
         </div>
     )

@@ -9,8 +9,8 @@ function Basal () {
                     <legend>Basal</legend>
 
                     <label for="basal-insulin-type">Insulin Type</label>
-                    <select id="basal-insulin-type">
-                        <option value="Basaglar" selected>Basaglar</option>
+                    <select id="basal-insulin-type" defaultValue="Basaglar">
+                        <option value="Basaglar">Basaglar</option>
                         <option value="Levemir">Levemir</option>
                         <option value="Lantus">Lantus</option>
                     </select>
