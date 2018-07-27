@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './App.css';
+import './responsive.css';
 import Login from './components/login';
 import Signup from './components/signup';
 import Disclaimer from './components/disclaimer';

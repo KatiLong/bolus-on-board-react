@@ -226,7 +226,7 @@ margin-left: 2.5%;
 
 }
 #iob-display {
-    background-color: rgba(223, 109, 194, 0.1);
+    background-color: rgba(255, 255, 255, 0.3);
     width: 100%;
     padding: 10px;
     margin: 10px auto 45px;
@@ -256,17 +256,19 @@ margin-left: 2.5%;
     background-color: azure;
 }
 #bolus-trigger {
-    background-color:#00c08b;
+/*    background-color:#00c08b;*/
+    background-color:#e27d60;
 }#bg-trigger {
 /*    background-color:#ea5080;*/
     background-color:#F9C2C2;
 }#basal-trigger {
 /*    background-color:#53bfe2;*/
-    background-color:#87CDCA;
+    background-color:#57CDD9;
 }#a1c-trigger {
     background-color:#f8c54d;
 /*    background-color:#FCD0B1;*/
 }
+/*
 .row-1 {
     width: 100%;
 
@@ -274,11 +276,12 @@ margin-left: 2.5%;
     width: 100%;
     margin-bottom: 30px;
 }
+*/
 .lower-dash-buttons {
     width: 100%;
     max-width: 368px;
     margin: 0 auto;
-    border-top: 3px rgba(100, 100, 100, 0.2) solid;
+    border-top: 3px rgba(255, 255, 255, .4) solid;
 }
 .dash-2 {
     width: 43%;
