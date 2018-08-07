@@ -1,5 +1,5 @@
 export const handleBolus = (insulinType, history) => {
-    return dispatch => {
+    return (dispatch) => {
         //Fetch
         fetch('http://localhost:8080/bolus', {
             method: 'POST',
@@ -10,6 +10,21 @@ export const handleBolus = (insulinType, history) => {
         })
         .then(res => res.json())
         .then(data => history.push('/dashboard'))
+        .catch(error => console.log(error))
+    }
+}
+
+export const registerUser = (name, username, password) => {
+    return (dispatch) => {
+        fetch('http://localhost:8080/users/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'applications/json'
+            },
+            body: JSON.stringify({name, username, password})
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
         .catch(error => console.log(error))
     }
 }

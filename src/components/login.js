@@ -1,5 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+//import { loginUser } from '../actions';
 
 function Login (props) {
     console.log(props);
