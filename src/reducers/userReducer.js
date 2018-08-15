@@ -6,7 +6,7 @@ const initialState = {
 //create the reducer
 const userReducer = (state = initialState, action) => {
     switch(action.type) {
-        case '' :
+        case 'signupSubmit' :
             return {}
         default :
             return state

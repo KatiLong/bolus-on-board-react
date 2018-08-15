@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-//import { loginUser } from '../actions';
+//import { loginUser } from '../../actions';
+import {reduxForm, Field} from 'redux-form';
 
 function Login (props) {
     console.log(props);
@@ -11,11 +12,11 @@ function Login (props) {
                 <form action="#root" id="login-form">
                     <fieldset>
                         <legend>Login Form</legend>
-                        <label for="login-username">Username</label>
-                        <input type="text" id="login-username" class="username" placeholder="carmenSD@hotmail.com" value="carmen@gmail.com" required/>
+                        <label htmlFor="login-username">Username</label>
+                        <input type="text" id="login-username" class="username" placeholder="carmenSD@hotmail.com" value="carmen@gmail.com" component="input" required/>
                         <br/>
-                        <label for="login-password">Password</label>
-                        <input type="text" id="login-password" class="password" placeholder="WhereNdwurld24" value="where2018" required/>
+                        <label htmlFor="login-password">Password</label>
+                        <input type="text" id="login-password" class="password" placeholder="WhereNdwurld24" value="where2018" component="input" required/>
                         <br/>
                         <Link to='/dashboard'><button type="submit" class="submit-button" id="login-button">Sign In</button></Link>
 
@@ -37,4 +38,7 @@ function Login (props) {
     )
 }
 //props.history.push('/register')
-export default Login;
+//export default Login;
+export default reduxForm({
+    form: 'contact'
+})(Login);

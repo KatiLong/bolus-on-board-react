@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerUser } from '../actions';
+import { registerUser } from '../../actions'; //In Disclaimer instead?? Dispatched when user agrees to Disclaimer
+import { formChange } from '../../actions';
 
 //class NameForm extends React.Component {
 //    constructor(props) {
@@ -34,6 +35,17 @@ import { registerUser } from '../actions';
 //    }
 //}
 
+//Update State with form values
+//    handleSubmit(event) {
+//        event.preventDefault();
+//        console.log('handleSubmit ran')
+//        const name = this.state.name;
+//        const username = this.state.username;
+//        const password = this.state.password;
+//        //    value="Carmen SD"  value="carmen@gmail.com" value="where2018"
+//        //    dispatch action to register user --- Should be in Disclaimer?
+//    }
+
 class Signup extends React.Component {
     constructor(props) {
         super(props);
@@ -47,13 +59,15 @@ class Signup extends React.Component {
 
     handleChange(event) {
         console.log(event.target.name);
-        const currentProp = event.target.name;
-        this.setState({currentProp: event.target.value});
+        if (event.target.name === 'name') this.setState({name: event.target.value});
+        if (event.target.name === 'username') this.setState({username: event.target.value});
+        if (event.target.name === 'password') this.setState({password: event.target.value});
     }
 
     //Update State with form values
     handleSubmit(event) {
         event.preventDefault();
+        console.log('handleSubmit ran')
         const name = this.state.name;
         const username = this.state.username;
         const password = this.state.password;
@@ -77,16 +91,16 @@ class Signup extends React.Component {
                             <input value={this.state.value} onChange={this.handleChange} type="text" id="signup-password" className="password" name="password" placeholder="WhereNdwurld24" required/>
                             <br/>
 
-                            <Link to='/register/disclaimer'><button type="submit" class="submit-button">Sign In</button></Link>
+                            <Link to='/register/disclaimer'><button type="submit" className="submit-button">Sign Up</button></Link>
                             <br/>
 
                             <Link to='/'><p id="signup-p">Have an account? <span id="change-form-login">Login</span></p></Link>
 
                         </fieldset>
                     </form>
-                    <div class="demo-account">
+                    <div className="demo-account">
                         <h6>Demo Account</h6>
-                        <div class="demo-info">
+                        <div className="demo-info">
                             <p>Username: carmen@gmail.com</p>
                             <br/>
                             <p>Password: where2018</p>

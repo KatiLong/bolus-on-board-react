@@ -29,6 +29,14 @@ export const registerUser = (name, username, password) => {
     }
 }
 
+const FORM_CHANGE = 'FORM_CHANGE';
+export const formChange = (name, username, password) => ({
+    type: FORM_CHANGE,
+    name,
+    username,
+    password
+})
+
 //fetch(`${API_BASE_URL}/expense/${localStorage.getItem('userId')}`, {
 //    method: 'POST',
 //    headers: {
