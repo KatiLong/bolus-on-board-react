@@ -43,7 +43,7 @@ The app's functionality includes:
 * User can sort entries by: Date & Type (Read, Seen, Performed)
 
 ## Technology
-* Front-End: HTML5 | CSS3 | JavaScript ES6 | React | Redux
+* Front-End: HTML5 | CSS3 | JavaScript ES6 | React | Redux | Redux-Form
 * Back-End: Node.js | Express.js | Mocha | Chai | RESTful API Endpoints | MongoDB | Mongoose
 * Other: React-Native | Netlify
 
