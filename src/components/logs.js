@@ -5,6 +5,7 @@ function Logs () {
     return (
         <div>
             <h1>Logs</h1>
+            <Link to='/dashboard'><button className="home-button">Home</button></Link>
         </div>
     )
 }

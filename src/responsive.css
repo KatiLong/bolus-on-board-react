@@ -4,7 +4,7 @@
 
 @media only screen and (min-width: 320px) {
     body {
-        color: purple;
+/*        color: purple;*/
     }
 
 }
@@ -14,7 +14,7 @@
 @media only screen and (min-width: 480px) {
 
     body {
-        color: green;
+/*        color: green;*/
     }
     .demo-info  {
         margin-left: 18%;
@@ -67,7 +67,7 @@
 
 @media only screen and (min-width: 640px) {
     body {
-        color: darkturquoise;
+/*        color: darkturquoise;*/
     }
     .type {
         width: 10%;
@@ -93,7 +93,7 @@
 
 @media only screen and (min-width: 768px) {
     body {
-        color: red;
+/*        color: red;*/
         font-size: 20px;
     }
 
@@ -105,7 +105,7 @@
 @media only screen and (min-width: 1024px) {
 
     body {
-        color: black;
+/*        color: black;*/
     }
     .log-div {
         font-size: 1.2rem;

@@ -51,7 +51,10 @@ body {
     /*    font-family: "colfax-web",sans-serif;*/
     font-family: 'PT Serif', sans-serif;
     font-size: 22px;
-    background: linear-gradient(-90deg, #46B2A2, #46B27D);
+    background: linear-gradient(#43C6AC, #0083B0);
+    min-height: 100vh;
+    /*        linear-gradient(-90deg, #46B2A2, #46B27D); linear-gradient(#D3D0D6, #B3ADB3)*/
+
 }
 button {
     font-size: 1rem;
@@ -222,6 +225,7 @@ margin-left: 2.5%;
     /*    background-color: rgba(55, 40, 70, 0.1);*/
     width: 100%;
     font-size: 0;
+    color: white;
 }
 #user-dashboard h3 {
     font-size: 1.5rem;
@@ -233,7 +237,7 @@ margin-left: 2.5%;
 
 }
 #iob-display {
-    background-color: rgba(255, 255, 255, 0.3);
+/*    background-color: rgba(255, 255, 255, 0.3);*/
     width: 100%;
     padding: 10px;
     margin: 10px auto 45px;
@@ -246,6 +250,7 @@ margin-left: 2.5%;
     color: #FFFEFF;
 }
 .dash-4 {
+    background-color: #57CDD9;
     margin-bottom: 10px;
     width: 43%;
     min-width: 135px;
@@ -264,18 +269,19 @@ margin-left: 2.5%;
 }
 #bolus-trigger {
 /*    background-color:#00c08b;*/
-    background-color:#e27d60;
+/*    background-color:#F896D8;*/
 }#bg-trigger {
 /*    background-color:#ea5080;*/
-    background-color:#F9C2C2;
+/*    background-color:#6A041D;*/
 }#basal-trigger {
 /*    background-color:#53bfe2;*/
-    background-color:#57CDD9;
+/*    background-color:#57CDD9;*/
 }#a1c-trigger {
-    background-color:#f8c54d;
+/*    background-color:#f8c54d;*/
     margin-bottom: 40px;
 /*    background-color:#FCD0B1;*/
 }
+
 /*
 .row-1 {
     width: 100%;
@@ -303,7 +309,7 @@ margin-left: 2.5%;
     border-radius: 3px;
     vertical-align: top;
 /*    background-color: #bb54c4;*/
-    background-color: #c38d9e;
+    background-color: #DBC2CF;
     font-weight: 600;
     font-size: 1.5rem;
 }
