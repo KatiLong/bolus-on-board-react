@@ -12,43 +12,6 @@ import TargetBg from './target-bg';
 import './settings.css';
 
 class Settings extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            incrementAmount: 5,
-            incrementShow: false,
-            durationAmount: 4,
-            durationShow: false,
-            carbRatioAmount: 9,
-            carbRatioshow: false,
-            correctionAmount: 32,
-            correctionAmountShow: false,
-            targetBgAmount: 110,
-            targetBgShow: false
-        };
-
-        this.showSetting = this.showSetting.bind(this);
-        this.updateSetting = this.updateSetting.bind(this);
-    }
-
-    showSetting(event) {
-        console.log('Show setting ran', event.target.name);
-        if (event.target.name === 'increment') this.setState({incrementShow: true});
-    }
-
-    updateSetting (event) {
-        event.preventDefault();
-        console.log('Update setting ran', event.target.value);
-
-        if (event.target.name === 'increment') {
-            this.setState({
-                incrementAmount: event.target.increment,
-                incrementShow: false
-            });
-            event.target.increment = '';
-            //Dispatch Action
-        }
-    }
 
     render() {
         return (
@@ -57,14 +20,14 @@ class Settings extends React.Component {
                 <h1>Settings</h1>
                 <Link to='/dashboard'><button className="home-button">Home</button></Link>
                 <div className="settings-div">
-                    <h4>Insulin Increment: <span>{this.state.increment}</span></h4>
+                    <h4>Insulin Increment: <span>{this.props.incrementAmount}</span></h4>
                     <button
                         type="button"
                         id="increment-trigger"
                         name="increment"
                         className="setting-button"
                         onClick={this.showSetting}>Edit</button>
-                    {this.state.incrementShow && <Increment onSubmit={this.updateSetting} />}
+                    {this.props.incrementShow && <Increment onSubmit={this.updateSetting} />}
                 </div>
                 <button
                     type="button"
@@ -97,5 +60,64 @@ const mapDispatchToProps = (dispatch) => ({
     updateSetting: (amount) => dispatch(updateSetting(amount))
 })
 
-export default connect(null, mapDispatchToProps)(Settings);
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        incrementAmount: state.settings.incrementAmount,
+        incrementShow: state.settings.incrementShow
+    }
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+
+
+//constructor(props) {
+//    super(props);
+//    this.state = {
+//        incrementAmount: 5,
+//        incrementShow: false,
+//        durationAmount: 4,
+//        durationShow: false,
+//        carbRatioAmount: 9,
+//        carbRatioshow: false,
+//        correctionAmount: 32,
+//        correctionAmountShow: false,
+//        targetBgAmount: 110,
+//        targetBgShow: false
+//    };
+//
+//    this.showSetting = this.showSetting.bind(this);
+//    this.updateSetting = this.updateSetting.bind(this);
+//}
+//
+//showSetting(event) {
+//    console.log('Show setting ran', event.target.name);
+//    if (event.target.name === 'increment') this.setState({incrementShow: true});
+//}
+//
+//settingSubmit (event) {
+//    event.preventDefault();
+//    console.log('Update setting ran', event.target.value);
+//
+//    if (event.target.name === 'increment') {
+//        this.setState({
+//            incrementAmount: event.target.increment,
+//            incrementShow: false
+//        });
+//        event.target.increment = '';
+//        //Dispatch Action
+//    }
+//}
+
+//create the reducer
+//const settingsSubmit = (event) => {
+//    event.preventDefault();
+//
+//    switch(event.target.name) {
+//        case 'increment' :
+//            event.target.increment = '';
+//        default :
+//            return state
+//    }
+//
+//};
