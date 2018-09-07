@@ -1,0 +1,7 @@
+/*Settings*/
+
+
+.settings .settings-div {
+    background-color: rgba (255, 255, 255, .2);
+    border: 3px dotted white;
+}

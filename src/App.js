@@ -46,4 +46,10 @@ class App extends Component {
 //    return <Redirect to='/dashboard' />
 //}
 
+//<Route exact path='/settings/carb-ratio' component={CarbRatio}/>
+//    <Route exact path='/settings/correction' component={CorrectionFactor}/>
+//        <Route exact path='/settings/duration' component={Duration}/>
+//            <Route exact path='/settings/increment' component={Increment}/>
+//                <Route exact path='/settings/target-bg' component={TargetBg}/>
+
 export default App;

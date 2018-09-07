@@ -37,6 +37,12 @@ export const formChange = (name, username, password) => ({
     password
 })
 
+const UPDATE_SETTING = 'UPDATE_SETTING';
+export const updateSetting = (setting) => {
+    type: UPDATE_SETTING,
+    setting
+}
+
 //fetch(`${API_BASE_URL}/expense/${localStorage.getItem('userId')}`, {
 //    method: 'POST',
 //    headers: {
