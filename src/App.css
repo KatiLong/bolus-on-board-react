@@ -222,7 +222,7 @@ margin-left: 2.5%;
 
 #user-dashboard {
     min-height: 55vh;
-    /*    background-color: rgba(55, 40, 70, 0.1);*/
+    background-color: rgba(255, 255, 255, 0.2);
     width: 100%;
     font-size: 0;
     color: white;

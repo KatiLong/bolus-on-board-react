@@ -46,7 +46,7 @@ import { formChange } from '../../actions';
 //        //    dispatch action to register user --- Should be in Disclaimer?
 //    }
 
-class Signup extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {name: '',
@@ -112,4 +112,4 @@ class Signup extends React.Component {
     }
 }
 
-export default Signup;
+export default Register;

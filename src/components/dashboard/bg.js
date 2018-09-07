@@ -11,16 +11,16 @@ function BloodGlucose () {
                     <label for="bg-input">Blood Sugar</label>
                     <input type="number" id="bg-input"/><span>mg/dl</span>
                     <label for="bg-date">Date</label>
-                    <input type="date" class="date-dash" id="bg-date"/>
+                    <input type="date" className="date-dash" id="bg-date"/>
                     <label for="bg-time">Time</label>
-                    <input type="time" class="time-dash" id="bg-time"/>
+                    <input type="time" className="time-dash" id="bg-time"/>
 
-                    <button type="submit" class="submit-button">Add BG</button>
+                    <button type="submit" className="submit-button">Add BG</button>
 
                 </fieldset>
             </form>
 
-            <Link to='/dashboard'><button type="button" class="dash-back">Back</button></Link>
+            <Link to='/dashboard'><button type="button" className="dash-back">Back</button></Link>
         </div>
     )
 }

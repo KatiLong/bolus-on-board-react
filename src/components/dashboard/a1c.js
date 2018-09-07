@@ -9,16 +9,16 @@ function A1c () {
                     <legend>A1c</legend>
 
                     <label for="a1c-entry">A1c Result</label>
-                    <input type="number" class="insulin-input" id="a1c-entry" step="0.1" placeholder="6.6" required/>
+                    <input type="number" className="insulin-input" id="a1c-entry" step="0.1" placeholder="6.6" required/>
 
                     <label for="a1c-date">Date</label>
-                    <input type="date" class="date-dash" id="a1c-date" required/>
+                    <input type="date" className="date-dash" id="a1c-date" required/>
 
-                    <button type="submit" class="submit-button">Add A1c</button>
+                    <button type="submit" className="submit-button">Add A1c</button>
                 </fieldset>
             </form>
 
-            <Link to='/dashboard'><button type="button" class="dash-back">Back</button></Link>
+            <Link to='/dashboard'><button type="button" className="dash-back">Back</button></Link>
         </div>
     )
 }

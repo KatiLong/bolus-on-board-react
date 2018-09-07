@@ -16,11 +16,11 @@ function Basal () {
                     </select>
 
                     <label for="basal-units">Units of Insulin</label>
-                    <input type="number" class="insulin-input" id="basal-units" placeholder="25"/><span>unit(s)</span>
+                    <input type="number" className="insulin-input" id="basal-units" placeholder="25"/><span>unit(s)</span>
                     <label for="basal-date">Date</label>
-                    <input type="date" class="date-dash" id="basal-date"/>
+                    <input type="date" className="date-dash" id="basal-date"/>
                     <label for="basal-time">Time</label>
-                    <input type="time" class="time-dash" id="basal-time"/>
+                    <input type="time" className="time-dash" id="basal-time"/>
 
                     <button type="submit">Add Basal</button>
 
