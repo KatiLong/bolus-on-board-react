@@ -7,7 +7,10 @@ function CarbRatio (props) {
     return (
         <div>
             <div className="settings-div" id="settings-carb-ratio">
-                <form action="" id="carb-ratio-form" className="settings-forms">
+                <form id="carb-ratio-form" className="settings-forms" 
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    }}>
                     <fieldset>
                         <legend>Carb Ratio</legend>
 
@@ -26,22 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
     updateSetting: (settingType) => dispatch(updateSetting(settingType))
 });
 
-const mapStateToProps = (state) => {
-    console.log(state);
-    return {
-        incrementAmount: state.settings.incrementAmount,
-        incrementShow: state.settings.incrementShow,
-        durationAmount: state.settings.durationAmount,
-        durationShow: state.settings.durationShow,
-        carbRatioAmount: state.settings.carbRatioAmount,
-        carbRatioShow: state.settings.carbRatioShow,
-        correctionAmount: state.settings.correctionAmount,
-        correctionShow: state.settings.correctionShow,
-        targetBgAmount: state.settings.targetBgAmount,
-        targetBgShow: state.settings.targetBgShow
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CarbRatio);
+export default connect(null, mapDispatchToProps)(CarbRatio);
 
 

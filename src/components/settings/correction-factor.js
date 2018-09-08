@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateSetting } from '../../actions';
 
-function CorrectionFactor () {
+function CorrectionFactor (props) {
     return (
         <div>
             <div className="settings-div" id="settings-correction-factor">
@@ -12,7 +12,7 @@ function CorrectionFactor () {
                         <legend>Correction Factor</legend>
 
                         <label htmlFor="correction-factor">Amount</label>
-                        <input type="number" id="correction-factor" value="32"/>
+                        <input type="number" id="correction-factor" defaultValue={props.correctionAmount}/>
 
                         <button type="submit">Update</button>
                     </fieldset>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateSetting } from '../../actions';
 
-function TargetBg () {
+function TargetBg (props) {
     return (
         <div>
             <div class="settings-div" id="settings-target-bg">
@@ -12,7 +12,7 @@ function TargetBg () {
                     <legend>Target BG</legend>
 
                     <label htmlFor="target-bg">Amount</label>
-                    <input type="number" id="target-bg" value="120"/>
+                    <input type="number" id="target-bg" defaultValue={props.targetBgAmount}/>
 
                     <button type="submit" class="waves-effect waves-light btn">Update</button>
                     </fieldset>

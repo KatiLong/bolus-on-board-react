@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateSetting } from '../../actions';
 
-function Duration () {
+function Duration (props) {
     return (
         <div>
             <div className="settings-div" id="insulin-duration">
-                <form action="" id="duration-form" class="settings-forms">
+                <form action="" id="duration-form" className="settings-forms">
                     <fieldset>
                         <legend>Insulin Duration</legend>
 
                         <label htmlFor="duration">Amount</label>
-                        <input type="number" id="duration" value="4" step="0.25"/>
+                        <input type="number" id="duration" defaultValue={props.durationAmount} step="0.25"/>
                         <p>Hours</p>
 
                         <button type="submit">Update</button>

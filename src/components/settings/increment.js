@@ -12,7 +12,7 @@ function Increment (props) {
                         <legend>Insulin Increment</legend>
 
                         <label htmlFor="increment">Amount</label>
-                        <input type="number" id="increment" step="0.5"/>
+                        <input type="number" id="increment" step="0.5" defaultValue={props.incrementAmount}/>
 
                         <button type="submit">Update</button>
                         

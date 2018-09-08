@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showSetting } from '../../actions';
+import { updateSetting } from '../../actions';
 
 import CarbRatio from './carb-ratio';
 import CorrectionFactor from './correction-factor';
@@ -10,6 +11,9 @@ import Increment from './increment';
 import TargetBg from './target-bg';
 
 import './settings.css';
+
+//container for all settings related actions - showSetting & updateSetting
+//currently also contains static 'HTML' of setting containers
 
 class Settings extends React.Component {
 
@@ -28,18 +32,20 @@ class Settings extends React.Component {
                         id="carb-ratio-trigger"
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    {this.props.carbRatioShow && <CarbRatio currentAmount={this.props.carbRatioAmount} />}
+                    {this.props.carbRatioShow && 
+                        <CarbRatio currentAmount={this.props.carbRatioAmount}
+                        onSubmit={this.updateSetting} />}
                 </div>
 
                 <div className="settings-div">
                     <h4>Correction Factor: <span>{this.props.correctionAmount}</span></h4>
                     <button
-                        name="correctionFactor"
+                        name="correction"
                         type="button"
                         id="correction-factor-trigger"
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    {this.props.correctionShow && <CorrectionFactor />}
+                    {this.props.correctionShow && <CorrectionFactor currentAmount={this.props.correctionAmount}/>}
                 </div>
 
                 <div className="settings-div">
@@ -50,7 +56,7 @@ class Settings extends React.Component {
                         id="duration-trigger"
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    {this.props.durationShow && <Duration />}
+                    {this.props.durationShow && <Duration currentAmount={this.props.durationAmount}/>}
                 </div>
 
                 <div className="settings-div">
@@ -61,7 +67,7 @@ class Settings extends React.Component {
                         id="increment-trigger"
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    {this.props.incrementShow && <Increment />}
+                    {this.props.incrementShow && <Increment currentAmount={this.props.incrementAmount}/>}
                 </div>
 
                 <div className="settings-div">
@@ -73,7 +79,7 @@ class Settings extends React.Component {
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
 
-                    {this.props.targetBgShow && <TargetBg />}
+                    {this.props.targetBgShow && <TargetBg currentAmount={this.props.targetBgAmount}/>}
                 </div>
 
             </div>
@@ -83,7 +89,8 @@ class Settings extends React.Component {
 //this.props.dispatch(updateSetting(amount));
 
 const mapDispatchToProps = (dispatch) => ({
-    showSetting: (settingType) => dispatch(showSetting(settingType))
+    showSetting: (settingType) => dispatch(showSetting(settingType)),
+    updateSetting: (setting) => dispatch(updateSetting(setting))
 });
 
 const mapStateToProps = (state) => {
