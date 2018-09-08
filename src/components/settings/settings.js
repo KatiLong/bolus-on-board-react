@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateSetting } from '../../actions'
+import { updateSetting } from '../../actions';
+import { showSetting } from '../../actions';
 
 import CarbRatio from './carb-ratio';
 import CorrectionFactor from './correction-factor';
@@ -26,8 +27,8 @@ class Settings extends React.Component {
                         id="increment-trigger"
                         name="increment"
                         className="setting-button"
-                        onClick={this.showSetting}>Edit</button>
-                    {this.props.incrementShow && <Increment onSubmit={this.updateSetting} />}
+                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    {this.props.incrementShow && <Increment />}
                 </div>
                 <button
                     type="button"
@@ -57,7 +58,7 @@ class Settings extends React.Component {
 //this.props.dispatch(updateSetting(amount));
 
 const mapDispatchToProps = (dispatch) => ({
-    updateSetting: (amount) => dispatch(updateSetting(amount))
+    showSetting: (settingType) => dispatch(showSetting(settingType))
 })
 
 const mapStateToProps = (state) => {
@@ -71,8 +72,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
 
 
-//constructor(props) {
-//    super(props);
 //    this.state = {
 //        incrementAmount: 5,
 //        incrementShow: false,
@@ -85,29 +84,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Settings);
 //        targetBgAmount: 110,
 //        targetBgShow: false
 //    };
-//
-//    this.showSetting = this.showSetting.bind(this);
-//    this.updateSetting = this.updateSetting.bind(this);
-//}
-//
-//showSetting(event) {
-//    console.log('Show setting ran', event.target.name);
-//    if (event.target.name === 'increment') this.setState({incrementShow: true});
-//}
-//
-//settingSubmit (event) {
-//    event.preventDefault();
-//    console.log('Update setting ran', event.target.value);
-//
-//    if (event.target.name === 'increment') {
-//        this.setState({
-//            incrementAmount: event.target.increment,
-//            incrementShow: false
-//        });
-//        event.target.increment = '';
-//        //Dispatch Action
-//    }
-//}
 
 //create the reducer
 //const settingsSubmit = (event) => {
@@ -121,3 +97,36 @@ export default connect(mapStateToProps, mapDispatchToProps)(Settings);
 //    }
 //
 //};
+
+//     componentDidMount() {
+//     this.props.dispatch((showSetting()))
+// }
+
+
+// constructor(props) {
+//     super(props);
+
+//     this.showSetting = this.showSetting.bind(this);
+//     this.settingSubmit = this.settingSubmit.bind(this);
+// }
+
+// showSetting(event) {
+//     console.log('Show setting ran', event.target.name);
+//     if (event.target.name === 'increment') this.setState({incrementShow: true});
+// }
+
+// settingSubmit (event) {
+//     event.preventDefault();
+//     console.log('Update setting ran', event.target.value);
+
+//     if (event.target.name === 'increment') {
+//         this.setState({
+//             incrementAmount: event.target.increment,
+//             incrementShow: false
+//         });
+//         event.target.increment = '';
+//         //Dispatch Action
+//     }
+// }
+
+// onSubmit={this.updateSetting}

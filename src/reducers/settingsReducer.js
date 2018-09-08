@@ -13,11 +13,20 @@ const initialState = {
 
 //create the reducer
 const settingsReducer = (state = initialState, action) => {
+    console.log(action)
+
     switch(action.type) {
-        case 'updateSetting' :
+        case 'UPDATE_SETTING' :
             return Object.assign({}, state, {
                 setting: action.setting
             })
+        case 'SHOW_SETTING' :
+            let currentSetting =  action.settingType + 'Show';
+            console.log(currentSetting);
+            return {
+                ...state,
+                [currentSetting]: true
+            }
         default :
             return state
     }

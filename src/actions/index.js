@@ -37,11 +37,18 @@ export const formChange = (name, username, password) => ({
     password
 })
 
+//Asynchronous Call to Server
 const UPDATE_SETTING = 'UPDATE_SETTING';
-export const updateSetting = (setting) => {
+export const updateSetting = (setting) => ({
     type: UPDATE_SETTING,
     setting
-}
+})
+
+const SHOW_SETTING = 'SHOW_SETTING';
+export const showSetting = (settingType) => ({
+    type: SHOW_SETTING,
+    settingType
+})
 
 //fetch(`${API_BASE_URL}/expense/${localStorage.getItem('userId')}`, {
 //    method: 'POST',
