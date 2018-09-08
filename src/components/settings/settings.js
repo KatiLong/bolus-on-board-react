@@ -16,6 +16,14 @@ import './settings.css';
 //currently also contains static 'HTML' of setting containers
 
 class Settings extends React.Component {
+    onSubmit(event) {
+        event.preventDefault();
+        console.log(event.target);
+        const value = event.target.input.value;
+        updateSetting(value);
+        event.target.input.value = '';
+        event.target.input.focus();
+      }
 
     render() {
         return (
@@ -33,8 +41,7 @@ class Settings extends React.Component {
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     {this.props.carbRatioShow && 
-                        <CarbRatio currentAmount={this.props.carbRatioAmount}
-                        onSubmit={this.updateSetting} />}
+                        <CarbRatio currentAmount={this.props.carbRatioAmount} onSubmit={e => this.onSubmit(e)}/>}
                 </div>
 
                 <div className="settings-div">
