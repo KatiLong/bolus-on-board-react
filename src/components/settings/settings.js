@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateSetting } from '../../actions';
 import { showSetting } from '../../actions';
 
 import CarbRatio from './carb-ratio';
@@ -29,7 +28,7 @@ class Settings extends React.Component {
                         id="carb-ratio-trigger"
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    {this.props.carbRatioShow && <CarbRatio />}
+                    {this.props.carbRatioShow && <CarbRatio currentAmount={this.props.carbRatioAmount} />}
                 </div>
 
                 <div className="settings-div">
@@ -85,10 +84,9 @@ class Settings extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
     showSetting: (settingType) => dispatch(showSetting(settingType))
-})
+});
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         incrementAmount: state.settings.incrementAmount,
         incrementShow: state.settings.incrementShow,
@@ -101,7 +99,7 @@ const mapStateToProps = (state) => {
         targetBgAmount: state.settings.targetBgAmount,
         targetBgShow: state.settings.targetBgShow
     }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
 

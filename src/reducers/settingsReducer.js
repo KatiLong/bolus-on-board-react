@@ -14,14 +14,14 @@ const initialState = {
 //create the reducer
 const settingsReducer = (state = initialState, action) => {
     console.log(action)
-
+    let currentSetting =  action.settingType + 'Show';
     switch(action.type) {
         case 'UPDATE_SETTING' :
-            return Object.assign({}, state, {
-                setting: action.setting
-            })
+            return {
+                ...state,
+                [currentSetting]: false
+            }
         case 'SHOW_SETTING' :
-            let currentSetting =  action.settingType + 'Show';
             console.log(currentSetting);
             return {
                 ...state,

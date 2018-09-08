@@ -37,7 +37,8 @@ export const formChange = (name, username, password) => ({
     password
 })
 
-//Asynchronous Call to Server
+//PUT Call to Server
+//Pass through setting to hide to Reducer
 const UPDATE_SETTING = 'UPDATE_SETTING';
 export const updateSetting = (setting) => ({
     type: UPDATE_SETTING,

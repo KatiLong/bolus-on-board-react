@@ -11,7 +11,6 @@ import Basal from './components/dashboard/basal';
 import BloodGlucose from './components/dashboard/bg';
 import A1c from './components/dashboard/a1c';
 import Settings from './components/settings/settings';
-import Logs from './components/logs';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -34,7 +33,6 @@ class App extends Component {
                 <Route exact path='/dashboard/blood-glucose' component={BloodGlucose}/>
                 <Route exact path='/dashboard/a1c' component={A1c}/>
                 <Route exact path='/settings' component={Settings}/>
-                <Route exact path='/logs' component={Logs}/>
             </div>
         </Router>
     );
@@ -51,5 +49,9 @@ class App extends Component {
 //        <Route exact path='/settings/duration' component={Duration}/>
 //            <Route exact path='/settings/increment' component={Increment}/>
 //                <Route exact path='/settings/target-bg' component={TargetBg}/>
+
+//LOGS
+// import Logs from './components/logs';
+// <Route exact path='/logs' component={Logs}/>
 
 export default App;
