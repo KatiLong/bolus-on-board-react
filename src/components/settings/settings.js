@@ -19,11 +19,12 @@ class Settings extends React.Component {
     onSubmit(event) {
         event.preventDefault();
         console.log(event.target);
-        const value = event.target.input.value;
+        
+        const value = event.target.input.name;
         updateSetting(value);
         event.target.input.value = '';
         event.target.input.focus();
-      }
+    }
 
     render() {
         return (
@@ -34,58 +35,68 @@ class Settings extends React.Component {
 
                 <div className="settings-div">
                     <h4>Carb Ratio: <span>{this.props.carbRatioAmount}</span></h4>
-                    <button
+                    {!this.props.carbRatioShow && 
+                        <button
                         name="carbRatio"
                         type="button"
                         id="carb-ratio-trigger"
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    }
                     {this.props.carbRatioShow && 
-                        <CarbRatio currentAmount={this.props.carbRatioAmount} onSubmit={e => this.onSubmit(e)}/>}
+                        <CarbRatio currentAmount={this.props.carbRatioAmount} onSubmit={e => this.onSubmit(e)}/>
+                    }
                 </div>
 
                 <div className="settings-div">
                     <h4>Correction Factor: <span>{this.props.correctionAmount}</span></h4>
-                    <button
-                        name="correction"
-                        type="button"
-                        id="correction-factor-trigger"
-                        className="setting-button"
-                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    {!this.props.correctionShow && 
+                        <button
+                            name="correction"
+                            type="button"
+                            id="correction-factor-trigger"
+                            className="setting-button"
+                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    }
                     {this.props.correctionShow && <CorrectionFactor currentAmount={this.props.correctionAmount}/>}
                 </div>
 
                 <div className="settings-div">
                     <h4>Insulin Duration: <span>{this.props.durationAmount}</span></h4>
-                    <button
-                        name="duration"
-                        type="button"
-                        id="duration-trigger"
-                        className="setting-button"
-                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    {!this.props.durationShow && 
+                        <button
+                            name="duration"
+                            type="button"
+                            id="duration-trigger"
+                            className="setting-button"
+                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    }
                     {this.props.durationShow && <Duration currentAmount={this.props.durationAmount}/>}
                 </div>
 
                 <div className="settings-div">
                     <h4>Insulin Increment: <span>{this.props.incrementAmount}</span></h4>
-                    <button
-                        name="increment"
-                        type="button"
-                        id="increment-trigger"
-                        className="setting-button"
-                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    {!this.props.incrementShow && 
+                        <button
+                            name="increment"
+                            type="button"
+                            id="increment-trigger"
+                            className="setting-button"
+                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    }
                     {this.props.incrementShow && <Increment currentAmount={this.props.incrementAmount}/>}
                 </div>
 
                 <div className="settings-div">
                     <h4>Target BG: <span>{this.props.targetBgAmount}</span></h4>
-                    <button
-                        name="targetBg"
-                        type="button"
-                        id="target-bg-trigger"
-                        className="setting-button"
-                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-
+                    {!this.props.targetBgShow && 
+                        <button
+                            name="targetBg"
+                            type="button"
+                            id="target-bg-trigger"
+                            className="setting-button"
+                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    }
                     {this.props.targetBgShow && <TargetBg currentAmount={this.props.targetBgAmount}/>}
                 </div>
 

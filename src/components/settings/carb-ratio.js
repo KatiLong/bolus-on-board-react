@@ -6,7 +6,6 @@ import { updateSetting } from '../../actions';
 
 //How do I access input value on Form Submit? for all setting components
 function CarbRatio (props) {
-
     return (
         <div>
             <div className="settings-div" id="settings-carb-ratio">
