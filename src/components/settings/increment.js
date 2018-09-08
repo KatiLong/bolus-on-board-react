@@ -5,7 +5,6 @@ function Increment (props) {
     return (
         <div>
             <div className="settings-div" id="settings-increment">
-                <h4>Increment</h4>
                 <form action="" id="increment-form" className="settings-forms" onSubmit={props.updateSetting}>
                     <fieldset>
                         <legend>Insulin Increment</legend>

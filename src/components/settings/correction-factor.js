@@ -5,7 +5,6 @@ function CorrectionFactor () {
     return (
         <div>
             <div className="settings-div" id="settings-correction-factor">
-                <h4>CorrectionFactor</h4>
                 <form action="" id="correction-factor-form" className="settings-forms">
                     <fieldset>
                         <legend>Correction Factor</legend>

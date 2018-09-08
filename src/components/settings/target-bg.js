@@ -5,7 +5,6 @@ function TargetBg () {
     return (
         <div>
             <div class="settings-div" id="settings-target-bg">
-                <h4>TargetBg</h4>
                 <form action="" id="target-bg-form" class="settings-forms">
                     <fieldset>
                     <legend>Target BG</legend>

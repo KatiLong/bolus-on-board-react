@@ -4,9 +4,9 @@ const initialState = {
     durationAmount: 4,
     durationShow: false,
     carbRatioAmount: 9,
-    carbRatioshow: false,
+    carbRatioShow: false,
     correctionAmount: 32,
-    correctionAmountShow: false,
+    correctionShow: false,
     targetBgAmount: 110,
     targetBgShow: false
 }

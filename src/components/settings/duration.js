@@ -5,7 +5,6 @@ function Duration () {
     return (
         <div>
             <div className="settings-div" id="insulin-duration">
-                <h4>Duration</h4>
                 <form action="" id="duration-form" class="settings-forms">
                     <fieldset>
                         <legend>Insulin Duration</legend>

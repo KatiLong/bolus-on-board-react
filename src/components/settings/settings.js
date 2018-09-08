@@ -20,36 +20,62 @@ class Settings extends React.Component {
 
                 <h1>Settings</h1>
                 <Link to='/dashboard'><button className="home-button">Home</button></Link>
+
+                <div className="settings-div">
+                    <h4>Carb Ratio: <span>{this.props.carbRatioAmount}</span></h4>
+                    <button
+                        name="carbRatio"
+                        type="button"
+                        id="carb-ratio-trigger"
+                        className="setting-button"
+                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    {this.props.carbRatioShow && <CarbRatio />}
+                </div>
+
+                <div className="settings-div">
+                    <h4>Correction Factor: <span>{this.props.correctionAmount}</span></h4>
+                    <button
+                        name="correctionFactor"
+                        type="button"
+                        id="correction-factor-trigger"
+                        className="setting-button"
+                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    {this.props.correctionShow && <CorrectionFactor />}
+                </div>
+
+                <div className="settings-div">
+                    <h4>Insulin Duration: <span>{this.props.durationAmount}</span></h4>
+                    <button
+                        name="duration"
+                        type="button"
+                        id="duration-trigger"
+                        className="setting-button"
+                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    {this.props.durationShow && <Duration />}
+                </div>
+
                 <div className="settings-div">
                     <h4>Insulin Increment: <span>{this.props.incrementAmount}</span></h4>
                     <button
+                        name="increment"
                         type="button"
                         id="increment-trigger"
-                        name="increment"
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     {this.props.incrementShow && <Increment />}
                 </div>
-                <button
-                    type="button"
-                    id="duration-trigger"
-                    className="setting-button"
-                    onClick={this.showSetting}>Duration</button>
-                <button
-                    type="button"
-                    id="carb-ratio-trigger"
-                    className="setting-button"
-                    onClick={this.showSetting}>Carb Ratio</button>
-                <button
-                    type="button"
-                    id="correction-factor-trigger"
-                    className="setting-button"
-                    onClick={this.showSetting}>Correction Factor</button>
-                <button
-                    type="button"
-                    id="target-bg-trigger"
-                    className="setting-button"
-                    onClick={this.showSetting}>Target BG</button>
+
+                <div className="settings-div">
+                    <h4>Target BG: <span>{this.props.targetBgAmount}</span></h4>
+                    <button
+                        name="targetBg"
+                        type="button"
+                        id="target-bg-trigger"
+                        className="setting-button"
+                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+
+                    {this.props.targetBgShow && <TargetBg />}
+                </div>
 
             </div>
         )
@@ -65,42 +91,19 @@ const mapStateToProps = (state) => {
     console.log(state);
     return {
         incrementAmount: state.settings.incrementAmount,
-        incrementShow: state.settings.incrementShow
+        incrementShow: state.settings.incrementShow,
+        durationAmount: state.settings.durationAmount,
+        durationShow: state.settings.durationShow,
+        carbRatioAmount: state.settings.carbRatioAmount,
+        carbRatioShow: state.settings.carbRatioShow,
+        correctionAmount: state.settings.correctionAmount,
+        correctionShow: state.settings.correctionShow,
+        targetBgAmount: state.settings.targetBgAmount,
+        targetBgShow: state.settings.targetBgShow
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
-
-
-//    this.state = {
-//        incrementAmount: 5,
-//        incrementShow: false,
-//        durationAmount: 4,
-//        durationShow: false,
-//        carbRatioAmount: 9,
-//        carbRatioshow: false,
-//        correctionAmount: 32,
-//        correctionAmountShow: false,
-//        targetBgAmount: 110,
-//        targetBgShow: false
-//    };
-
-//create the reducer
-//const settingsSubmit = (event) => {
-//    event.preventDefault();
-//
-//    switch(event.target.name) {
-//        case 'increment' :
-//            event.target.increment = '';
-//        default :
-//            return state
-//    }
-//
-//};
-
-//     componentDidMount() {
-//     this.props.dispatch((showSetting()))
-// }
 
 
 // constructor(props) {
