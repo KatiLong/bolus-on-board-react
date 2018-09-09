@@ -6,15 +6,15 @@ import { updateSetting } from '../../actions';
 function TargetBg (props) {
     return (
         <div>
-            <div class="settings-div" id="settings-target-bg">
-                <form action="" id="target-bg-form" class="settings-forms">
+            <div className="settings-div" id="settings-target-bg">
+                <form action="" id="target-bg-form" className="settings-forms">
                     <fieldset>
                     <legend>Target BG</legend>
 
                     <label htmlFor="target-bg">Amount</label>
                     <input type="number" id="target-bg" defaultValue={props.targetBgAmount}/>
 
-                    <button type="submit" class="waves-effect waves-light btn">Update</button>
+                    <button type="submit">Update</button>
                     </fieldset>
                 </form>
             </div>

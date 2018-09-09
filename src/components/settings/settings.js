@@ -32,20 +32,22 @@ class Settings extends React.Component {
 
                 <h1>Settings</h1>
                 <Link to='/dashboard'><button className="home-button">Home</button></Link>
-
+                <br/>
                 <div className="settings-div">
-                    <h4>Carb Ratio: <span>{this.props.carbRatioAmount}</span></h4>
-                    {!this.props.carbRatioShow && 
-                        <button
-                        name="carbRatio"
-                        type="button"
-                        id="carb-ratio-trigger"
-                        className="setting-button"
-                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    }
-                    {this.props.carbRatioShow && 
-                        <CarbRatio currentAmount={this.props.carbRatioAmount} onSubmit={e => this.onSubmit(e)}/>
-                    }
+                    <div className="settings-content">
+                        <h4>Carb Ratio: <span>{this.props.carbRatioAmount}</span></h4>
+                        {!this.props.carbRatioShow && 
+                            <button
+                            name="carbRatio"
+                            type="button"
+                            id="carb-ratio-trigger"
+                            className="setting-button"
+                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                        }
+                        {this.props.carbRatioShow && 
+                            <CarbRatio currentAmount={this.props.carbRatioAmount} onSubmit={e => this.onSubmit(e)}/>
+                        }
+                    </div>
                 </div>
 
                 <div className="settings-div">
