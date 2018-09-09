@@ -10,12 +10,17 @@ import Duration from './duration';
 import Increment from './increment';
 import TargetBg from './target-bg';
 
+import settingForm from './settingForm';
+
 import './settings.css';
+
+const settingTypes = ["carb-ratio", "correction-factor", "duration", "increment", "target-bg"];
 
 //container for all settings related actions - showSetting & updateSetting
 //currently also contains static 'HTML' of setting containers
 
 class Settings extends React.Component {
+
     onSubmit(event) {
         event.preventDefault();
         console.log(event.target);

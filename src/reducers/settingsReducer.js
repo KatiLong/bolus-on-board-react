@@ -22,10 +22,13 @@ const settingsReducer = (state = initialState, action) => {
                 [currentSetting]: false
             }
         case 'SHOW_SETTING' :
-            console.log(currentSetting);
             return {
                 ...state,
                 [currentSetting]: true
+            }
+        case 'SETTING_ON_CHANGE' :
+            return {
+                ...state
             }
         default :
             return state

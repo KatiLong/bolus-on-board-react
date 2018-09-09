@@ -37,18 +37,24 @@ export const formChange = (name, username, password) => ({
     password
 })
 
+const SHOW_SETTING = 'SHOW_SETTING';
+export const showSetting = (settingType) => ({
+    type: SHOW_SETTING,
+    settingType
+})
+
+const SETTING_ON_CHANGE =  'SETTING_ON_CHANGE';
+export const settingOnChange = (userInput) => ({
+    type: SETTING_ON_CHANGE,
+    userInput
+})
+
 //PUT Call to Server
 //Pass through setting to hide to Reducer
 const UPDATE_SETTING = 'UPDATE_SETTING';
 export const updateSetting = (setting) => ({
     type: UPDATE_SETTING,
     setting
-})
-
-const SHOW_SETTING = 'SHOW_SETTING';
-export const showSetting = (settingType) => ({
-    type: SHOW_SETTING,
-    settingType
 })
 
 //fetch(`${API_BASE_URL}/expense/${localStorage.getItem('userId')}`, {

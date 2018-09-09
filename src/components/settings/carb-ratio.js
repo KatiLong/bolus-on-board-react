@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateSetting } from '../../actions';
-
+import { settingOnChange } from '../../actions';
 
 //How do I access input value on Form Submit? for all setting components
 function CarbRatio (props) {
@@ -15,7 +15,8 @@ function CarbRatio (props) {
                         <legend>Carb Ratio</legend>
 
                         <label htmlFor="carb-ratio">Amount</label>
-                        <input type="number" name="carbRatioInput" id="carb-ratio" defaultValue={props.currentAmount}/>
+                        <input type="number" name="carbRatioInput" id="carb-ratio" defaultValue={props.currentAmount} 
+                        onChange={e => this.props.store.dispatch(settingOnChange(e.target.value))}/>
 
                         <button type="submit">Update</button>
                     </fieldset>
@@ -25,10 +26,12 @@ function CarbRatio (props) {
     )
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    updateSetting: (settingType) => dispatch(updateSetting(settingType))
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     updateSetting: (settingType) => dispatch(updateSetting(settingType)),
+//     settingOnChange: (userInput) => dispatch(settingOnChange(userInput))
+// });
 
-export default connect(null, mapDispatchToProps)(CarbRatio);
+export default connect()(CarbRatio);
 
 
+// this.props.settingOnChange(e.target.value)
