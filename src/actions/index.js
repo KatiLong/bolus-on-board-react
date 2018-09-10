@@ -44,9 +44,10 @@ export const showSetting = (settingType) => ({
 })
 
 const SETTING_ON_CHANGE =  'SETTING_ON_CHANGE';
-export const settingOnChange = (userInput) => ({
+export const settingOnChange = (settingType, amount) => ({
     type: SETTING_ON_CHANGE,
-    userInput
+    settingType,
+    amount
 })
 
 //PUT Call to Server

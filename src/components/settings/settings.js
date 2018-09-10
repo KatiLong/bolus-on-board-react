@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showSetting } from '../../actions';
 import { updateSetting } from '../../actions';
+import { settingOnChange } from '../../actions';
 
 import SettingForm from './settingForm';
 // import CarbRatio from './carb-ratio';
@@ -23,14 +24,10 @@ class Settings extends React.Component {
         console.log(event.target);
         
         const value = event.target.input.name;
-        updateSetting(value);
+        //dispatch
+        updateSetting(value); 
         event.target.input.value = '';
         event.target.input.focus();
-    }
-
-    showSetting (type) {
-        let setting = type + 'Show'
-        this.setState({setting: true})
     }
     
     render() {
@@ -43,7 +40,7 @@ class Settings extends React.Component {
                 <div className="settings-div">
                     <div className="settings-content">
                         <h4>Carb Ratio: <span>{this.props.carbRatio.amount}</span></h4>
-                        {!this.props.carbRatioShow && 
+                        {!this.props.carbRatio.show && 
                             <button
                             name="carbRatio"
                             type="button"
@@ -51,10 +48,10 @@ class Settings extends React.Component {
                             className="setting-button"
                             onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                         }
-                        {this.props.carbRatioShow && 
+                        {this.props.carbRatio.show && 
                             <SettingForm 
                                 onSubmit={e => this.onSubmit(e)}
-                                onChange={e => this.onChange(e)} 
+                                onChange={e => {this.props.settingOnChange("carbRatio", e)}} 
                                 htmlId="carb-ratio"
                                 inputName="carbRatio"
                                 currentAmount={this.props.carbRatio.amount}
@@ -65,7 +62,7 @@ class Settings extends React.Component {
 
                 <div className="settings-div">
                     <h4>Correction Factor: <span>{this.props.correction.amount}</span></h4>
-                    {!this.props.correctionShow && 
+                    {!this.props.correction.show && 
                         <button
                             name="correction"
                             type="button"
@@ -73,7 +70,7 @@ class Settings extends React.Component {
                             className="setting-button"
                             onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     }
-                    {this.props.correctionShow && 
+                    {this.props.correction.show && 
                         <SettingForm 
                             onSubmit={e => this.onSubmit(e)}
                             onChange={e => this.onChange(e)} 
@@ -86,7 +83,7 @@ class Settings extends React.Component {
 
                 <div className="settings-div">
                     <h4>Insulin Duration: <span>{this.props.duration.amount}</span></h4>
-                    {!this.props.durationShow && 
+                    {!this.props.duration.show && 
                         <button
                             name="duration"
                             type="button"
@@ -94,7 +91,7 @@ class Settings extends React.Component {
                             className="setting-button"
                             onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     }
-                    {this.props.durationShow && 
+                    {this.props.duration.show && 
                         <SettingForm 
                             onSubmit={e => this.onSubmit(e)}
                             onChange={e => this.onChange(e)} 
@@ -107,7 +104,7 @@ class Settings extends React.Component {
 
                 <div className="settings-div">
                     <h4>Insulin Increment: <span>{this.props.increment.amount}</span></h4>
-                    {!this.props.incrementShow && 
+                    {!this.props.increment.show && 
                         <button
                             name="increment"
                             type="button"
@@ -115,7 +112,7 @@ class Settings extends React.Component {
                             className="setting-button"
                             onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     }
-                    {this.props.incrementShow && 
+                    {this.props.increment.show && 
                         <SettingForm 
                             onSubmit={e => this.onSubmit(e)}
                             onChange={e => this.onChange(e)} 
@@ -128,7 +125,7 @@ class Settings extends React.Component {
 
                 <div className="settings-div">
                     <h4>Target BG: <span>{this.props.targetBg.amount}</span></h4>
-                    {!this.props.targetBgShow && 
+                    {!this.props.targetBg.show && 
                         <button
                             name="targetBg"
                             type="button"
@@ -136,7 +133,7 @@ class Settings extends React.Component {
                             className="setting-button"
                             onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     }
-                    {this.props.targetBgShow && 
+                    {this.props.targetBg.show && 
                         <SettingForm 
                             onSubmit={e => this.onSubmit(e)}
                             onChange={e => this.onChange(e)} 
@@ -154,7 +151,8 @@ class Settings extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
     showSetting: (settingType) => dispatch(showSetting(settingType)),
-    updateSetting: (settingType) => dispatch(updateSetting(settingType))
+    updateSetting: (settingType) => dispatch(updateSetting(settingType)),
+    settingOnChange: (settingType, amount) => dispatch(settingOnChange(settingType, amount))
 });
 
 const mapStateToProps = (state) => {
@@ -163,12 +161,7 @@ const mapStateToProps = (state) => {
         duration: state.settings.duration,
         carbRatio: state.settings.carbRatio,
         correction: state.settings.correction,
-        targetBg: state.settings.targetBg,
-        carbRatioShow: state.settings.carbRatioShow,
-        incrementShow: state.settings.incrementShow,
-        durationShow: state.settings.durationShow,
-        correctionShow: state.settings.correctionShow,
-        targetBgShow: state.settings.targetBgShow
+        targetBg: state.settings.targetBg
     }
 };
 
@@ -202,3 +195,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Settings);
 // }
 
 // onSubmit={this.updateSetting}
+
+// carbRatioShow: state.settings.carbRatioShow,
+// incrementShow: state.settings.incrementShow,
+// durationShow: state.settings.durationShow,
+// correctionShow: state.settings.correctionShow,
+// targetBgShow: state.settings.targetBgShow

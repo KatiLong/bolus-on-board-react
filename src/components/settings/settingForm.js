@@ -10,8 +10,10 @@ function SettingForm (props) {
                     <fieldset>
 
                         <label htmlFor={props.htmlId}>Amount</label>
-                        <input type="number" name={props.inputName} id={props.htmlId} defaultValue={props.currentAmount} />
-
+                        <input type="number" name={props.inputName} id={props.htmlId} defaultValue={props.currentAmount} 
+                        onChange={e => {
+                            console.log(e.target.value);
+                            props.onChange(e.target.value)}} />
                         <button type="submit">Update</button>
                     </fieldset>
                 </form>

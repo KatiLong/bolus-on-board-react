@@ -43,26 +43,41 @@ const initialState = {
 }
 
 //create the reducer
+
 const settingsReducer = (state = initialState, action) => {
     console.log(action)
-    let currentSetting;
+    let currentSetting, currentAmount;
     switch(action.type) {
         case 'SHOW_SETTING' :
-            currentSetting =  action.settingType + 'Show';
-            console.log(state[action.settingType])
+            currentSetting =  action.settingType;
+            console.log(state[currentSetting])
             return {
                 ...state,
-                [currentSetting]: true
+                [currentSetting]: {
+                    ...state[currentSetting],
+                    show: true
+                }
             }
         case 'UPDATE_SETTING' :
-            currentSetting = action.settingType;
+            currentSetting =  action.settingType;
+            console.log(state[currentSetting])
             return {
                 ...state,
-                [currentSetting['show']]: false
+                [currentSetting]: {
+                    ...state[currentSetting],
+                    show: false
+                }
             }
         case 'SETTING_ON_CHANGE' :
+            currentSetting =  action.settingType;
+            currentAmount = action.amount;
+            console.log(currentAmount);
             return {
-                ...state
+                ...state,
+                [currentSetting]: {
+                    ...state[currentSetting],
+                    amount: [currentAmount]
+                }
             }
         default :
             return state
