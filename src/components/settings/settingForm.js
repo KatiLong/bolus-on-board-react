@@ -1,6 +1,6 @@
 import React from 'react';
 
-function settingForm (props) {
+function SettingForm (props) {
     return (
         <div>
             <div className="settings-div">
@@ -8,7 +8,6 @@ function settingForm (props) {
                     className="settings-forms" 
                     onSubmit={e => props.onSubmit(e)}>
                     <fieldset>
-                        <legend>{props.legendName}</legend>
 
                         <label htmlFor={props.htmlId}>Amount</label>
                         <input type="number" name={props.inputName} id={props.htmlId} defaultValue={props.currentAmount} />
@@ -22,11 +21,14 @@ function settingForm (props) {
 }
 
 
-export default settingForm;
+export default SettingForm;
 
+
+//Getting input value for Form submit?
 
 // Setting Form props
 // onSubmit
+// onChange
 // legendName
 // htmlId
 // inputName

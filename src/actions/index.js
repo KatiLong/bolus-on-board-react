@@ -52,9 +52,9 @@ export const settingOnChange = (userInput) => ({
 //PUT Call to Server
 //Pass through setting to hide to Reducer
 const UPDATE_SETTING = 'UPDATE_SETTING';
-export const updateSetting = (setting) => ({
+export const updateSetting = (settingType) => ({
     type: UPDATE_SETTING,
-    setting
+    settingType
 })
 
 //fetch(`${API_BASE_URL}/expense/${localStorage.getItem('userId')}`, {

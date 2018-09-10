@@ -8,20 +8,54 @@ const initialState = {
     correctionAmount: 32,
     correctionShow: false,
     targetBgAmount: 110,
-    targetBgShow: false
+    targetBgShow: false,
+    settingTypes: [
+        "carbRatio", 
+        "correction",
+        "duration", 
+        "increment", 
+        "targetBg"],
+    increment: {
+        amount: 5,
+        show: false,
+        htmlInput: "increment"
+    },
+    duration: {
+        amount: 5,
+        show: false,
+        htmlInput: "duration"
+    },
+    carbRatio: {
+        amount: 5,
+        show: false,
+        htmlInput: "carb-ratio"
+    },
+    correction: {
+        amount: 5,
+        show: false,
+        htmlInput: "correction"
+    },
+    targetBg: {
+        amount: 5,
+        show: false,
+        htmlInput: "target-bg"
+    }
 }
 
 //create the reducer
 const settingsReducer = (state = initialState, action) => {
     console.log(action)
-    let currentSetting =  action.settingType + 'Show';
+    let currentSetting;
     switch(action.type) {
         case 'UPDATE_SETTING' :
+            currentSetting = action.settingType + `.show`;
             return {
                 ...state,
                 [currentSetting]: false
             }
         case 'SHOW_SETTING' :
+            currentSetting = `${action.settingType}.show`;
+            console.log(currentSetting)
             return {
                 ...state,
                 [currentSetting]: true
