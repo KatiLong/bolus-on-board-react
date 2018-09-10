@@ -39,7 +39,7 @@ class Settings extends React.Component {
                 <div className="settings-div">
                     <div className="settings-content">
                         <h4>Carb Ratio: <span>{this.props.carbRatio.amount}</span></h4>
-                        {!this.props.carbRatio.show && 
+                        {!this.props.carbRatioShow && 
                             <button
                             name="carbRatio"
                             type="button"
@@ -47,7 +47,7 @@ class Settings extends React.Component {
                             className="setting-button"
                             onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                         }
-                        {this.props.carbRatio.show && 
+                        {this.props.carbRatioShow && 
                             <SettingForm 
                                 onSubmit={e => this.onSubmit(e)}
                                 onChange={e => this.onChange(e)} 
@@ -160,7 +160,8 @@ const mapStateToProps = (state) => {
         duration: state.settings.duration,
         carbRatio: state.settings.carbRatio,
         correction: state.settings.correction,
-        targetBg: state.settings.targetBg
+        targetBg: state.settings.targetBg,
+        carbRatioShow: state.settings.carbRatioShowS
     }
 };
 
