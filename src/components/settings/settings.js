@@ -161,7 +161,7 @@ const mapStateToProps = (state) => {
         carbRatio: state.settings.carbRatio,
         correction: state.settings.correction,
         targetBg: state.settings.targetBg,
-        carbRatioShow: state.settings.carbRatioShowS
+        carbRatioShow: state.settings.carbRatioShow
     }
 };
 

@@ -48,7 +48,7 @@ const settingsReducer = (state = initialState, action) => {
     let currentSetting;
     switch(action.type) {
         case 'SHOW_SETTING' :
-            currentSetting = `${action.settingType}Show`;
+            currentSetting =  action.settingType + 'Show';
             console.log(currentSetting)
             return {
                 ...state,
