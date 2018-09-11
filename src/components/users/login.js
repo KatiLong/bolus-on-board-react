@@ -27,10 +27,10 @@ class Login extends React.Component {
         return (
             <div>
                 <section id="login-page" className="metal linear">
-            <form
-                action="#root"
-                id="login-form"
-            >
+                    <form
+                        action="#root"
+                        id="login-form"
+                    >
                         <fieldset>
                             <legend>Login Form</legend>
                             <label htmlFor="login-username">Username</label>
