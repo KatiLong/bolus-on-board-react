@@ -15,9 +15,12 @@ export function populateDateTime () {
     currentDate = `${year}-${month}-${day}`;
     currentTime = `${hour}:${minutes}`;
 
+    let inputDateTime = currentDate.substring(0, 11) + 'T' + currentTime;
+
     console.log(currentDate, currentTime);
     return {
         date: currentDate,
-        time: currentTime
+        time: currentTime,
+        dateTime: inputDateTime
     }
 }

@@ -17,28 +17,28 @@ class Bolus extends React.Component {
 
     componentDidMount(){
         //Populate Date & Time, dispatch populate, setState()
-        const {date, time} = populateDateTime();
-        console.log(date, time);
+        const {date, time, dateTime} = populateDateTime();
         this.setState({
             currentDate: date,
-            currentTime: time
+            currentTime: time,
+            DateTime: dateTime
         })
     }
 
+    onSubmit (formType, event){
+        event.preventDefault();
+        let insulinType = event.target.insulinType.value;
+        console.log("Bolus Form submitted");
+        //pass in object
+        // props.dispatch(handleBolus(insulinType, props.history));
+    }
     render() {
         return (
             <div>
                 <form
                     id="bolus-htmlForm"
                     action="#root"
-                    onSubmit={(event) => {
-                        event.preventDefault();
-                        let insulinType = event.target.insulinType.value;
-                        console.log(insulinType);
-                        //pass in object
-                        // props.dispatch(handleBolus(insulinType, props.history));
-                    }}>
-
+                    onSubmit={(event) => {(e) => this.onSubmit("bolus", e) }}>
                     <fieldset>
                         <label htmlFor="insulin-type">Insulin Type</label>
                         <select id="insulin-type" name="insulinType" defaultValue="Humalog">

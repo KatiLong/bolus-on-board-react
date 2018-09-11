@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { populateDateTime } from '../populateDateTime';
 
 function UserDashboard (props) {
     console.log(props);
@@ -38,4 +39,4 @@ function UserDashboard (props) {
 
 export default UserDashboard;
 
-{/* <Link to='/logs/'><button type="button" id="logs-trigger" className="dash-button dash-2">Logs</button></Link> */}
+/* <Link to='/logs/'><button type="button" id="logs-trigger" className="dash-button dash-2">Logs</button></Link> */  
