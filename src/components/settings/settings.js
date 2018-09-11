@@ -1,17 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { showSetting } from '../../actions';
-import { hideSetting } from '../../actions';
-import { updateSetting } from '../../actions';
-import { settingOnChange } from '../../actions';
+import { showSetting, hideSetting, updateSetting, settingOnChange  } from '../../actions';
 
 import SettingForm from './settingForm';
-// import CarbRatio from './carb-ratio';
-// import CorrectionFactor from './correction-factor';
-// import Duration from './duration';
-// import Increment from './increment';
-// import TargetBg from './target-bg';
 
 import './settings.css';
 
@@ -54,8 +46,10 @@ class Settings extends React.Component {
                                 onChange={val => this.props.settingOnChange("carbRatio", val)} 
                                 htmlId="carb-ratio"
                                 inputName="carbRatio"
-                                currentAmount={this.props.carbRatio.amount}
-                            />
+                                currentAmount={this.props.carbRatio.amount}>
+                                <h5>Hello World</h5>
+                                </SettingForm>
+                            
                         }
                     </div>
                 </div>

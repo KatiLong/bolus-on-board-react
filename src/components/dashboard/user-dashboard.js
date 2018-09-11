@@ -30,7 +30,6 @@ function UserDashboard (props) {
                 <div className="lower-dash-buttons">
                     <Link to='/settings/'><button type="button" id="settings-trigger" className="dash-button dash-2">Settings</button></Link>
 
-                    <Link to='/logs/'><button type="button" id="logs-trigger" className="dash-button dash-2">Logs</button></Link>
                 </div>
             </section>
         </div>
@@ -38,3 +37,5 @@ function UserDashboard (props) {
 }
 
 export default UserDashboard;
+
+{/* <Link to='/logs/'><button type="button" id="logs-trigger" className="dash-button dash-2">Logs</button></Link> */}

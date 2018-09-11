@@ -2,8 +2,7 @@ import React from 'react';
 
 function SettingForm (props) {
     return (
-        <div>
-            <div className="settings-div">
+            <div className="form-div">
                 <form 
                     className="settings-forms" 
                     onSubmit={e => props.onSubmit(e)}>
@@ -16,7 +15,6 @@ function SettingForm (props) {
                     </fieldset>
                 </form>
             </div>
-        </div>
     )
 }
 

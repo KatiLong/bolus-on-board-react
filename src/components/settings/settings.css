@@ -12,4 +12,5 @@
     /* padding-top: 48%; */
     display: inline-block;
     vertical-align: top;
+    border-bottom-width: 0.5;
 }
