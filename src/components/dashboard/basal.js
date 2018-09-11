@@ -8,7 +8,8 @@ class Basal extends React.Component {
         basalAmount: 0,
         basalType: "Basalgar",
         currentDate: "",
-        currentTime: ""
+        currentTime: "",
+        DateTime: ""
     }
     componentDidMount(){
         const {date, time, dateTime} = populateDateTime();
@@ -22,6 +23,22 @@ class Basal extends React.Component {
         event.preventDefault();
         //dispatch action to POST to server
         console.log('BG form submitted');
+        props.dispatch(handleDashForm({
+            formType,
+            basalAmount: this.state.basalAmount,
+            basalType: this.state.basalType,
+            currentDate: this.state.currentDate,
+            currentTime: this.state.currentTime,
+            DateTime: this.state.DateTime 
+        }, props.history));
+
+        this.setState({
+            basalAmount: 0,
+            basalType: "Basalgar",
+            currentDate: "",
+            currentTime: "",
+            DateTime: ""
+        });
     }
     render() {
         return (

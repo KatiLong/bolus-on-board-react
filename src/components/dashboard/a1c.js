@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { populateDateTime } from '../populateDateTime';
+import { handleDashForm } from '../../actions';
 
 class A1c extends React.Component {
     state = {
@@ -19,9 +20,23 @@ class A1c extends React.Component {
     }
     onSubmit (formType, event){
         event.preventDefault();
-        //dispatch action to POST to server
         console.log('BG form submitted');
-        //formType, DateTime
+        //dispatch action to POST to server
+        // props.dispatch(handleBolus(insulinType, props.history));
+        props.dispatch(handleDashForm({
+            formType,
+            a1cAmount: this.state.a1cAmount,
+            currentDate: this.state.currentDate,
+            currentTime: this.state.currentTime,
+            DateTime: this.state.DateTime 
+        }, props.history));
+
+        this.setState({
+            a1cAmount: 0,
+            currentDate: "",
+            currentTime: "",
+            DateTime: ""
+        });
     }
     render() {
         return (

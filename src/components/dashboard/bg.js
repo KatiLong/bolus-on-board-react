@@ -6,7 +6,8 @@ class BloodGlucose extends React.Component {
     state = {
         bgAmount: 0,
         currentDate: "",
-        currentTime: ""
+        currentTime: "",
+        DateTime: ""
     }
     componentDidMount(){
         const {date, time, dateTime} = populateDateTime();
@@ -20,6 +21,20 @@ class BloodGlucose extends React.Component {
         event.preventDefault();
         //dispatch action to POST to server
         console.log('BG form submitted');
+        props.dispatch(handleDashForm({
+            formType,
+            bgAmount: this.state.bgAmount,
+            currentDate: this.state.currentDate,
+            currentTime: this.state.currentTime,
+            DateTime: this.state.DateTime 
+        }, props.history));
+
+        this.setState({
+            bgAmount: 0,
+            currentDate: "",
+            currentTime: "",
+            DateTime: ""
+        });
     }
 
     render() {

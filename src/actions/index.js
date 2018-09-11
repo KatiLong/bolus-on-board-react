@@ -1,38 +1,19 @@
 /////////////////Dashboard/////////////////////
-
-
-// //Populates current Date & Time for relevant forms
-// function dateTimePopulate (event) {
-//     const currentDateTime = new Date();
-//     let currentDate, currentTime = '';
-//     let month = currentDateTime.getMonth() + 1;
-//     let day = currentDateTime.getDay() + 1;
-//     let hour = currentDateTime.getHours();
-//     let year = currentDateTime.getFullYear();
-//     let minutes = currentDateTime.getMinutes();
-
-//     if (month < 10) month = "0" + month;
-//     if (day < 10) day = "0" + day;
-//     if (hour < 10) hour = "0" + hour;
-//     if (minutes < 10) minutes = "0" + minutes;
-
-//     currentDate = `${year}-${month}-${day}`;
-//     currentTime = `${hour}:${minutes}`;
-
-
-//     $(event.currentTarget).next('form').find('.date-dash').val(currentDate);
-
-//     if ($(event.currentTarget).next('form').find('.time-dash')) {
-//         $(event.currentTarget).next('form').find('.time-dash').val(currentTime);
-//     }
-
-// }
-// //function to render HTML for Logs on GET call
-
-// function displayDate (dateString) {
-//     let formattedDate = dateString.substring(0, 10).split("-");
-//     return formattedDate[1] + "/" + formattedDate[2] + "/" + formattedDate[0];
-// }
+export const handleDashForm = (payload, history) => {
+    return (dispatch) => {
+        //Fetch
+        fetch(`http://localhost:8080/${insulinType}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({payload})
+        })
+        .then(res => res.json())
+        .then(data => history.push('/dashboard'))
+        .catch(error => console.log(error))
+    }
+}
 
 export const handleBolus = (insulinType, history) => {
     return (dispatch) => {
