@@ -8,15 +8,13 @@ class A1c extends Component {
     state = {
         a1cAmount: 0,
         currentDate: "",
-        currentTime: "",
-        DateTime: ""
+        currentTime: ""
     }
     componentDidMount(){
         const {date, time, dateTime} = populateDateTime();
         this.setState({
             currentDate: date,
-            currentTime: time,
-            DateTime: dateTime
+            currentTime: time
         })
     }
     //Add reset state to back button?
@@ -28,16 +26,8 @@ class A1c extends Component {
             formType,
             a1cAmount: this.state.a1cAmount,
             currentDate: this.state.currentDate,
-            currentTime: this.state.currentTime,
-            DateTime: this.state.DateTime 
+            currentTime: this.state.currentTime
         }, this.props.history));
-
-        this.setState({
-            a1cAmount: 0,
-            currentDate: "",
-            currentTime: "",
-            DateTime: ""
-        });
     }
     render() {
         return (

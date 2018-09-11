@@ -20,8 +20,7 @@ class Bolus extends React.Component {
         const {date, time, dateTime} = populateDateTime();
         this.setState({
             currentDate: date,
-            currentTime: time,
-            DateTime: dateTime
+            currentTime: time
         })
     }
 

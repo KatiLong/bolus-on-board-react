@@ -1,6 +1,7 @@
 /////////////////Dashboard/////////////////////
 export const handleDashForm = (payload, history) => {
     console.log(payload);
+    // this.setState({DateTime: `${this.state.currentDate}T${this.state.currentTime}`});
     return (dispatch) => {
         //Fetch
         fetch(`http://localhost:8080/${payload.formType}`, {

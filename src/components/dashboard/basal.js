@@ -7,17 +7,15 @@ import { connect } from 'react-redux';
 class Basal extends React.Component {
     state = {
         basalAmount: 0,
-        basalType: "Basalgar",
+        basalType: "Levemir",
         currentDate: "",
-        currentTime: "",
-        DateTime: ""
+        currentTime: ""
     }
     componentDidMount(){
         const {date, time, dateTime} = populateDateTime();
         this.setState({
             currentDate: date,
-            currentTime: time,
-            DateTime: dateTime
+            currentTime: time
         })
     }
     onSubmit (formType, event){
@@ -29,17 +27,9 @@ class Basal extends React.Component {
             basalAmount: this.state.basalAmount,
             basalType: this.state.basalType,
             currentDate: this.state.currentDate,
-            currentTime: this.state.currentTime,
-            DateTime: this.state.DateTime 
+            currentTime: this.state.currentTime
         }, this.props.history));
 
-        this.setState({
-            basalAmount: 0,
-            basalType: "Basalgar",
-            currentDate: "",
-            currentTime: "",
-            DateTime: ""
-        });
     }
     render() {
         return (
@@ -49,18 +39,21 @@ class Basal extends React.Component {
                         <legend>Basal</legend>
 
                         <label htmlFor="basal-insulin-type">Insulin Type</label>
-                        <select id="basal-insulin-type" defaultValue="Basaglar">
+                        <select id="basal-insulin-type" defaultValue={this.state.basalType} onChange={(e) => this.setState({basalType: e.target.value})} >
                             <option value="Basaglar">Basaglar</option>
                             <option value="Levemir">Levemir</option>
                             <option value="Lantus">Lantus</option>
                         </select>
 
                         <label htmlFor="basal-units">Units of Insulin</label>
-                        <input type="number" className="insulin-input" id="basal-units" defaultValue={this.state.basalAmount}/><span>unit(s)</span>
+                        <input type="number" className="insulin-input" id="basal-units" defaultValue={this.state.basalAmount}
+                            onChange={(e) => this.setState({basalAmount: e.target.value})} /><span>unit(s)</span>
                         <label htmlFor="basal-date">Date</label>
-                        <input type="date" className="date-dash" id="basal-date" defaultValue={this.state.currentDate} />
+                        <input type="date" className="date-dash" id="basal-date" defaultValue={this.state.currentDate} 
+                            onChange={(e) => this.setState({currentDate: e.target.value})} />
                         <label htmlFor="basal-time">Time</label>
-                        <input type="time" className="time-dash" id="basal-time" defaultValue={this.state.currentTime} />
+                        <input type="time" className="time-dash" id="basal-time" defaultValue={this.state.currentTime} 
+                            onChange={(e) => this.setState({currentTime: e.target.value})} />
 
                         <button type="submit">Add Basal</button>
 
