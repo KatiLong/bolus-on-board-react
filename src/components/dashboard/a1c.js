@@ -19,11 +19,11 @@ class A1c extends Component {
             DateTime: dateTime
         })
     }
+    //Add reset state to back button?
     onSubmit (formType, event){
         event.preventDefault();
         console.log('BG form submitted');
-        //dispatch action to POST to server
-        // props.dispatch(handleBolus(insulinType, props.history));
+
         this.props.dispatch(handleDashForm({
             formType,
             a1cAmount: this.state.a1cAmount,
@@ -47,10 +47,12 @@ class A1c extends Component {
                         <legend>A1c</legend>
 
                         <label htmlFor="a1c-entry">A1c Result</label>
-                        <input type="number" className="insulin-input" id="a1c-entry" step="0.1" defaultValue={this.state.a1cAmount} required/>
+                        <input type="number" className="insulin-input" id="a1c-entry" step="0.1" defaultValue={this.state.a1cAmount} 
+                            onChange={(e) => this.setState({a1cAmount: e.target.value})} required/>
 
                         <label htmlFor="a1c-date">Date</label>
-                        <input type="date" className="date-dash" id="a1c-date" defaultValue={this.state.currentDate} required/>
+                        <input type="date" className="date-dash" id="a1c-date" defaultValue={this.state.currentDate} 
+                            onChange={(e) => this.setState({currentDate: e.target.value})} required/>
 
                         <button type="submit" className="submit-button">Add A1c</button>
                     </fieldset>
