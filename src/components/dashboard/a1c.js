@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { populateDateTime } from '../populateDateTime';
 import { handleDashForm } from '../../actions';
+import { connect } from 'react-redux';
 
 class A1c extends React.Component {
     state = {
@@ -23,13 +24,13 @@ class A1c extends React.Component {
         console.log('BG form submitted');
         //dispatch action to POST to server
         // props.dispatch(handleBolus(insulinType, props.history));
-        props.dispatch(handleDashForm({
+        this.props.dispatch(handleDashForm({
             formType,
             a1cAmount: this.state.a1cAmount,
             currentDate: this.state.currentDate,
             currentTime: this.state.currentTime,
             DateTime: this.state.DateTime 
-        }, props.history));
+        }, this.props.history));
 
         this.setState({
             a1cAmount: 0,
@@ -61,4 +62,4 @@ class A1c extends React.Component {
     }
 }
 
-export default A1c;
+export default connect()(A1c);

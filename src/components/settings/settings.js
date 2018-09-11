@@ -46,7 +46,10 @@ class Settings extends React.Component {
                                 onChange={val => this.props.settingOnChange("carbRatio", val)} 
                                 htmlId="carb-ratio"
                                 inputName="carbRatio"
-                                currentAmount={this.props.carbRatio.amount}>
+                                currentAmount={this.props.carbRatio.amount}
+                                metric="carbs"
+                                step="1"
+                                >
                                 <h5>Hello World</h5>
                                 </SettingForm>
                             
@@ -71,6 +74,8 @@ class Settings extends React.Component {
                             htmlId="correction-amount"
                             inputName="correctionAmount"
                             currentAmount={this.props.correction.amount}
+                            metric="per Unit of Insulin"
+                            step="1"
                         />
                     }
                 </div>
@@ -92,6 +97,8 @@ class Settings extends React.Component {
                             htmlId="duration"
                             inputName="duration"
                             currentAmount={this.props.duration.amount}
+                            metric="hours"
+                            step=".25"
                          />
                     }
                 </div>
@@ -113,6 +120,8 @@ class Settings extends React.Component {
                             htmlId="increment"
                             inputName="increment"
                             currentAmount={this.props.increment.amount}
+                            metric="units"
+                            step=".5"
                         />
                     }
                 </div>
@@ -134,6 +143,8 @@ class Settings extends React.Component {
                             htmlId="target-bg"
                             inputName="targetBg"
                             currentAmount={this.props.targetBg.amount}
+                            metric="mg/dL"
+                            step="1"
                         />}
                 </div>
 

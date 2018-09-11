@@ -2,7 +2,7 @@
 export const handleDashForm = (payload, history) => {
     return (dispatch) => {
         //Fetch
-        fetch(`http://localhost:8080/${insulinType}`, {
+        fetch(`http://localhost:8080/${payload}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

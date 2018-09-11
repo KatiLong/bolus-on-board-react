@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { populateDateTime } from '../populateDateTime';
-
+import { handleDashForm } from '../../actions';
+import { connect } from 'react-redux';
 
 class Basal extends React.Component {
     state = {
@@ -23,14 +24,14 @@ class Basal extends React.Component {
         event.preventDefault();
         //dispatch action to POST to server
         console.log('BG form submitted');
-        props.dispatch(handleDashForm({
+        this.props.dispatch(handleDashForm({
             formType,
             basalAmount: this.state.basalAmount,
             basalType: this.state.basalType,
             currentDate: this.state.currentDate,
             currentTime: this.state.currentTime,
             DateTime: this.state.DateTime 
-        }, props.history));
+        }, this.props.history));
 
         this.setState({
             basalAmount: 0,
@@ -73,5 +74,5 @@ class Basal extends React.Component {
     }
 }
 
-export default Basal;
+export default connect()(Basal);
 

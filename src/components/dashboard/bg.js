@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { populateDateTime } from '../populateDateTime';
+import { handleDashForm } from '../../actions';
+import { connect } from 'react-redux';
 
 class BloodGlucose extends React.Component {
     state = {
@@ -21,13 +23,13 @@ class BloodGlucose extends React.Component {
         event.preventDefault();
         //dispatch action to POST to server
         console.log('BG form submitted');
-        props.dispatch(handleDashForm({
+        this.props.dispatch(handleDashForm({
             formType,
             bgAmount: this.state.bgAmount,
             currentDate: this.state.currentDate,
             currentTime: this.state.currentTime,
             DateTime: this.state.DateTime 
-        }, props.history));
+        }, this.props.history));
 
         this.setState({
             bgAmount: 0,
@@ -62,4 +64,4 @@ class BloodGlucose extends React.Component {
     }
 }
 
-export default BloodGlucose;
+export default connect()(BloodGlucose);
