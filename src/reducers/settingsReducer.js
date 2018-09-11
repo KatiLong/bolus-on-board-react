@@ -1,42 +1,26 @@
 const initialState = {
-    incrementAmount: 5,
-    incrementShow: false,
-    durationAmount: 4,
-    durationShow: false,
-    carbRatioAmount: 9,
-    carbRatioShow: false,
-    correctionAmount: 32,
-    correctionShow: false,
-    targetBgAmount: 110,
-    targetBgShow: false,
-    settingTypes: [
-        "carbRatio", 
-        "correction",
-        "duration", 
-        "increment", 
-        "targetBg"],
     increment: {
         amount: 5,
         show: false,
         htmlInput: "increment"
     },
     duration: {
-        amount: 5,
+        amount: 4,
         show: false,
         htmlInput: "duration"
     },
     carbRatio: {
-        amount: 5,
+        amount: 8,
         show: false,
         htmlInput: "carb-ratio"
     },
     correction: {
-        amount: 5,
+        amount: 32,
         show: false,
         htmlInput: "correction"
     },
     targetBg: {
-        amount: 5,
+        amount: 110,
         show: false,
         htmlInput: "target-bg"
     }
@@ -50,22 +34,11 @@ const settingsReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'SHOW_SETTING' :
             currentSetting =  action.settingType;
-            console.log(state[currentSetting])
             return {
                 ...state,
                 [currentSetting]: {
                     ...state[currentSetting],
                     show: true
-                }
-            }
-        case 'UPDATE_SETTING' :
-            currentSetting =  action.settingType;
-            console.log(state[currentSetting])
-            return {
-                ...state,
-                [currentSetting]: {
-                    ...state[currentSetting],
-                    show: false
                 }
             }
         case 'SETTING_ON_CHANGE' :
@@ -79,6 +52,16 @@ const settingsReducer = (state = initialState, action) => {
                     amount: [currentAmount]
                 }
             }
+        case 'HIDE_SETTING' :
+            currentSetting =  action.settingType;
+            console.log(state[currentSetting])
+            return {
+                ...state,
+                [currentSetting]: {
+                    ...state[currentSetting],
+                    show: false
+                }
+            }
         default :
             return state
     }
@@ -86,3 +69,21 @@ const settingsReducer = (state = initialState, action) => {
 };
 
 export default settingsReducer;
+
+
+// incrementAmount: 5,
+// incrementShow: false,
+// durationAmount: 4,
+// durationShow: false,
+// carbRatioAmount: 9,
+// carbRatioShow: false,
+// correctionAmount: 32,
+// correctionShow: false,
+// targetBgAmount: 110,
+// targetBgShow: false,
+// settingTypes: [
+//     "carbRatio", 
+//     "correction",
+//     "duration", 
+//     "increment", 
+//     "targetBg"],

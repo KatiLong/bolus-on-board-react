@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showSetting } from '../../actions';
+import { hideSetting } from '../../actions';
 import { updateSetting } from '../../actions';
 import { settingOnChange } from '../../actions';
 
@@ -19,15 +20,14 @@ import './settings.css';
 
 class Settings extends React.Component {
 
-    onSubmit(event) {
+    handleSubmit(settingType, event) {
         event.preventDefault();
-        console.log(event.target);
-        
-        const value = event.target.input.name;
+
+        console.log(settingType, 'Form Submitted');
         //dispatch
-        updateSetting(value); 
-        event.target.input.value = '';
-        event.target.input.focus();
+        // updateSetting(settingType); 
+        //Add success conditional
+        this.props.hideSetting(settingType); 
     }
     
     render() {
@@ -50,8 +50,8 @@ class Settings extends React.Component {
                         }
                         {this.props.carbRatio.show && 
                             <SettingForm 
-                                onSubmit={e => this.onSubmit(e)}
-                                onChange={e => {this.props.settingOnChange("carbRatio", e)}} 
+                                onSubmit={e => this.handleSubmit("carbRatio", e)}
+                                onChange={val => this.props.settingOnChange("carbRatio", val)} 
                                 htmlId="carb-ratio"
                                 inputName="carbRatio"
                                 currentAmount={this.props.carbRatio.amount}
@@ -72,8 +72,8 @@ class Settings extends React.Component {
                     }
                     {this.props.correction.show && 
                         <SettingForm 
-                            onSubmit={e => this.onSubmit(e)}
-                            onChange={e => this.onChange(e)} 
+                            onSubmit={e => this.handleSubmit("correction", e)}
+                            onChange={val => this.props.settingOnChange("correction", val)} 
                             htmlId="correction-amount"
                             inputName="correctionAmount"
                             currentAmount={this.props.correction.amount}
@@ -93,8 +93,8 @@ class Settings extends React.Component {
                     }
                     {this.props.duration.show && 
                         <SettingForm 
-                            onSubmit={e => this.onSubmit(e)}
-                            onChange={e => this.onChange(e)} 
+                            onSubmit={e => this.handleSubmit("duration", e)}
+                            onChange={val => this.props.settingOnChange("duration", val)} 
                             htmlId="duration"
                             inputName="duration"
                             currentAmount={this.props.duration.amount}
@@ -114,8 +114,8 @@ class Settings extends React.Component {
                     }
                     {this.props.increment.show && 
                         <SettingForm 
-                            onSubmit={e => this.onSubmit(e)}
-                            onChange={e => this.onChange(e)} 
+                            onSubmit={e => this.handleSubmit("increment", e)}
+                            onChange={val => this.props.settingOnChange("increment", val)} 
                             htmlId="increment"
                             inputName="increment"
                             currentAmount={this.props.increment.amount}
@@ -135,8 +135,8 @@ class Settings extends React.Component {
                     }
                     {this.props.targetBg.show && 
                         <SettingForm 
-                            onSubmit={e => this.onSubmit(e)}
-                            onChange={e => this.onChange(e)} 
+                            onSubmit={e => this.handleSubmit("targetBg", e)}
+                            onChange={val => this.props.settingOnChange("targetBg", val)} 
                             htmlId="target-bg"
                             inputName="targetBg"
                             currentAmount={this.props.targetBg.amount}
@@ -152,7 +152,8 @@ class Settings extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
     showSetting: (settingType) => dispatch(showSetting(settingType)),
     updateSetting: (settingType) => dispatch(updateSetting(settingType)),
-    settingOnChange: (settingType, amount) => dispatch(settingOnChange(settingType, amount))
+    settingOnChange: (settingType, amount) => dispatch(settingOnChange(settingType, amount)),
+    hideSetting: (settingType) => dispatch(hideSetting(settingType))
 });
 
 const mapStateToProps = (state) => {

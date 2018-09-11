@@ -52,11 +52,29 @@ export const settingOnChange = (settingType, amount) => ({
 
 //PUT Call to Server
 //Pass through setting to hide to Reducer
-const UPDATE_SETTING = 'UPDATE_SETTING';
-export const updateSetting = (settingType) => ({
-    type: UPDATE_SETTING,
+const HIDE_SETTING = 'HIDE_SETTING';
+export const hideSetting = (settingType) => ({
+    type: HIDE_SETTING,
     settingType
 })
+
+export const updateSetting = (settingType) => console.log('update');
+
+// export const updateSetting = (insulinType, history) => {
+//     return (dispatch) => {
+//         //Fetch
+//         fetch('http://localhost:8080/settings/:id', {
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({insulinType})
+//         })
+//         .then(res => res.json())
+//         .then(data => history.push('/dashboard'))
+//         .catch(error => console.log(error))
+//     }
+// }
 
 //fetch(`${API_BASE_URL}/expense/${localStorage.getItem('userId')}`, {
 //    method: 'POST',
