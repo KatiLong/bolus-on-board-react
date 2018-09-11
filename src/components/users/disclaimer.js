@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {reduxForm, Field} from 'redux-form';
 
 function Disclaimer(props) {
 
@@ -38,7 +37,5 @@ function Disclaimer(props) {
     )
 }
 
-export default reduxForm({
-    form: 'contact'
-})(Disclaimer);
+export default Disclaimer;
 

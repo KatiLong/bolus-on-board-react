@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { populateDateTime } from '../populateDateTime';
 
 function UserDashboard (props) {
     console.log(props);

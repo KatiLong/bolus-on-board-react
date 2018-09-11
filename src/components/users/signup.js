@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions'; //In Disclaimer instead?? Dispatched when user agrees to Disclaimer
-import { formChange } from '../../actions';
+// import { formChange } from '../../actions';
 
 //class NameForm extends React.Component {
 //    constructor(props) {
@@ -35,18 +35,8 @@ import { formChange } from '../../actions';
 //    }
 //}
 
-//Update State with form values
-//    handleSubmit(event) {
-//        event.preventDefault();
-//        console.log('handleSubmit ran')
-//        const name = this.state.name;
-//        const username = this.state.username;
-//        const password = this.state.password;
-//        //    value="Carmen SD"  value="carmen@gmail.com" value="where2018"
-//        //    dispatch action to register user --- Should be in Disclaimer?
-//    }
 
-class Register extends React.Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {name: '',
@@ -62,6 +52,8 @@ class Register extends React.Component {
         if (event.target.name === 'name') this.setState({name: event.target.value});
         if (event.target.name === 'username') this.setState({username: event.target.value});
         if (event.target.name === 'password') this.setState({password: event.target.value});
+
+
     }
 
     //Update State with form values
@@ -71,12 +63,14 @@ class Register extends React.Component {
         const name = this.state.name;
         const username = this.state.username;
         const password = this.state.password;
+
+        this.props.dispatch(registerUser())
     //    value="Carmen SD"  value="carmen@gmail.com" value="where2018"
 //    dispatch action to register user --- Should be in Disclaimer?
     }
     render() {
         return (
-            <div>
+            <Fragment>
                 <section id="signup-page">
                     <form action="#root" id="signup-form">
                         <fieldset>
@@ -107,9 +101,9 @@ class Register extends React.Component {
                         </div>
                     </div>
                 </section>
-            </div>
+            </Fragment>
         )
     }
 }
 
-export default Register;
+export default connect()(Register);

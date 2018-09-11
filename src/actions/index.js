@@ -1,18 +1,19 @@
 /////////////////Dashboard/////////////////////
 export const handleDashForm = (payload, history) => {
-    return (dispatch) => {
-        //Fetch
-        fetch(`http://localhost:8080/${payload}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({payload})
-        })
-        .then(res => res.json())
-        .then(data => history.push('/dashboard'))
-        .catch(error => console.log(error))
-    }
+    console.log(payload);
+    // return (dispatch) => {
+    //     //Fetch
+    //     fetch(`http://localhost:8080/${payload}`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({payload})
+    //     })
+    //     .then(res => res.json())
+    //     .then(data => history.push('/dashboard'))
+    //     .catch(error => console.log(error))
+    // }
 }
 
 export const handleBolus = (insulinType, history) => {

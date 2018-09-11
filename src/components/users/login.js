@@ -61,7 +61,7 @@ class Login extends React.Component {
 }
 //props.history.push('/register')
 //export default Login;
-export default Login;
+export default connect()(Login);
 //
 //class Register extends React.Component {
 //    state = {

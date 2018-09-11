@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import { populateDateTime } from '../populateDateTime';
 import { handleDashForm } from '../../actions';
 import { connect } from 'react-redux';
 
-class A1c extends React.Component {
+class A1c extends Component {
     state = {
         a1cAmount: 0,
         currentDate: "",
@@ -41,7 +41,7 @@ class A1c extends React.Component {
     }
     render() {
         return (
-            <div>
+            <Fragment>
                 <form action="" id="a1c-form" onSubmit={(e) => this.onSubmit("a1c", e)} >
                     <fieldset>
                         <legend>A1c</legend>
@@ -57,7 +57,7 @@ class A1c extends React.Component {
                 </form>
 
                 <Link to='/dashboard'><button type="button" className="dash-back">Back</button></Link>
-            </div>
+            </Fragment>
         )
     }
 }
