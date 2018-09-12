@@ -1,4 +1,12 @@
 /////////////////Dashboard/////////////////////
+
+const UPDATE_INPUT = 'UPDATE_INPUT';
+export const updateInput = (inputType, inputValue) => ({
+    type: UPDATE_INPUT,
+    inputType, 
+    inputValue
+})
+
 export const handleDashForm = (payload, history) => {
     console.log(payload);
     // this.setState({DateTime: `${this.state.currentDate}T${this.state.currentTime}`});

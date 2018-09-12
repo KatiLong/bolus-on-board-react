@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { handleBolus } from '../../actions';
+import { handleBolus, updateInput } from '../../actions';
 import { populateDateTime } from '../populateDateTime';
+import { SuggestedBolus } from './suggestedBolus';
 
 
 import { connect } from 'react-redux';
@@ -24,6 +25,8 @@ class Bolus extends React.Component {
             currentDate: date,
             currentTime: time
         })
+        updateInput("currentDate", date);
+        updateInput("currentTime", time);
     }
 
     onSubmit (formType, event){
@@ -48,19 +51,16 @@ class Bolus extends React.Component {
                 carbAmount: e.target.value
             })
         }
-        this.setState({
-            suggestedBolus: this.calculateSuggestedBolus()
-        })
         //add suggested bolus update
     }
 
     calculateSuggestedBolus(currentBg) {
-        console.log("Calculate Suggested Bolus ran");
+        console.log("Calculate Suggested Bolus ran, insulinAmount is: " + this.state.insulinAmount);
         let sum = this.state.insulinAmount;
         let bloodSugar;
         (!currentBg) ? bloodSugar = this.state.bloodSugar: bloodSugar = currentBg;
 
-        let difference = this.state.bloodSugar - this.props.targetBg.amount;
+        let difference = bloodSugar - this.props.targetBg.amount;
         //if inputted Blood Sugar is less than target
         if (this.state.bloodSugar <= this.props.targetBg.amount) {
             console.log(difference);
@@ -72,12 +72,15 @@ class Bolus extends React.Component {
             sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount)
         }
         if (sum < 0) sum = 0;
-        return sum;
+        this.setState({
+            suggestedBolus: sum
+        })
+        // return sum;
     }
 
     render() {
         return (
-            <div>
+            <Fragment>
                 <form
                     id="bolus-htmlForm"
                     action="#root"
@@ -94,7 +97,10 @@ class Bolus extends React.Component {
                         <div className="insulin-amount">
                             <label htmlFor="bolus-units">Units of Insulin</label>
                             <input type="number" className="insulin-input" name="insulin" id="bolus-units" value={this.state.insulinAmount} 
-                                onChange={(e) => this.carbInsulinChange(e)} /><span>unit(s)</span>
+                                onChange={(e) => {
+                                    this.carbInsulinChange(e)
+                                    this.calculateSuggestedBolus();
+                                    }} /><span>unit(s)</span>
                         </div>
                         <div className="insulin-amount">
                             <label htmlFor="bolus-carbs">Carb Amount</label>
@@ -128,9 +134,13 @@ class Bolus extends React.Component {
 
                     </fieldset>
                 </form>
-            </div>
+            </Fragment>
         )
     }
+}
+
+const dispatchStateToProps = (dispatch) => {
+    updateInput: (inputType) => dispatch(updateInput(inputType))
 }
 
 const mapStateToProps = (state) => {
@@ -140,7 +150,14 @@ const mapStateToProps = (state) => {
         carbRatio: state.settings.carbRatio,
         correction: state.settings.correction,
         targetBg: state.settings.targetBg,
-        lowBg: state.settings.lowBg
+        lowBg: state.settings.lowBg,
+        insulinType: state.bolus.insulinType,
+        insulinAmount: state.bolus.insulinAmount,
+        carbAmount: state.bolus.carbAmount,
+        bloodSugar: state.bolus.bloodSugar,
+        suggestedBolus: state.bolus.suggestedBolus,
+        currentDate: state.bolus.currentDate,
+        currentTime: state.bolus.currentTime
     }
 };
 
