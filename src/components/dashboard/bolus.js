@@ -7,25 +7,11 @@ import { SuggestedBolus } from './suggestedBolus';
 import { connect } from 'react-redux';
 
 class Bolus extends React.Component {
-    state = {
-        insulinType: 'Humalog',
-        insulinAmount: 0,
-        carbAmount: 0,
-        bloodSugar: 110,
-        suggestedBolus: 0,
-        currentDate: "",
-        currentTime: ""
-    }
+
 
     componentDidMount(){
         //Populate Date & Time, dispatch populate, setState()
         const {date, time, dateTime} = populateDateTime();
-        this.setState({
-            currentDate: date,
-            currentTime: time
-        })
-        // updateInput("currentDate", date);
-        // updateInput("currentTime", time);
         this.props.updateInput({
             currentDate: date,
             currentTime: time
@@ -43,45 +29,45 @@ class Bolus extends React.Component {
     carbInsulinChange (e){
         console.log(this.props.carbRatio)
         if (e.target.name === "insulin") {
-            // this.setState({
-            //     insulinAmount: e.target.value,
-            //     carbAmount: e.target.value * this.props.carbRatio.amount
-            // })
-            this.props.updateInput("insulinAmount", e.target.value);
-            this.props.updateInput("carbAmount", e.target.value * this.props.carbRatio.amount);
+            this.props.updateInput({
+                insulinAmount: e.target.value,
+                carbAmount: e.target.value * this.props.carbRatio.amount
+            })
             
         } else if (e.target.name === "carbs") {
-            // this.setState({
-            //     insulinAmount: e.target.value/this.props.carbRatio.amount,
-            //     carbAmount: e.target.value
-            // })
-            this.props.updateInput("insulinAmount", e.target.value/this.props.carbRatio.amount);
-            this.props.updateInput("carbAmount", e.target.value);
+            this.props.updateInput({
+                insulinAmount: e.target.value/this.props.carbRatio.amount,
+                carbAmount: e.target.value
+            })
         }
         //add suggested bolus update
     }
 
-    calculateSuggestedBolus(currentBg) {
-        console.log("Calculate Suggested Bolus ran, insulinAmount is: " + this.state.insulinAmount);
-        let sum = this.state.insulinAmount;
-        let bloodSugar;
-        (!currentBg) ? bloodSugar = this.state.bloodSugar: bloodSugar = currentBg;
+    //Answer to the "State one step behind" problem
+    //https://stackoverflow.com/questions/41043419/reactjs-onclick-state-change-one-step-behind
 
-        let difference = bloodSugar - this.props.targetBg.amount;
-        //if inputted Blood Sugar is less than target
-        if (this.state.bloodSugar <= this.props.targetBg.amount) {
-            console.log(difference);
-            // Do/add nothing unless Blood Sugar is low
-            if (this.state.bloodSugar < this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
-                sum -= ((this.props.lowBg.amout - this.state.bloodSugar)/this.props.correction.amount)
-            }
-        } else { //Add insulin for the amount the User's BG is High
-            sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount)
-        }
-        if (sum < 0) sum = 0;
-        this.setState({
-            suggestedBolus: sum
-        })
+    calculateSuggestedBolus(currentBg) {
+        console.log("Calculate Suggested Bolus ran, insulinAmount is: " + this.props.insulinAmount);
+        console.log("bloodSugar is:" + this.props.bloodSugar)
+        // let sum = this.props.insulinAmount;
+        // let bloodSugar;
+        // (!currentBg) ? bloodSugar = this.props.bloodSugar: bloodSugar = currentBg;
+
+        // let difference = bloodSugar - this.props.targetBg.amount;
+        // //if inputted Blood Sugar is less than target
+        // if (this.props.bloodSugar <= this.props.targetBg.amount) {
+        //     console.log(difference);
+        //     // Do/add nothing unless Blood Sugar is low
+        //     if (this.props.bloodSugar < this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
+        //         sum -= ((this.props.lowBg.amout - this.props.bloodSugar)/this.props.correction.amount)
+        //     }
+        // } else { //Add insulin for the amount the User's BG is High
+        //     sum += ((this.props.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount)
+        // }
+        // if (sum < 0) sum = 0;
+        // this.props.updateInput({
+        //     suggestedBolus: sum
+        // })
         // return sum;
     }
 
@@ -94,7 +80,7 @@ class Bolus extends React.Component {
                     onSubmit={(event) => {(e) => this.onSubmit("bolus", e) }}>
                     <fieldset>
                         <label htmlFor="insulin-type">Insulin Type</label>
-                        <select id="insulin-type" name="insulinType" defaultValue={this.state.insulinType} 
+                        <select id="insulin-type" name="insulinType" defaultValue={this.props.insulinType} 
                             onChange={(e) => this.setState({insulinType: e.target.value})} >
                             <option value="Fiasp">Fiasp</option>
                             <option value="Humalog">Humalog</option>
@@ -116,20 +102,20 @@ class Bolus extends React.Component {
                         </div>
 
                         <label htmlFor="bolus-bg">Blood Sugar</label>
-                        <input type="number" id="bolus-bg" defaultValue={this.state.bloodSugar} />
+                        <input type="number" id="bolus-bg" defaultValue={this.props.bloodSugar} />
 
                         <label htmlFor="bolus-date">Date</label>
-                        <input type="date" className="date-dash" id="bolus-date" value={this.state.currentDate} 
+                        <input type="date" className="date-dash" id="bolus-date" value={this.props.currentDate} 
                             onChange={(e) => this.setState({currentDate: e.target.value})} required/>
 
                         <label htmlFor="bolus-time">Time</label>
-                        <input type="time" className="time-dash" id="bolus-time" value={this.state.currentTime} 
+                        <input type="time" className="time-dash" id="bolus-time" value={this.props.currentTime} 
                             onChange={(e) => this.setState({currentTime: e.target.value})} required/>
 
                         <p>Calculated Units: Units || Carbs + Correction Amount -> Exact Amount</p>
 
                         <label htmlFor="suggested-bolus">Suggested Bolus Amount</label>
-                        <input type="number" className="insulin-input" id="suggested-bolus" name="suggestedBolus" value={this.state.suggestedBolus} step=".5"
+                        <input type="number" className="insulin-input" id="suggested-bolus" name="suggestedBolus" value={this.props.suggestedBolus} step=".5"
                             onChange={(e) => this.setState({suggestedBolus: e.target.value})} required/><span>unit(s)</span>
 
                         <p>Suggested Total: Exact calculation rounded to nearest whole number.</p>
