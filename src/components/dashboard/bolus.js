@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { handleBolus } from '../../actions';
 import { populateDateTime } from '../populateDateTime';
+
+
 import { connect } from 'react-redux';
 
 class Bolus extends React.Component {
@@ -31,6 +33,25 @@ class Bolus extends React.Component {
         //pass in object
         // props.dispatch(handleBolus(insulinType, props.history));
     }
+
+    carbInsulinChange (e){
+        console.log(this.props.carbRatio)
+        if (e.target.name === "insulin") {
+            this.setState({
+                insulinAmount: e.target.value,
+                carbAmount: e.target.value * this.props.carbRatio.amount,
+            })
+            
+        } else if (e.target.name === "carbs") {
+            this.setState({
+                insulinAmount: e.target.value/this.props.carbRatio.amount,
+                carbAmount: e.target.value
+            })
+        }
+
+        //add suggested bolus update
+    }
+
     render() {
         return (
             <div>
@@ -40,7 +61,8 @@ class Bolus extends React.Component {
                     onSubmit={(event) => {(e) => this.onSubmit("bolus", e) }}>
                     <fieldset>
                         <label htmlFor="insulin-type">Insulin Type</label>
-                        <select id="insulin-type" name="insulinType" defaultValue="Humalog">
+                        <select id="insulin-type" name="insulinType" defaultValue={this.state.insulinType} 
+                            onChange={(e) => this.setState({insulinType: e.target.value})} >
                             <option value="Fiasp">Fiasp</option>
                             <option value="Humalog">Humalog</option>
                             <option value="Novolog">Novolog</option>
@@ -48,26 +70,31 @@ class Bolus extends React.Component {
 
                         <div className="insulin-amount">
                             <label htmlFor="bolus-units">Units of Insulin</label>
-                            <input type="number" className="insulin-input" id="bolus-units" defaultValue={this.state.insulinAmount} /><span>unit(s)</span>
+                            <input type="number" className="insulin-input" name="insulin" id="bolus-units" value={this.state.insulinAmount} 
+                                onChange={(e) => this.carbInsulinChange(e)} /><span>unit(s)</span>
                         </div>
                         <div className="insulin-amount">
                             <label htmlFor="bolus-carbs">Carb Amount</label>
-                            <input type="number" className="insulin-input" id="bolus-carbs" defaultValue={this.state.carbAmount} /><span>gram(s)</span>
+                            <input type="number" className="insulin-input" name="carbs" id="bolus-carbs" value={this.state.carbAmount} 
+                                onChange={(e) => this.carbInsulinChange(e)} /><span>gram(s)</span>
                         </div>
 
                         <label htmlFor="bolus-bg">Blood Sugar</label>
                         <input type="number" id="bolus-bg" defaultValue={this.state.bloodSugar} />
 
                         <label htmlFor="bolus-date">Date</label>
-                        <input type="date" className="date-dash" id="bolus-date" defaultValue={this.state.currentDate} required/>
+                        <input type="date" className="date-dash" id="bolus-date" value={this.state.currentDate} 
+                            onChange={(e) => this.setState({currentDate: e.target.value})} required/>
 
                         <label htmlFor="bolus-time">Time</label>
-                        <input type="time" className="time-dash" id="bolus-time" defaultValue={this.state.currentTime} required/>
+                        <input type="time" className="time-dash" id="bolus-time" value={this.state.currentTime} 
+                            onChange={(e) => this.setState({currentTime: e.target.value})} required/>
 
                         <p>Calculated Units: Units || Carbs + Correction Amount -> Exact Amount</p>
 
                         <label htmlFor="suggested-bolus">Suggested Bolus Amount</label>
-                        <input type="number" className="insulin-input" id="suggested-bolus" defaultValue={this.state.suggestedBolus} required/><span>unit(s)</span>
+                        <input type="number" className="insulin-input" id="suggested-bolus" name="suggestedBolus" value={this.state.suggestedBolus} step=".5"
+                            onChange={(e) => this.setState({suggestedBolus: e.target.value})} required/><span>unit(s)</span>
 
                         <p>Suggested Total: Exact calculation rounded to nearest whole number.</p>
                         <p>Info Toggle: "Insulin Total Suggestions are calculated and rounded to nearest unit of insulin."</p>
@@ -83,4 +110,14 @@ class Bolus extends React.Component {
     }
 }
 
-export default connect()(Bolus);
+const mapStateToProps = (state) => {
+    return {
+        increment: state.settings.increment,
+        duration: state.settings.duration,
+        carbRatio: state.settings.carbRatio,
+        correction: state.settings.correction,
+        targetBg: state.settings.targetBg
+    }
+};
+
+export default connect(mapStateToProps)(Bolus);

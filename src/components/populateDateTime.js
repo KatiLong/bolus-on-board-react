@@ -20,7 +20,6 @@ export function populateDateTime () {
     console.log(currentDateTime);
     return {
         date: currentDate,
-        time: currentTime,
-        dateTime: inputDateTime
+        time: currentTime
     }
 }
