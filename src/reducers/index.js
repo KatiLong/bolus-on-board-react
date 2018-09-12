@@ -6,8 +6,7 @@ import bolusReducer from './bolusReducer.js'
 
 const rootReducer = combineReducers({
     user: userReducer,
-    settings: settingsReducer,
-    bolus: bolusReducer
+    settings: settingsReducer
 })
 
 export default rootReducer;
