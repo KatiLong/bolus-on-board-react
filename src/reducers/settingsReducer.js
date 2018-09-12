@@ -23,6 +23,11 @@ const initialState = {
         amount: 110,
         show: false,
         htmlInput: "target-bg"
+    },
+    lowBg: {
+        amount: 70,
+        show: false,
+        htmlInput: "low-bg"
     }
 }
 

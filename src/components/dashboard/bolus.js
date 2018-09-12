@@ -39,7 +39,7 @@ class Bolus extends React.Component {
         if (e.target.name === "insulin") {
             this.setState({
                 insulinAmount: e.target.value,
-                carbAmount: e.target.value * this.props.carbRatio.amount,
+                carbAmount: e.target.value * this.props.carbRatio.amount
             })
             
         } else if (e.target.name === "carbs") {
@@ -48,8 +48,31 @@ class Bolus extends React.Component {
                 carbAmount: e.target.value
             })
         }
-
+        this.setState({
+            suggestedBolus: this.calculateSuggestedBolus()
+        })
         //add suggested bolus update
+    }
+
+    calculateSuggestedBolus(currentBg) {
+        console.log("Calculate Suggested Bolus ran");
+        let sum = this.state.insulinAmount;
+        let bloodSugar;
+        (!currentBg) ? bloodSugar = this.state.bloodSugar: bloodSugar = currentBg;
+
+        let difference = this.state.bloodSugar - this.props.targetBg.amount;
+        //if inputted Blood Sugar is less than target
+        if (this.state.bloodSugar <= this.props.targetBg.amount) {
+            console.log(difference);
+            // Do/add nothing unless Blood Sugar is low
+            if (this.state.bloodSugar < this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
+                sum -= ((this.props.lowBg.amout - this.state.bloodSugar)/this.props.correction.amount)
+            }
+        } else { //Add insulin for the amount the User's BG is High
+            sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount)
+        }
+        if (sum < 0) sum = 0;
+        return sum;
     }
 
     render() {
@@ -116,7 +139,8 @@ const mapStateToProps = (state) => {
         duration: state.settings.duration,
         carbRatio: state.settings.carbRatio,
         correction: state.settings.correction,
-        targetBg: state.settings.targetBg
+        targetBg: state.settings.targetBg,
+        lowBg: state.settings.lowBg
     }
 };
 
