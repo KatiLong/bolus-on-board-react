@@ -30,7 +30,10 @@ class Bolus extends React.Component {
         event.preventDefault();
         let insulinType = event.target.insulinType.value;
         console.log("Bolus Form submitted");
-        //pass in object
+
+        //Add Bolus Entry to Server
+        //Update Insulin on Board
+
         // props.dispatch(handleBolus(insulinType, props.history));
     }
 
@@ -55,23 +58,28 @@ class Bolus extends React.Component {
         //add suggested bolus update
     }
 
-    calculateSuggestedBolus(currentBg) {
+    calculateSuggestedBolus() {
         console.log("Calculate Suggested Bolus ran");
-        let sum = this.state.insulinAmount;
-        let bloodSugar;
-        (!currentBg) ? bloodSugar = this.state.bloodSugar: bloodSugar = currentBg;
+        let sum = 0 + parseFloat(this.state.insulinAmount);
 
         let difference = this.state.bloodSugar - this.props.targetBg.amount;
+        console.log(difference);
         //if inputted Blood Sugar is less than target
         if (this.state.bloodSugar <= this.props.targetBg.amount) {
-            console.log(difference);
+            console.log("BG below");
             // Do/add nothing unless Blood Sugar is low
             if (this.state.bloodSugar < this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
+                console.log("BG Low");
                 sum -= ((this.props.lowBg.amout - this.state.bloodSugar)/this.props.correction.amount)
+                console.log(typeof(sum), sum);
             }
         } else { //Add insulin for the amount the User's BG is High
-            sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount)
+            console.log("Calculator Else", sum, (this.state.bloodSugar - this.props.targetBg.amount), this.props.correction.amount)
+            sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount);
+            console.log(typeof(sum), sum);
+            // console.log(sum)
         }
+        //Suggested Bolus should never go below zero
         if (sum < 0) sum = 0;
 
         this.setState({
