@@ -13,11 +13,8 @@ const bolusReducer = (state = initialState, action) => {
     console.log(action)
 
     switch(action.type) {
-        case 'UPDATE_INPUT' :
-            return {
-                ...state,
-                [action.inputType]: action.inputValue
-            }
+        case 'UPDATE_BOLUS_INPUT' :
+            return Object.assign({}, state, action.input);
         default :
             return state
     }

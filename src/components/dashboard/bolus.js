@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { handleBolus, updateInput } from '../../actions';
+import { handleBolus, updateBolusInput } from '../../actions';
 import { populateDateTime } from '../populateDateTime';
 import { SuggestedBolus } from './suggestedBolus';
-
 
 import { connect } from 'react-redux';
 
@@ -25,8 +24,12 @@ class Bolus extends React.Component {
             currentDate: date,
             currentTime: time
         })
-        updateInput("currentDate", date);
-        updateInput("currentTime", time);
+        // updateInput("currentDate", date);
+        // updateInput("currentTime", time);
+        this.props.updateInput({
+            currentDate: date,
+            currentTime: time
+        })
     }
 
     onSubmit (formType, event){
@@ -40,16 +43,20 @@ class Bolus extends React.Component {
     carbInsulinChange (e){
         console.log(this.props.carbRatio)
         if (e.target.name === "insulin") {
-            this.setState({
-                insulinAmount: e.target.value,
-                carbAmount: e.target.value * this.props.carbRatio.amount
-            })
+            // this.setState({
+            //     insulinAmount: e.target.value,
+            //     carbAmount: e.target.value * this.props.carbRatio.amount
+            // })
+            this.props.updateInput("insulinAmount", e.target.value);
+            this.props.updateInput("carbAmount", e.target.value * this.props.carbRatio.amount);
             
         } else if (e.target.name === "carbs") {
-            this.setState({
-                insulinAmount: e.target.value/this.props.carbRatio.amount,
-                carbAmount: e.target.value
-            })
+            // this.setState({
+            //     insulinAmount: e.target.value/this.props.carbRatio.amount,
+            //     carbAmount: e.target.value
+            // })
+            this.props.updateInput("insulinAmount", e.target.value/this.props.carbRatio.amount);
+            this.props.updateInput("carbAmount", e.target.value);
         }
         //add suggested bolus update
     }
@@ -96,7 +103,7 @@ class Bolus extends React.Component {
 
                         <div className="insulin-amount">
                             <label htmlFor="bolus-units">Units of Insulin</label>
-                            <input type="number" className="insulin-input" name="insulin" id="bolus-units" value={this.state.insulinAmount} 
+                            <input type="number" className="insulin-input" name="insulin" id="bolus-units" value={this.props.insulinAmount} 
                                 onChange={(e) => {
                                     this.carbInsulinChange(e)
                                     this.calculateSuggestedBolus();
@@ -104,7 +111,7 @@ class Bolus extends React.Component {
                         </div>
                         <div className="insulin-amount">
                             <label htmlFor="bolus-carbs">Carb Amount</label>
-                            <input type="number" className="insulin-input" name="carbs" id="bolus-carbs" value={this.state.carbAmount} 
+                            <input type="number" className="insulin-input" name="carbs" id="bolus-carbs" value={this.props.carbAmount} 
                                 onChange={(e) => this.carbInsulinChange(e)} /><span>gram(s)</span>
                         </div>
 
@@ -139,9 +146,9 @@ class Bolus extends React.Component {
     }
 }
 
-const dispatchStateToProps = (dispatch) => {
-    updateInput: (inputType) => dispatch(updateInput(inputType))
-}
+const mapDispatchToProps = (dispatch) => ({
+    updateInput: (inputType, inputAmount) => dispatch(updateBolusInput(inputType, inputAmount))
+})
 
 const mapStateToProps = (state) => {
     return {
@@ -161,4 +168,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(Bolus);
+export default connect(mapStateToProps, mapDispatchToProps)(Bolus);
