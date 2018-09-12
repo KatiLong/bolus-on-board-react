@@ -1,14 +1,16 @@
 /*Settings*/
 .settings {
     width: 100%;
-    max-width: 1200px;
+    height: 65vh;
+    max-width: 1400px;
     margin: 0  auto;
 }
 
 .settings .settings-div {
     background-color: rgba (255, 255, 255, .2);
     border: 3px dotted white;
-    width: 48%;
+    height: 48%;
+    width: 33%;
     /* padding-top: 48%; */
     display: inline-block;
     vertical-align: top;

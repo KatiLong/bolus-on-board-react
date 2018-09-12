@@ -148,6 +148,28 @@ class Settings extends React.Component {
                         />}
                 </div>
 
+                <div className="settings-div">
+                    <h4>Low BG: <span>{this.props.lowBg.amount}</span></h4>
+                    {!this.props.lowBg.show && 
+                        <button
+                            name="lowBg"
+                            type="button"
+                            id="low-bg-trigger"
+                            className="setting-button"
+                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    }
+                    {this.props.lowBg.show && 
+                        <SettingForm 
+                            onSubmit={e => this.handleSubmit("lowBg", e)}
+                            onChange={val => this.props.settingOnChange("lowBg", val)} 
+                            htmlId="low-bg"
+                            inputName="lowBg"
+                            currentAmount={this.props.lowBg.amount}
+                            metric="mg/dL"
+                            step="1"
+                        />}
+                </div>
+
             </div>
         )
     }
@@ -167,7 +189,8 @@ const mapStateToProps = (state) => {
         duration: state.settings.duration,
         carbRatio: state.settings.carbRatio,
         correction: state.settings.correction,
-        targetBg: state.settings.targetBg
+        targetBg: state.settings.targetBg,
+        lowBg: state.settings.lowBg
     }
 };
 

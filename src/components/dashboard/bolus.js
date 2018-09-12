@@ -68,7 +68,7 @@ class Bolus extends React.Component {
         if (this.state.bloodSugar <= this.props.targetBg.amount) {
             console.log("BG below");
             // Do/add nothing unless Blood Sugar is low
-            if (this.state.bloodSugar < this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
+            if (this.state.bloodSugar <= this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
                 console.log("BG Low");
                 sum -= ((this.props.lowBg.amout - this.state.bloodSugar)/this.props.correction.amount)
                 console.log(typeof(sum), sum);
