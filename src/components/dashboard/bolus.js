@@ -19,7 +19,7 @@ class Bolus extends React.Component {
 
     componentDidMount(){
         //Populate Date & Time, dispatch populate, setState()
-        const {date, time, dateTime} = populateDateTime();
+        const {date, time} = populateDateTime();
         this.setState({
             currentDate: date,
             currentTime: time
@@ -40,17 +40,18 @@ class Bolus extends React.Component {
             this.setState({
                 insulinAmount: e.target.value,
                 carbAmount: e.target.value * this.props.carbRatio.amount
+            }, () => {
+                this.calculateSuggestedBolus()
             })
             
         } else if (e.target.name === "carbs") {
             this.setState({
                 insulinAmount: e.target.value/this.props.carbRatio.amount,
                 carbAmount: e.target.value
+            }, () => {
+                this.calculateSuggestedBolus()
             })
         }
-        this.setState({
-            suggestedBolus: this.calculateSuggestedBolus()
-        })
         //add suggested bolus update
     }
 
@@ -72,7 +73,11 @@ class Bolus extends React.Component {
             sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount)
         }
         if (sum < 0) sum = 0;
-        return sum;
+
+        this.setState({
+            suggestedBolus: sum
+        })
+        // return sum;
     }
 
     render() {
@@ -103,7 +108,8 @@ class Bolus extends React.Component {
                         </div>
 
                         <label htmlFor="bolus-bg">Blood Sugar</label>
-                        <input type="number" id="bolus-bg" defaultValue={this.state.bloodSugar} />
+                        <input type="number" id="bolus-bg" defaultValue={this.state.bloodSugar}  
+                            onChange={(e) => { this.setState({bloodSugar: e.target.value}, () => this.calculateSuggestedBolus())}} />
 
                         <label htmlFor="bolus-date">Date</label>
                         <input type="date" className="date-dash" id="bolus-date" value={this.state.currentDate} 
