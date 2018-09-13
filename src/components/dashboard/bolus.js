@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { handleBolus } from '../../actions';
+import { handleBolus, handleDashForm } from '../../actions';
 import { populateDateTime } from '../populateDateTime';
 
 import { connect } from 'react-redux';
@@ -29,13 +29,21 @@ class Bolus extends React.Component {
 
     onSubmit (formType, event){
         event.preventDefault();
-        let insulinType = event.target.insulinType.value;
         console.log("Bolus Form submitted");
 
         //Add Bolus Entry to Server
-        //Update Insulin on Board
+        this.props.dispatch(handleDashForm({
+            formType,
+            insulinType: this.state.insulinType,
+            insulinAmount: this.state.insulinAmount,
+            carbAmount: this.state.carbAmount,
+            bloodSugar: this.state.bloodSugar,
+            suggestedBolus: this.state.suggestedBolus,
+            currentDate: this.state.currentDate,
+            currentTime: this.state.currentTime
+        }, this.props.history));
 
-        // props.dispatch(handleBolus(insulinType, props.history));
+        //Update Insulin on Board 
     }
 
     carbInsulinChange (e){
@@ -110,7 +118,7 @@ class Bolus extends React.Component {
                 <form
                     id="bolus-htmlForm"
                     action="#root"
-                    onSubmit={(event) => {(e) => this.onSubmit("bolus", e) }}>
+                    onSubmit={(e) => this.onSubmit("bolus", e) }>
                     <fieldset>
                         <div id="bolus-section">
                             <label htmlFor="insulin-type">Insulin Type</label>
