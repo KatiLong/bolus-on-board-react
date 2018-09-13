@@ -1,13 +1,30 @@
 /////////////////Dashboard/////////////////////
+const UPDATE_IOB = 'UPDATE_IOB';
+export const updateIob = (state) => ({
+    type: UPDATE_IOB,
+    state
+})
+
 const IOB_ON_LOGIN = 'IOB_ON_LOGIN';
 export const iobOnLogin = (state) => ({
     type: IOB_ON_LOGIN,
     state
 })
 
+const ADD_IOB_ENTRY = 'ADD_IOB_ENTRY';
+export const addIobEntry = (state) => ({
+    type: ADD_IOB_ENTRY,
+    state
+})
+
 const UPDATE_IOB_ENTRY = 'UPDATE_IOB_ENTRY';
 export const updateIobEntry = (state) => ({
     type: UPDATE_IOB_ENTRY,
+    state
+})
+const DELETE_IOB_ENTRY = 'DELETE_IOB_ENTRY';
+export const deleteIobEntry = (state) => ({
+    type: DELETE_IOB_ENTRY,
     state
 })
 

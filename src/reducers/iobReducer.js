@@ -8,16 +8,18 @@ const initialState = {
 
 const iobReducer = (state = initialState, action) => {
     console.log(action)
-    let currentSetting, currentAmount;
     switch(action.type) {
-        case 'SHOW_SETTING' :
-            currentSetting =  action.settingType;
+        case 'IOB_ON_LOGIN' :
             return {
                 ...state,
-                [currentSetting]: {
-                    ...state[currentSetting],
-                    show: true
-                }
+            }
+        case 'UPDATE_IOB_ENTRY' :
+            return {
+                ...state,
+            }
+        case 'UPDATE_IOB' :
+            return {
+                ...state,
             }
         default :
             return state

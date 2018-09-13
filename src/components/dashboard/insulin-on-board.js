@@ -116,10 +116,11 @@ class InsulinOnBoard extends Component {
     iobLoginCalculator (result) {
 
         console.log(result);
-
+        //All the variables needed for calculation and payload
         const loginTime = (new Date()).getTime();
         let currentInsulinStack = [...this.props.iobStack];
         let bolusRate;
+        let updatedInsulinStack, deleteStackEntry;
         let duration = (this.props.duration)*3600000;
         let totalIOBAmount = this.props.iobAmount;
         let totalIOBTime = this.props.iobTimeLeft;
@@ -133,8 +134,8 @@ class InsulinOnBoard extends Component {
                 iobAmount: 0,
                 iobTimeLeft: 0
             })
-        } else {
-            let updatedInsulinStack = currentInsulinStack.map((el, ind) => {
+        } else { //Calculates an updated IOB based on how much time has passed
+            updatedInsulinStack = currentInsulinStack.map((el, ind) => {
                 let timeElapsed = loginTime - el.timeStart;
 
                 //If it's been longer than the User's set duration, zero out the element
@@ -160,48 +161,49 @@ class InsulinOnBoard extends Component {
                 if (totalIOBTime < el.timeRemaining) totalIOBTime = el.timeRemaining
 
                 //Update the Entry on the server
-                updateStackEntry(el._id, el);
+                // updatedStackEntry(el._id, el);
                 //Updating local Entry
                 return el;
 
             }).filter((el)=> {
                 console.log(el);
-                if (el.timeRemaining === 0) deleteStackEntry(iobId, el._id);
+                // if (el.timeRemaining === 0) deleteStackEntry(iobId, el._id);
                 return !(el.timeRemaining === 0);
             }); //Filter out entries that have zeroed out
 
             //    Math.min(Math.max((totalIOBTime - timeElapsed), 0), duration);
 
-            updateIob(iobId, {
-                insulinOnBoard: {
-                    amount: totalIOBAmount,
-                    timeLeft: totalIOBTime
-                }
-            });
+            console.log(updatedInsulinStack);
+            // updateIob(iobId, {
+            //     insulinOnBoard: {
+            //         amount: totalIOBAmount,
+            //         timeLeft: totalIOBTime
+            //     }
+            // });
 
-            $('#i-o-b').text(`${Math.round(totalIOBAmount * 100) / 100}`);
-            $('#iob-time').text(`${Math.round((totalIOBTime/3600000) * 100) / 100}`);
+            // $('#i-o-b').text(`${Math.round(totalIOBAmount * 100) / 100}`);
+            // $('#iob-time').text(`${Math.round((totalIOBTime/3600000) * 100) / 100}`);
         }
-
+        console.log(updatedInsulinStack);
         //At end calls insulinOnBoardCalculator loop
         //GET user Settings and Insulin on Board info
 
-            console.log(result);
-            const initialTime = (new Date()).getTime();
-            let insulinStack;
+            // console.log(result);
+            // const initialTime = (new Date()).getTime();
+            // let insulinStack;
 
-            if (result[0].currentInsulinStack.length === 0) insulinStack = [];
-            else insulinStack = [...result[0].currentInsulinStack];
+            // if (result[0].currentInsulinStack.length === 0) insulinStack = [];
+            // else insulinStack = [...result[0].currentInsulinStack];
 
-            setTimeout(() => {
-                insulinOnBoardCalculator({
-                    insulinStack,
-                    duration,
-                    iobAmount: result[0].insulinOnBoard.amount,
-                    iobTime: result[0].insulinOnBoard.timeLeft,
-                    initialTime
-                });
-            }, 5000);//300000
+            // setTimeout(() => {
+            //     insulinOnBoardCalculator({
+            //         insulinStack,
+            //         duration,
+            //         iobAmount: result[0].insulinOnBoard.amount,
+            //         iobTime: result[0].insulinOnBoard.timeLeft,
+            //         initialTime
+            //     });
+            // }, 5000);//300000
 }
 
     render(){
