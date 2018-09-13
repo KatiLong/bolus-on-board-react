@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import insulinOnBoard from '../dashboard/insulin-on-board';
+
 //import { loginUser } from '../../actions';
 
 //onSubmit={this.props.handleSubmit(values =>
@@ -9,15 +9,29 @@ import insulinOnBoard from '../dashboard/insulin-on-board';
 //          )}
 
 class Login extends React.Component {
-    state = {
-        toDashboard: false,
-    }
-    onSubmit(values) {
-        console.log(values);
+    constructor (props) {
+        super(props);
 
-        this.setState(() => ({
+        this.state = {
+            username: "carmen@gmail.com",
+            password: "where2018",
+            toDashboard: false
+        }
+
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+    onSubmit(event) {
+        // console.log(values);
+        event.preventDefault();
+
+        this.setState({
             toDashboard: true
-        }))
+        })
+    }
+    handleChange(event) {
+        console.log(event.target.name);
+        if (event.target.name === 'username') this.setState({username: event.target.value});
+        if (event.target.name === 'password') this.setState({password: event.target.value});
     }
     render() {
 
@@ -31,14 +45,17 @@ class Login extends React.Component {
                     <form
                         action="#root"
                         id="login-form"
+                        onSubmit={this.onSubmit}
                     >
                         <fieldset>
                             <legend>Login Form</legend>
                             <label htmlFor="login-username">Username</label>
-                            <input name="loginUsername" type="text" id="login-username" className="username" placeholder="carmenSD@hotmail.com" value="carmen@gmail.com" component="input" />
+                            <input name="loginUsername" type="text" id="login-username" className="username" placeholder="carmenSD@hotmail.com" value={this.state.username} 
+                                onChange={this.handleChange}/>
                             <br/>
                             <label htmlFor="login-password">Password</label>
-                            <input name="loginPassword" type="text" id="login-password" className="password" placeholder="WhereNdwurld24" value="where2018" component="input"/>
+                            <input name="loginPassword" type="text" id="login-password" className="password" placeholder="WhereNdwurld24" value={this.state.password}
+                                onChange={this.handleChange}/>
                             <br/>
                             <button type="submit" className="submit-button" id="login-button">Sign In</button>
 

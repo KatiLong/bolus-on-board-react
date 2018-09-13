@@ -52,8 +52,6 @@ class Register extends Component {
         if (event.target.name === 'name') this.setState({name: event.target.value});
         if (event.target.name === 'username') this.setState({username: event.target.value});
         if (event.target.name === 'password') this.setState({password: event.target.value});
-
-
     }
 
     //Update State with form values
