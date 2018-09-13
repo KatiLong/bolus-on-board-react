@@ -1,4 +1,16 @@
 /////////////////Dashboard/////////////////////
+const IOB_ON_LOGIN = 'IOB_ON_LOGIN';
+export const iobOnLogin = (state) => ({
+    type: IOB_ON_LOGIN,
+    state
+})
+
+const UPDATE_IOB_ENTRY = 'UPDATE_IOB_ENTRY';
+export const updateIobEntry = (state) => ({
+    type: UPDATE_IOB_ENTRY,
+    state
+})
+
 export const handleDashForm = (payload, history) => {
     console.log(payload);
     // this.setState({DateTime: `${this.state.currentDate}T${this.state.currentTime}`});

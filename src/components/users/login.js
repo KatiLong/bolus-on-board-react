@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
+import insulinOnBoard from '../dashboard/insulin-on-board';
 //import { loginUser } from '../../actions';
 
 //onSubmit={this.props.handleSubmit(values =>
