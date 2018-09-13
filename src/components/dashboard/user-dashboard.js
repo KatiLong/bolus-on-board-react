@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import InsulinOnBoard from './insulin-on-board';
 
+import './dashboard.css';
+
 function UserDashboard (props) {
     console.log(props);
     return (

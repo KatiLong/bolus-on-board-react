@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
+import './dashboard.css';
+
 class InsulinOnBoard extends Component {
     render(){
         return (

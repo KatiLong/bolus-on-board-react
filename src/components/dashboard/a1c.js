@@ -4,6 +4,8 @@ import { populateDateTime } from '../populateDateTime';
 import { handleDashForm } from '../../actions';
 import { connect } from 'react-redux';
 
+import './dashboard.css';
+
 class A1c extends Component {
     state = {
         a1cAmount: 0,
