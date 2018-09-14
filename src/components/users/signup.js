@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions'; //In Disclaimer instead?? Dispatched when user agrees to Disclaimer
 import Disclaimer from './disclaimer.js';
@@ -44,7 +44,8 @@ class Register extends Component {
             name: 'Phynre Fisher',
             username: 'HispanoSuiza@gmail.com',
             password: 'detective',
-            disclaimer: false
+            disclaimer: false,
+            toDashboard: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -65,13 +66,16 @@ class Register extends Component {
         // event.preventDefault();
 
         console.log('handleSubmit ran')
-        const name = this.state.name;
-        const username = this.state.username;
-        const password = this.state.password;
 
-        this.props.dispatch(registerUser())
-    //    value="Carmen SD"  value="carmen@gmail.com" value="where2018"
-//    dispatch action to register user --- Should be in Disclaimer?
+        // this.props.dispatch(registerUser({
+        //     name: this.state.name,
+        //     username: this.state.username,
+        //     password: this.state.password
+        // }))
+ 
+        this.setState({
+            toDashboard: true
+        })
     }
     onCancel(event) {
         this.setState({
@@ -87,6 +91,9 @@ class Register extends Component {
     }
 
     render() {
+        if (this.state.toDashboard === true) {
+            return <Redirect to='/dashboard' />
+        }
         return (
             <Fragment>
                 <section id="signup-page">
