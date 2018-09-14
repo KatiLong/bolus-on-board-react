@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { iobLoginCalculator } from '../dashboard/dashboard-calculators/login-iob-calculator';
+import { iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry } from '../../actions';
 
 //import { loginUser } from '../../actions';
 
@@ -23,7 +25,8 @@ class Login extends React.Component {
     onSubmit(event) {
         // console.log(values);
         event.preventDefault();
-
+        // updateReduxState for User - server call for all info?
+        iobLoginCalculator(this.props);
         this.setState({
             toDashboard: true
         })
@@ -77,9 +80,25 @@ class Login extends React.Component {
         )
     }
 }
-//props.history.push('/register')
-//export default Login;
-export default connect()(Login);
+
+const mapDispatchToProps = (dispatch) => ({
+    updateIob: (iob) => dispatch(updateIob(iob)),
+    iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
+    addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
+    updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
+    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry))
+});
+
+const mapStateToProps = (state) => {
+    return {
+        iobAmount: state.iob.iobAmount,
+        iobTimeLeft: state.iob.iobTimeLeft,
+        iobStack: state.iob.iobStack,
+        duration: state.settings.duration.amount
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 //
 //class Register extends React.Component {
 //    state = {

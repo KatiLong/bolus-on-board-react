@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { handleBolus, handleDashForm } from '../../actions';
+import { handleDashForm, iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry } from '../../actions';
 import { populateDateTime } from '../populateDateTime';
+import { newBolusEntry } from './dashboard-calculators/new-bolus-iob-calculator';
 
 import { connect } from 'react-redux';
 
@@ -174,8 +175,19 @@ class Bolus extends React.Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    updateIob: (iob) => dispatch(updateIob(iob)),
+    iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
+    addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
+    updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
+    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry))
+});
+
 const mapStateToProps = (state) => {
     return {
+        iobAmount: state.iob.iobAmount,
+        iobTimeLeft: state.iob.iobTimeLeft,
+        iobStack: state.iob.iobStack,
         increment: state.settings.increment,
         duration: state.settings.duration,
         carbRatio: state.settings.carbRatio,
@@ -186,4 +198,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(Bolus);
+export default connect(mapStateToProps, mapDispatchToProps)(Bolus);

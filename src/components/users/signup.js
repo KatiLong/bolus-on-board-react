@@ -3,39 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions'; //In Disclaimer instead?? Dispatched when user agrees to Disclaimer
 import Disclaimer from './disclaimer.js';
-// import { formChange } from '../../actions';
-
-//class NameForm extends React.Component {
-//    constructor(props) {
-//        super(props);
-//        this.state = {value: ''};
-//
-//        this.handleChange = this.handleChange.bind(this);
-//        this.handleSubmit = this.handleSubmit.bind(this);
-//    }
-//
-//    handleChange(event) {
-//        this.setState({value: event.target.value});
-//    }
-//
-//    handleSubmit(event) {
-//        alert('A name was submitted: ' + this.state.value);
-//        event.preventDefault();
-//    }
-//
-//    render() {
-//        return (
-//            <form onSubmit={this.handleSubmit}>
-//            <label>
-//            Name:
-//            <input type="text" value={this.state.value} onChange={this.handleChange} />
-//            </label>
-//            <input type="submit" value="Submit" />
-//            </form>
-//        );
-//    }
-//}
-
 
 class Register extends Component {
     constructor(props) {
@@ -61,12 +28,14 @@ class Register extends Component {
         if (event.target.name === 'password') this.setState({password: event.target.value});
     }
 
-    //Update State with form values
+    
     onAgree(event) {
-        // event.preventDefault();
 
         console.log('handleSubmit ran')
 
+        // Authentication goes here
+
+        // Update State with form values
         // this.props.dispatch(registerUser({
         //     name: this.state.name,
         //     username: this.state.username,
@@ -77,12 +46,12 @@ class Register extends Component {
             toDashboard: true
         })
     }
-    onCancel(event) {
+    onCancel(event) { //If User cancels Disclaimer, take them back to Signup
         this.setState({
             disclaimer: false
         })
     }
-    disclaimerReroute (event) {
+    disclaimerReroute (event) { //On Form submit, redirect to Medical Disclaimer
         event.preventDefault()
 
         this.setState({
