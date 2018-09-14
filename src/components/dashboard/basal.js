@@ -24,12 +24,14 @@ class Basal extends React.Component {
         event.preventDefault();
         //dispatch action to POST to server
         console.log('BG form submitted');
-        this.props.dispatch(handleDashForm({
-            formType,
-            basalAmount: this.state.basalAmount,
-            basalType: this.state.basalType,
-            currentDate: this.state.currentDate,
-            currentTime: this.state.currentTime
+        // 'insulinType', 'insulinUnits', 'basalDate', 'basalTime', 'loggedInUsername', 'inputDateTime'
+        this.props.dispatch(handleDashForm(formType, {
+            insulinUnits: this.state.basalAmount,
+            insulinType: this.state.basalType,
+            basalDate: this.state.currentDate,
+            basalTime: this.state.currentTime,
+            inputDateTime: this.state.currentDate + 'T' + this.state.currentTime,
+            loggedInUsername: this.props.loggedInUsername
         }, this.props.history));
 
     }
@@ -69,5 +71,11 @@ class Basal extends React.Component {
     }
 }
 
-export default connect()(Basal);
+const mapStateToProps = (state) => {
+    return {
+        loggedInUsername: state.user.email
+    }
+};
+
+export default connect(mapStateToProps)(Basal);
 

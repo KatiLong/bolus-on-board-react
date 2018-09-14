@@ -23,12 +23,12 @@ class A1c extends Component {
     onSubmit (formType, event){
         event.preventDefault();
         console.log('BG form submitted');
-
-        this.props.dispatch(handleDashForm({
-            formType,
-            a1cAmount: this.state.a1cAmount,
-            currentDate: this.state.currentDate,
-            currentTime: this.state.currentTime
+        // 'a1cNumber', 'a1cDate', 'loggedInUsername', 'inputDateTime'
+        this.props.dispatch(handleDashForm(formType, {
+            a1cNumber: this.state.a1cAmount,
+            a1cDate: this.state.currentDate,
+            inputDateTime: this.state.currentDate + 'T' + this.state.currentTime,
+            loggedInUsername: this.props.loggedInUsername
         }, this.props.history));
     }
     render() {
@@ -56,4 +56,10 @@ class A1c extends Component {
     }
 }
 
-export default connect()(A1c);
+const mapStateToProps = (state) => {
+    return {
+        loggedInUsername: state.user.email
+    }
+};
+
+export default connect(mapStateToProps)(A1c);

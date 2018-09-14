@@ -30,17 +30,18 @@ class Bolus extends React.Component {
     onSubmit (formType, event){
         event.preventDefault();
         console.log("Bolus Form submitted");
-
+        // 'bolusCarbs', 'bolusUnits', 'insulinType', 'bolusTime', 'bolusDate', 'bolusAmount', 'loggedInUsername', 'inputDateTime'
         //Add Bolus Entry to Server
-        this.props.dispatch(handleDashForm({
-            formType,
+        this.props.dispatch(handleDashForm(formType, {
             insulinType: this.state.insulinType,
-            insulinAmount: this.state.insulinAmount,
-            carbAmount: this.state.carbAmount,
+            bolusUnits: this.state.insulinAmount,
+            bolusCarbs: this.state.carbAmount,
             bloodSugar: this.state.bloodSugar,
-            suggestedBolus: this.state.suggestedBolus,
-            currentDate: this.state.currentDate,
-            currentTime: this.state.currentTime
+            bolusAmount: this.state.suggestedBolus,
+            bolusDate: this.state.currentDate,
+            bolusTime: this.state.currentTime,
+            inputDateTime: this.state.currentDate + 'T' + this.state.currentTime,
+            loggedInUsername: this.props.loggedInUsername 
         }, this.props.history));
 
         //Update Insulin on Board 
@@ -180,7 +181,8 @@ const mapStateToProps = (state) => {
         carbRatio: state.settings.carbRatio,
         correction: state.settings.correction,
         targetBg: state.settings.targetBg,
-        lowBg: state.settings.lowBg
+        lowBg: state.settings.lowBg,
+        loggedInUsername: state.user.email
     }
 };
 

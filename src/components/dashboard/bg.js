@@ -23,12 +23,13 @@ class BloodGlucose extends React.Component {
         event.preventDefault();
         //dispatch action to POST to server
         console.log('BG form submitted');
-
-        this.props.dispatch(handleDashForm({
-            formType,
-            bgAmount: this.state.bgAmount,
-            currentDate: this.state.currentDate,
-            currentTime: this.state.currentTime 
+        // 'bloodGlucose', 'bgDate', 'bgTime', 'loggedInUsername', 'inputDateTime'
+        this.props.dispatch(handleDashForm(formType, {
+            bloodGlucose: this.state.bgAmount,
+            bgDate: this.state.currentDate,
+            bgTime: this.state.currentTime,
+            inputDateTime: this.state.currentDate + 'T' + this.state.currentTime,
+            loggedInUsername: this.props.loggedInUsername 
         }, this.props.history));
     }
 
@@ -60,4 +61,10 @@ class BloodGlucose extends React.Component {
     }
 }
 
-export default connect()(BloodGlucose);
+const mapStateToProps = (state) => {
+    return {
+        loggedInUsername: state.user.email
+    }
+};
+
+export default connect(mapStateToProps)(BloodGlucose);

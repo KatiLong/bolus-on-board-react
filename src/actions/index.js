@@ -28,19 +28,19 @@ export const deleteIobEntry = (state) => ({
     state
 })
 
-export const handleDashForm = (payload, history) => {
-    console.log(payload);
+export const handleDashForm = (formType, payload, history) => {
+    console.log(formType, payload);
     // this.setState({DateTime: `${this.state.currentDate}T${this.state.currentTime}`});
     return (dispatch) => {
         //Fetch
-        fetch(`http://localhost:8080/${payload.formType}`, {
+        fetch(`http://localhost:8080/${formType}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({payload})
         })
-        .then(res => res.json())
+        .then(res => console.log(res))
         .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }

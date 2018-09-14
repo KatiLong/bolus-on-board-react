@@ -9,6 +9,10 @@ const initialState = {
 const iobReducer = (state = initialState, action) => {
     console.log(action)
     switch(action.type) {
+        case 'handleDashForm' :
+            return {
+                ...state,
+            }
         case 'IOB_ON_LOGIN' :
             return {
                 ...state,
