@@ -203,26 +203,36 @@ margin-left: 2.5%;
     margin: 30px auto 10px;
 }
 
-
-#disclaimer-background {
-    width: 100%;
-    background-color: rgba (0, 0, 0, .2);
-}
-
-#disclaimer-wrapper {
-    margin: 0 auto;
-    width: 80%;
+#medical-disclaimer {
+    margin: 0 auto 30px;
+    width: 90%;
+    padding: 3%;
+    padding-top: 0;
     text-align: left;
-    font-size: 1.3rem;
-    background-color: rgba (255,255,255, .8);
+    max-height: 80vh;
+    overflow-y: scroll;
+    font-size: 1.6rem;
+    color: white;
+    /* line-height: 3rem; */
 }
 
-#disclaimer-buttons {
-    width: 100%;
+#medical-disclaimer h2 {
     text-align: center;
 }
 
+#medical-disclaimer button {
+    display: block;
+    margin: 0 auto;
+}
 
+#disclaimer-wrapper {
+    color: black;
+    width: 100%;
+    background-color:  rgba(255,255,255);
+    border-radius: 8px;
+    padding: 3%;
+    font-size: 1.2rem;
+}
 
 /*/////////////////////////////////////////////////////////////////////*/
 /*///////////Logs Section///////////*/

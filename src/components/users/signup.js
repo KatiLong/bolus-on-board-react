@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions'; //In Disclaimer instead?? Dispatched when user agrees to Disclaimer
+import Disclaimer from './disclaimer.js';
 // import { formChange } from '../../actions';
 
 //class NameForm extends React.Component {
@@ -39,12 +40,17 @@ import { registerUser } from '../../actions'; //In Disclaimer instead?? Dispatch
 class Register extends Component {
     constructor(props) {
         super(props);
-        this.state = {name: '',
-                     username: '',
-                     password: ''};
+        this.state = {
+            name: 'Phynre Fisher',
+            username: 'HispanoSuiza@gmail.com',
+            password: 'detective',
+            disclaimer: false
+        };
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onAgree = this.onAgree.bind(this);
+        this.onCancel = this.onCancel.bind(this);
+        this.disclaimerReroute = this.disclaimerReroute.bind(this);
     }
 
     handleChange(event) {
@@ -55,8 +61,9 @@ class Register extends Component {
     }
 
     //Update State with form values
-    handleSubmit(event) {
-        event.preventDefault();
+    onAgree(event) {
+        // event.preventDefault();
+
         console.log('handleSubmit ran')
         const name = this.state.name;
         const username = this.state.username;
@@ -66,38 +73,48 @@ class Register extends Component {
     //    value="Carmen SD"  value="carmen@gmail.com" value="where2018"
 //    dispatch action to register user --- Should be in Disclaimer?
     }
+    onCancel(event) {
+        this.setState({
+            disclaimer: false
+        })
+    }
+    disclaimerReroute (event) {
+        event.preventDefault()
+
+        this.setState({
+            disclaimer: true
+        })
+    }
+
     render() {
         return (
             <Fragment>
                 <section id="signup-page">
-                    <form action="#root" id="signup-form">
-                        <fieldset>
-                            <legend>Signup Form</legend>
-                            <label htmlFor="signup-name">Name</label>
-                            <input type="text" value={this.state.value} onChange={this.handleChange} id="signup-name" className="name" name="name" placeholder="Carmen SanDiego" required/>
-                            <br/>
-                            <label htmlFor="signup-username">Username</label>
-                            <input value={this.state.value} type="text" id="signup-username" onChange={this.handleChange} className="username" name="username" placeholder="carmenSD@hotmail.com" required/>
-                            <br/>
-                            <label htmlFor="signup-password">Password</label>
-                            <input value={this.state.value} onChange={this.handleChange} type="text" id="signup-password" className="password" name="password" placeholder="WhereNdwurld24" required/>
-                            <br/>
+                    {!this.state.disclaimer && 
+                        <form action="#root" id="signup-form" onSubmit={this.disclaimerReroute}>
+                            <fieldset>
+                                <legend>Signup Form</legend>
+                                <label htmlFor="signup-name">Name</label>
+                                <input type="text" value={this.state.name} onChange={this.handleChange} id="signup-name" className="name" name="name" placeholder="Carmen SanDiego" required/>
+                                <br/>
+                                <label htmlFor="signup-username">Username</label>
+                                <input value={this.state.username} type="text" id="signup-username" onChange={this.handleChange} className="username" name="username" placeholder="carmenSD@hotmail.com" required/>
+                                <br/>
+                                <label htmlFor="signup-password">Password</label>
+                                <input value={this.state.password} onChange={this.handleChange} type="text" id="signup-password" className="password" name="password" placeholder="WhereNdwurld24" required/>
+                                <br/>
 
-                            <Link to='/register/disclaimer'><button type="submit" className="submit-button">Sign Up</button></Link>
-                            <br/>
+                                <button type="submit" className="submit-button">Sign Up</button>
+                                <br/>
 
-                            <Link to='/'><p id="signup-p">Have an account? <span id="change-form-login">Login</span></p></Link>
+                                <Link to='/'><p id="signup-p">Have an account? <span id="change-form-login">Login</span></p></Link>
 
-                        </fieldset>
-                    </form>
-                    <div className="demo-account">
-                        <h6>Demo Account</h6>
-                        <div className="demo-info">
-                            <p>Username: carmen@gmail.com</p>
-                            <br/>
-                            <p>Password: where2018</p>
-                        </div>
-                    </div>
+                            </fieldset>
+                        </form>
+                    }
+                    {this.state.disclaimer && 
+                        <Disclaimer onAgree={this.onAgree} onCancel={this.onCancel}/>
+                    }
                 </section>
             </Fragment>
         )
@@ -105,3 +122,5 @@ class Register extends Component {
 }
 
 export default connect()(Register);
+
+{/* <Link to='/register/disclaimer'></Link> */}

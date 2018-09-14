@@ -26,7 +26,7 @@ class App extends Component {
                 </header>
                 <Route exact path='/' component={Login}/>
                 <Route exact path='/register' component={Register}/>
-                <Route exact path='/register/disclaimer' component={Disclaimer}/>
+                
                 <Route exact path='/dashboard' component={UserDashboard}/>
                 <Route exact path='/dashboard/bolus' component={Bolus}/>
                 <Route exact path='/dashboard/basal' component={Basal}/>
@@ -53,5 +53,8 @@ class App extends Component {
 //LOGS
 // import Logs from './components/logs';
 // <Route exact path='/logs' component={Logs}/>
+
+// DISCLAIMER
+{/* <Route exact path='/register/disclaimer' component={Disclaimer}/> */}
 
 export default App;
