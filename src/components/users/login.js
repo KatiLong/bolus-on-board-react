@@ -30,6 +30,8 @@ class Login extends React.Component {
         this.setState({
             toDashboard: true
         })
+        props.iobOnLogin()
+
     }
     handleChange(event) {
         console.log(event.target.name);
