@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registerUser } from '../../actions'; //In Disclaimer instead?? Dispatched when user agrees to Disclaimer
+import { registerUser } from '../../actions'; 
 import Disclaimer from './disclaimer.js';
 
 class Register extends Component {
@@ -31,16 +31,19 @@ class Register extends Component {
     
     onAgree(event) {
 
-        console.log('handleSubmit ran')
+        console.log('handleSubmit ran');
 
         // Authentication goes here
 
+        //Create User
+        //Create Settings & IOB
         // Update State with form values
-        // this.props.dispatch(registerUser({
-        //     name: this.state.name,
-        //     username: this.state.username,
-        //     password: this.state.password
-        // }))
+        this.props.dispatch(registerUser({
+            name: this.state.name, 
+            username: this.state.username,
+            password: this.state.password}))
+        //Save Id's of Settings and IOB to the state
+        // this.props.dispatch(storeSettings())
  
         this.setState({
             toDashboard: true

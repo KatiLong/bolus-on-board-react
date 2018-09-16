@@ -1,3 +1,19 @@
+/////////////////User///////////////////////
+// For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
+export const registerUser = user => dispatch => {
+    console.log(user);
+    return fetch('http://localhost:8080/users/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'applications/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(json => console.log(json))   
+        .catch(error => console.log(error))
+}
+// .then(response => response.json())
+
 /////////////////Dashboard/////////////////////
 const UPDATE_IOB = 'UPDATE_IOB';
 export const updateIob = (state) => ({
@@ -42,37 +58,6 @@ export const handleDashForm = (formType, payload, history) => {
         })
         .then(res => console.log(res))
         .then(data => history.push('/dashboard'))
-        .catch(error => console.log(error))
-    }
-}
-
-export const handleBolus = (insulinType, history) => {
-    return (dispatch) => {
-        //Fetch
-        fetch('http://localhost:8080/bolus', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({insulinType})
-        })
-        .then(res => res.json())
-        .then(data => history.push('/dashboard'))
-        .catch(error => console.log(error))
-    }
-}
-
-export const registerUser = (name, username, password) => {
-    return (dispatch) => {
-        fetch('http://localhost:8080/users/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'applications/json'
-            },
-            body: JSON.stringify({name, username, password})
-        })
-        .then(response => response.json())
-        .then(json => console.log(json))
         .catch(error => console.log(error))
     }
 }

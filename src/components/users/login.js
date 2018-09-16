@@ -15,8 +15,8 @@ class Login extends React.Component {
         super(props);
 
         this.state = {
-            username: "carmen@gmail.com",
-            password: "where2018",
+            username: 'HispanoSuiza@gmail.com',
+            password: 'detective',
             toDashboard: false
         }
 
