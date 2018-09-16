@@ -39,9 +39,9 @@ This app is for many types of users:
 
 ### UI Flow
 ![UI Flow handwritten draft](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/uiflowv1.jpg)
+![UI Flow 2](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/uiflow2.jpg)
 
 ### Wireframe _main
-![Wireframe _Main](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/wireframe.jpg)
 
 ## Working Prototype
 You can access a working prototype of the app here: Coming Soon
