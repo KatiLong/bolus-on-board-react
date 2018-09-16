@@ -23,7 +23,7 @@ Type 2 Diabetes is a chronic condition in which the body resists insulin, or it 
 ## Screenshots
 | User Dashboard  | Login |
 | ------------- | ------------- |
-| (https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/userdashboard.png) | https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/login.png |
+| ![User Dashboard](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/userdashboard.png) | ![Login](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/login.png)|
 | Content Cell  | Content Cell  |
 
 
