@@ -25,7 +25,11 @@ Type 2 Diabetes is a chronic condition in which the body resists insulin, or it 
 | ------------- | ------------- |
 | ![User Dashboard](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/userdashboard.png) | ![Login](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/login.png)|
 | Signup  | Medical Disclaimer  |
-| ![Signup](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/singup.png) | ![Medical Disclaimer](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/disclaimer.png)|
+| ![Signup](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/signup.png) | ![Medical Disclaimer](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/disclaimer.png)|
+| Bolus  | Basal  |
+| ![Bolus](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/bolus.png) | ![Basal](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/basal.png)|
+| BG  | A1c  |
+| ![BG](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/bg.png) | ![A1c](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/a1c.png)|
 
 ## User Cases
 This app is for many types of users:
