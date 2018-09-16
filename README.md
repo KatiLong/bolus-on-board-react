@@ -24,8 +24,8 @@ Type 2 Diabetes is a chronic condition in which the body resists insulin, or it 
 | User Dashboard  | Login |
 | ------------- | ------------- |
 | ![User Dashboard](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/userdashboard.png) | ![Login](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/login.png)|
-| Content Cell  | Content Cell  |
-
+| Signup  | Medical Disclaimer  |
+| ![Signup](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/singup.png) | ![Medical Disclaimer](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/disclaimer.png)|
 
 ## User Cases
 This app is for many types of users:
