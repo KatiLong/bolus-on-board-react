@@ -19,9 +19,9 @@ class InsulinOnBoard extends Component {
     render(){
         return (
             <section id="iob-display">
-                <h4>Insulin On Board:</h4>
-                <span>Units: <span id="i-o-b">{this.props.iobAmount}</span></span>
-                <span> | </span>
+                <h4>INSULIN ON BOARD</h4>
+                <span id="iob-left-span">Units: <span id="i-o-b">{this.props.iobAmount}</span></span>
+                <span id="iob-line"> | </span>
                 <span>Time Remaining: <span id="iob-time">{this.props.iobTimeLeft}</span></span>
             </section>
         )}

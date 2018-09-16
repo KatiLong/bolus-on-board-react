@@ -30,7 +30,7 @@ class Login extends React.Component {
         this.setState({
             toDashboard: true
         })
-        props.iobOnLogin()
+        this.props.iobOnLogin()
 
     }
     handleChange(event) {

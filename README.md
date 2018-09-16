@@ -18,7 +18,7 @@ Type 1 Diabetes is an autoimmune disease in which the pancreas produces little o
 Possibly, but it's also likely that he has Type 2 Diabetes, which is far more common.
 
 #### What is Type 2 Diabetes?
-Type 2 Diabetes is a chronic condition in which the body resists insulin, or it doesn't produce enough insulin.
+Type 2 Diabetes is a chronic condition in which the body resists insulin, or it doesn't produce enough insulin. About 95% of People with Diabetes (PWD) are Type 2 Diabetics.
 
 ## Screenshots
 Coming Soon

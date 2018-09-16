@@ -29,11 +29,24 @@
 }
 #iob-display h4, span {
     /*    display: block;*/
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
+#iob-line {
+    margin-left: 15px;
+    margin-right: 10px;
+}
+#iob-left-span {    
+    margin-left: 25px;
+}
+
 #user-dashboard button {
     color: #FFFEFF;
 }
+#dashboard-buttons {
+    width: 70%;
+    margin: 0 auto;
+}
+
 .dash-4 {
     background-color: #3E9DC0;
     margin-bottom: 10px;

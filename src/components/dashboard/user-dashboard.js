@@ -18,11 +18,12 @@ function UserDashboard (props) {
 
                 <InsulinOnBoard />
 
-                <Link to='/dashboard/bolus'><button type="button" id="bolus-trigger" className="dash-button dash-4">Bolus</button></Link>
-                <Link to='/dashboard/blood-glucose'><button type="button" id="bg-trigger" className="dash-button dash-4">Blood Sugar</button></Link>
-                <Link to='/dashboard/basal'><button type="button" id="basal-trigger" className="dash-button dash-4">Basal</button></Link>
-                <Link to='/dashboard/a1c'><button type="button" id="a1c-trigger" className="dash-button dash-4">A1c</button></Link>
-
+                <div id="dashboard-buttons">
+                    <Link to='/dashboard/bolus'><button type="button" id="bolus-trigger" className="dash-button dash-4">Bolus</button></Link>
+                    <Link to='/dashboard/blood-glucose'><button type="button" id="bg-trigger" className="dash-button dash-4">Blood Sugar</button></Link>
+                    <Link to='/dashboard/basal'><button type="button" id="basal-trigger" className="dash-button dash-4">Basal</button></Link>
+                    <Link to='/dashboard/a1c'><button type="button" id="a1c-trigger" className="dash-button dash-4">A1c</button></Link>
+                </div>
                 <div className="lower-dash-buttons">
                     <Link to='/settings/'><button type="button" id="settings-trigger" className="dash-button dash-2">Settings</button></Link>
                 </div>
