@@ -21,7 +21,7 @@ Possibly, but it's also likely that he has Type 2 Diabetes, which is far more co
 Type 2 Diabetes is a chronic condition in which the body resists insulin, or it doesn't produce enough insulin. About 95% of People with Diabetes (PWD) are Type 2 Diabetics.
 
 ## Screenshots
-Coming Soon
+![User Dashboard](https://github.com/KatiLong/bolus-on-board-react/blob/master/github-images/userdashboard.png)
 
 ## User Cases
 This app is for many types of users:
