@@ -1,18 +1,6 @@
 /////////////////User///////////////////////
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
-export const registerUser = user => dispatch => {
-    console.log(user);
-    return fetch('http://localhost:8080/users/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'applications/json'
-            },
-            body: JSON.stringify(user)
-        })
-        .then(json => console.log(json))   
-        .catch(error => console.log(error))
-}
-// .then(response => response.json())
+
 
 /////////////////Dashboard/////////////////////
 const UPDATE_IOB = 'UPDATE_IOB';
@@ -61,6 +49,22 @@ export const handleDashForm = (formType, payload, history) => {
         .catch(error => console.log(error))
     }
 }
+
+export const registerUser = user =>  {
+    console.log(user);
+    return dispatch => { 
+        fetch(`http://localhost:8080/user/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'applications/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(json => console.log(json))   
+        .catch(error => console.log(error))
+    }
+}
+// .then(response => response.json())
 
 const FORM_CHANGE = 'FORM_CHANGE';
 export const formChange = (name, username, password) => ({

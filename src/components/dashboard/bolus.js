@@ -33,7 +33,7 @@ class Bolus extends React.Component {
         console.log("Bolus Form submitted");
         // 'bolusCarbs', 'bolusUnits', 'insulinType', 'bolusTime', 'bolusDate', 'bolusAmount', 'loggedInUsername', 'inputDateTime'
         //Add Bolus Entry to Server
-        this.props.dispatch(handleDashForm(formType, {
+        handleDashForm(formType, {
             insulinType: this.state.insulinType,
             bolusUnits: this.state.insulinAmount,
             bolusCarbs: this.state.carbAmount,
@@ -43,7 +43,7 @@ class Bolus extends React.Component {
             bolusTime: this.state.currentTime,
             inputDateTime: this.state.currentDate + 'T' + this.state.currentTime,
             loggedInUsername: this.props.loggedInUsername 
-        }, this.props.history));
+        }, this.props.history);
 
         //Update Insulin on Board 
     }

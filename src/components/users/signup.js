@@ -31,7 +31,7 @@ class Register extends Component {
     
     onAgree(event) {
 
-        console.log('handleSubmit ran');
+        console.log('onAgree ran');
 
         // Authentication goes here
 
@@ -41,7 +41,8 @@ class Register extends Component {
         this.props.dispatch(registerUser({
             name: this.state.name, 
             username: this.state.username,
-            password: this.state.password}))
+            password: this.state.password
+        }))
         //Save Id's of Settings and IOB to the state
         // this.props.dispatch(storeSettings())
  
