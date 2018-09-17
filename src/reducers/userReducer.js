@@ -10,7 +10,7 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
     console.log(action);
     switch(action.type) {
-        case 'LOGIN_USER' :
+        case 'SET_USER' :
             return Object.assign({}, state, {
                     email: action.userDetails.loggedInUsername,
                     name: action.name,

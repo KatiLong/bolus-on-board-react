@@ -49,7 +49,7 @@ export const handleDashForm = (formType, payload, history) => {
     }
 }
 
-export const registerUser = user =>  {
+export const registerUser = (user, history) =>  {
     console.log(user);
     return dispatch => { 
         fetch(`http://localhost:8080/user/create`, {
@@ -61,7 +61,7 @@ export const registerUser = user =>  {
         })
         .then(res => res.json())
         .then(userDetails => {
-            dispatch(loginUser(userDetails, user.name));
+            dispatch(setUser(userDetails, user.name));
             dispatch(userSettings(userDetails));
         })
         .then(((userDetails) => {
@@ -87,9 +87,47 @@ export const registerUser = user =>  {
 }
 // .then(response => response.json())
 
-const LOGIN_USER = 'LOGIN_USER';
-export const loginUser = (userDetails, name) => ({
-    type: LOGIN_USER,
+// alert('Incorrect Username or Password');
+export const loginUser = user =>  {
+    console.log(user);
+    return dispatch => { 
+        fetch(`http://localhost:8080/users/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(userDetails => {
+            console.log(userDetails)
+            // dispatch(setUser(userDetails, user.name));
+            // dispatch(userSettings(userDetails));
+        })
+        .then(((userDetails) => {
+            // Second Fetch call for IOB
+            // console.log(userDetails);
+            // fetch(`http://localhost:8080/iob/create`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     },
+            //     body: JSON.stringify({loggedInUsername: user.username})
+            // })
+            // .then(res => res.json())
+            // .then(iobDetails => console.log(iobDetails))
+            // dispatch(setIobId(iobDetails));
+            // dispatch(userIob(iobDetails));
+        }))   
+        .catch(error => {
+            console.log(error)
+        })
+    }
+}
+
+const SET_USER = 'SET_USER';
+export const setUser = (userDetails, name) => ({
+    type: SET_USER,
     userDetails,
     name
 })

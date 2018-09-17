@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { iobLoginCalculator } from '../dashboard/dashboard-calculators/login-iob-calculator';
-import { iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry } from '../../actions';
+import { iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry, loginUser } from '../../actions';
 
 //import { loginUser } from '../../actions';
 
@@ -27,6 +27,11 @@ class Login extends React.Component {
         event.preventDefault();
         // updateReduxState for User - server call for all info?
         iobLoginCalculator(this.props);
+
+        loginUser({
+            username: this.state.username,
+            password: this.state.password
+        })
         this.setState({
             toDashboard: true
         })
@@ -88,7 +93,8 @@ const mapDispatchToProps = (dispatch) => ({
     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
-    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry))
+    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry)), 
+    loginUser: (user) => dispatch(loginUser(user))
 });
 
 const mapStateToProps = (state) => {

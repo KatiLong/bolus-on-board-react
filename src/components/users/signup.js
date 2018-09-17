@@ -31,24 +31,22 @@ class Register extends Component {
     
     onAgree(event) {
 
-        console.log('onAgree ran');
+        console.log('onAgree ran', this.props.history);
 
         // Authentication goes here
 
         //Create User
         //Create Settings & IOB
         // Update State with form values
-        this.props.dispatch(registerUser({
+        registerUser({
             name: this.state.name, 
             username: this.state.username,
             password: this.state.password
-        }))
+        })
+        // .then(() => this.setState({toDashboard: true}))
         //Save Id's of Settings and IOB to the state
         // this.props.dispatch(storeSettings())
- 
-        this.setState({
-            toDashboard: true
-        })
+        this.setState({toDashboard: true})
     }
     onCancel(event) { //If User cancels Disclaimer, take them back to Signup
         this.setState({
@@ -101,6 +99,10 @@ class Register extends Component {
     }
 }
 
-export default connect()(Register);
+const mapDispatchToProps = (dispatch) => ({
+    registerUser: (user) => dispatch(registerUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(Register);
 
 {/* <Link to='/register/disclaimer'></Link> */}
