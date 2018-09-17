@@ -34,7 +34,6 @@ export const deleteIobEntry = (state) => ({
 
 export const handleDashForm = (formType, payload, history) => {
     console.log(formType, payload);
-    // this.setState({DateTime: `${this.state.currentDate}T${this.state.currentTime}`});
     return (dispatch) => {
         //Fetch
         fetch(`http://localhost:8080/${formType}`, {
@@ -56,7 +55,7 @@ export const registerUser = user =>  {
         fetch(`http://localhost:8080/user/create`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'applications/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(user)
         })

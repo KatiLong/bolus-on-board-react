@@ -3,8 +3,8 @@
 /*iPhone portrait*/
 
 @media only screen and (min-width: 320px) {
-    body {
-/*        color: purple;*/
+    h1 {
+       color: purple;
     }
 
 }
@@ -13,8 +13,8 @@
 
 @media only screen and (min-width: 480px) {
 
-    body {
-/*        color: green;*/
+    h1 {
+       color: green;
     }
     .demo-info  {
         margin-left: 18%;
@@ -60,14 +60,30 @@
     }#basal-trigger {
         /*        margin-left: 0;*/
     }
-
+    #iob-display {
+        padding: 0px;
+        margin: 0px auto 45px;
+    }
+    #iob-display h4, span {
+        font-size: 1.5rem;
+    }
+    #iob-line {
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+    #iob-left-span {    
+        margin-left: 25px;
+    }
+    #dashboard-buttons {
+        width: 70%;
+    }
 }
 
 /*Android Resolution (Lollipop) 640px*/
 
 @media only screen and (min-width: 640px) {
-    body {
-/*        color: darkturquoise;*/
+    h1 {
+       color: darkturquoise;
     }
     .type {
         width: 10%;
@@ -86,15 +102,21 @@
         width: 49%;
         display: inline-block;
     }
+    #iob-line {
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+    #iob-left-span {    
+        margin-left: 25px;
+    }
 
 }
 
 /*ipad potrait*/
 
 @media only screen and (min-width: 768px) {
-    body {
-/*        color: red;*/
-        font-size: 20px;
+    h1 {
+       color: red;
     }
 
 }
@@ -104,8 +126,8 @@
 
 @media only screen and (min-width: 1024px) {
 
-    body {
-/*        color: black;*/
+    h1 {
+       color: black;
     }
     .log-div {
         font-size: 1.2rem;

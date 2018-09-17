@@ -27,23 +27,18 @@
     padding: 10px;
     margin: 10px auto 45px;
 }
+
 #iob-display h4, span {
     /*    display: block;*/
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
-#iob-line {
-    margin-left: 15px;
-    margin-right: 10px;
-}
-#iob-left-span {    
-    margin-left: 25px;
-}
+
 
 #user-dashboard button {
     color: #FFFEFF;
 }
 #dashboard-buttons {
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -51,7 +46,7 @@
     background-color: #3E9DC0;
     margin-bottom: 10px;
     width: 43%;
-    min-width: 135px;
+    max-width: 135px;
     height: 90px;
     margin: 0 auto;
     box-shadow: 0 0 10px rgba(100, 100, 100, 0.2) inset, 1px 1px 1px #CCC;
