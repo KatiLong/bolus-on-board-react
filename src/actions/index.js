@@ -43,7 +43,7 @@ export const handleDashForm = (formType, payload, history) => {
             },
             body: JSON.stringify(payload)
         })
-        .then(res => console.log(res))
+        .then(res => res.json())
         .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }
@@ -59,11 +59,58 @@ export const registerUser = user =>  {
             },
             body: JSON.stringify(user)
         })
-        .then(json => console.log(json))   
-        .catch(error => console.log(error))
+        .then(res => res.json())
+        .then(userDetails => {
+            dispatch(loginUser(userDetails, user.name));
+            dispatch(userSettings(userDetails));
+        })
+        .then(((userDetails) => {
+            // Second Fetch call for IOB
+            console.log(userDetails);
+            fetch(`http://localhost:8080/iob/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({loggedInUsername: user.username})
+            })
+            .then(res => res.json())
+            .then(iobDetails => console.log(iobDetails))
+            // dispatch(setIobId(iobDetails));
+            // dispatch(userIob(iobDetails));
+        }))   
+        .catch(error => {
+            if (error === 'Conflict') alert('User with that username already exists');
+            console.log(error)
+        })
     }
 }
 // .then(response => response.json())
+
+const LOGIN_USER = 'LOGIN_USER';
+export const loginUser = (userDetails, name) => ({
+    type: LOGIN_USER,
+    userDetails,
+    name
+})
+
+const USER_SETTINGS = 'USER_SETTINGS';
+export const userSettings = (userDetails) => ({
+    type: USER_SETTINGS,
+    userDetails
+})
+
+const USER_IOB = 'USER_IOB';
+export const userIob = (userDetails) => ({
+    type: USER_IOB,
+    userDetails
+})
+
+const SET_IOB_ID = 'SET_IOB_ID';
+export const setIobId = (userDetails) => ({
+    type: SET_IOB_ID,
+    userDetails
+})
 
 const FORM_CHANGE = 'FORM_CHANGE';
 export const formChange = (name, username, password) => ({

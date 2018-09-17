@@ -76,19 +76,14 @@ const settingsReducer = (state = initialState, action) => {
 export default settingsReducer;
 
 
-// incrementAmount: 5,
-// incrementShow: false,
-// durationAmount: 4,
-// durationShow: false,
-// carbRatioAmount: 9,
-// carbRatioShow: false,
-// correctionAmount: 32,
-// correctionShow: false,
-// targetBgAmount: 110,
-// targetBgShow: false,
-// settingTypes: [
-//     "carbRatio", 
-//     "correction",
-//     "duration", 
-//     "increment", 
-//     "targetBg"],
+// userDetails:
+// carbRatio: 9
+// correctionFactor: 34
+// insulinDuration: {hours: 4.25, milliSec: 15300000}
+// insulinIncrement: 1
+// insulinMetric: "units"
+// loggedInUsername: "paul@gmail.com"
+// targetBG: 120
+// userID: "5b9f2aa17963d90ce34349e7"
+// __v: 0
+// _id: "5b9f2aa17963d90ce34349e8"
