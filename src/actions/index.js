@@ -86,44 +86,43 @@ export const registerUser = (user, history) =>  {
     }
 }
 // .then(response => response.json())
-
+// $.ajax({
+//     type: 'POST',
+//     url: '/users/login',
+//     dataType: 'json',
+//     data: JSON.stringify(loginUserObject),
+//     contentType: 'application/json'
+// })
 // alert('Incorrect Username or Password');
-export const loginUser = user =>  {
+export const loginUser = (user) =>  {
     console.log(user);
-    return dispatch => { 
-        fetch(`http://localhost:8080/users/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-        .then(res => res.json())
-        .then(userDetails => {
-            console.log(userDetails)
-            // dispatch(setUser(userDetails, user.name));
-            // dispatch(userSettings(userDetails));
-        })
-        .then(((userDetails) => {
-            // Second Fetch call for IOB
-            // console.log(userDetails);
-            // fetch(`http://localhost:8080/iob/create`, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({loggedInUsername: user.username})
-            // })
-            // .then(res => res.json())
-            // .then(iobDetails => console.log(iobDetails))
-            // dispatch(setIobId(iobDetails));
-            // dispatch(userIob(iobDetails));
-        }))   
-        .catch(error => {
-            console.log(error)
-        })
-    }
+    fetch(`http://localhost:8080/user/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error))
 }
+
+// .then(((userDetails) => {
+    // Second Fetch call for IOB
+    // console.log(userDetails);
+    // fetch(`http://localhost:8080/iob/create`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({loggedInUsername: user.username})
+    // })
+    // .then(res => res.json())
+    // .then(iobDetails => console.log(iobDetails))
+    // dispatch(setIobId(iobDetails));
+    // dispatch(userIob(iobDetails));
+// }))   
 
 const SET_USER = 'SET_USER';
 export const setUser = (userDetails, name) => ({

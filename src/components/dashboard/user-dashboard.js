@@ -5,7 +5,6 @@ import InsulinOnBoard from './insulin-on-board';
 import './dashboard.css';
 
 function UserDashboard (props) {
-    console.log(props);
     return (
         <Fragment>
             <section id="user-dashboard">

@@ -21,6 +21,7 @@ class Login extends React.Component {
         }
 
         this.onSubmit = this.onSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     onSubmit(event) {
         // console.log(values);
@@ -40,8 +41,8 @@ class Login extends React.Component {
     }
     handleChange(event) {
         console.log(event.target.name);
-        if (event.target.name === 'username') this.setState({username: event.target.value});
-        if (event.target.name === 'password') this.setState({password: event.target.value});
+        if (event.target.name === 'loginUsername') this.setState({username: event.target.value});
+        if (event.target.name === 'loginPassword') this.setState({password: event.target.value});
     }
     render() {
 
@@ -60,11 +61,13 @@ class Login extends React.Component {
                         <fieldset>
                             <legend>Login Form</legend>
                             <label htmlFor="login-username">Username</label>
-                            <input name="loginUsername" type="text" id="login-username" className="username" placeholder="carmenSD@hotmail.com" value={this.state.username} 
+                            <input name="loginUsername" type="text" id="login-username" className="username"
+                                value={this.state.username} 
                                 onChange={this.handleChange}/>
                             <br/>
                             <label htmlFor="login-password">Password</label>
-                            <input name="loginPassword" type="text" id="login-password" className="password" placeholder="WhereNdwurld24" value={this.state.password}
+                            <input name="loginPassword" type="text" id="login-password" className="password"
+                                value={this.state.password}
                                 onChange={this.handleChange}/>
                             <br/>
                             <button type="submit" className="submit-button" id="login-button">Sign In</button>
