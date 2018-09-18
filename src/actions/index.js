@@ -96,33 +96,40 @@ export const registerUser = (user, history) =>  {
 // alert('Incorrect Username or Password');
 export const loginUser = (user) =>  {
     console.log(user);
-    fetch(`http://localhost:8080/user/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error))
-}
+    return dispatch => {
+        fetch(`http://localhost:8080/user/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(results => {
+            console.log(results);
+            if (results.message === "Not found!") {
+                alert('Incorrect Username or Password');
+            } else {
+                dispatch(setUserLogin(results));
+                // Call for Settings
+                // dispatch(userSettings(userDetails));
+                // Call for IOB info
+                // dispatch IOB
+                // Call InsulinOnBoard Calc
+                // Redirect to Dashboard
+            }
 
-// .then(((userDetails) => {
-    // Second Fetch call for IOB
-    // console.log(userDetails);
-    // fetch(`http://localhost:8080/iob/create`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({loggedInUsername: user.username})
-    // })
-    // .then(res => res.json())
-    // .then(iobDetails => console.log(iobDetails))
-    // dispatch(setIobId(iobDetails));
-    // dispatch(userIob(iobDetails));
-// }))   
+        })
+        .catch(error => console.log(error))
+    }
+} 
+
+const SET_USER_LOGIN = 'SET_USER_LOGIN';
+export const setUserLogin = (userDetails, name) => ({
+    type: SET_USER_LOGIN,
+    userDetails,
+    name
+})
 
 const SET_USER = 'SET_USER';
 export const setUser = (userDetails, name) => ({

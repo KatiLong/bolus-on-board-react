@@ -27,16 +27,16 @@ class Login extends React.Component {
         // console.log(values);
         event.preventDefault();
         // updateReduxState for User - server call for all info?
-        iobLoginCalculator(this.props);
+        // iobLoginCalculator(this.props);
 
         loginUser({
             username: this.state.username,
             password: this.state.password
         })
-        this.setState({
-            toDashboard: true
-        })
-        this.props.iobOnLogin()
+        // this.setState({
+        //     toDashboard: true
+        // })
+        // this.props.iobOnLogin()
 
     }
     handleChange(event) {

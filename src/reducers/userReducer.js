@@ -17,6 +17,12 @@ const userReducer = (state = initialState, action) => {
                     settingsId: action.userDetails.settingsId,
                     userId: action.userDetails.userId
                 })
+        case 'SET_USER_LOGIN' :
+            return Object.assign({}, state, {
+                    email: action.username,
+                    name: action.name,
+                    userId: action._id
+            })
         case 'SET_IOB' :
             return Object.assign({}, state, {
                     userIob: action.userDetails._id
@@ -29,6 +35,7 @@ const userReducer = (state = initialState, action) => {
 
 export default userReducer;
 
+////////////Register/////////////
 // userDetails:
 // carbRatio: 9
 // correctionFactor: 34
@@ -40,3 +47,10 @@ export default userReducer;
 // userID: "5b9f2aa17963d90ce34349e7"
 // __v: 0
 // _id: "5b9f2aa17963d90ce34349e8"
+
+//////////////Login////////////
+// name: "Phynre Fisher"
+// password: "$2a$10$3vrG7iX2P8cYxs5lXYPOC.msSKSqSD5jhFfu6CRkjEAyFzGMLhJq."
+// username: "HispanoSuiza@gmail.com"
+// __v: 0
+// _id: "5b9f3fe46a247f10810fc076"
