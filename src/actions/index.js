@@ -1,6 +1,6 @@
 /////////////////User///////////////////////
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
-
+let API_BASE_URL = `http://localhost:8080/`;
 
 /////////////////Dashboard/////////////////////
 const UPDATE_IOB = 'UPDATE_IOB';
@@ -36,7 +36,7 @@ export const handleDashForm = (formType, payload, history) => {
     console.log(formType, payload);
     return (dispatch) => {
         //Fetch
-        fetch(`http://localhost:8080/${formType}`, {
+        fetch(`${API_BASE_URL}${formType}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -51,8 +51,9 @@ export const handleDashForm = (formType, payload, history) => {
 
 export const registerUser = (user, history) =>  {
     console.log(user);
-    return dispatch => { 
-        fetch(`http://localhost:8080/user/create`, {
+    return (dispatch) => { 
+        console.log('Inside return statement',user);
+        fetch(`${API_BASE_URL}user/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -60,28 +61,29 @@ export const registerUser = (user, history) =>  {
             body: JSON.stringify(user)
         })
         .then(res => res.json())
-        .then(userDetails => {
-            dispatch(setUser(userDetails, user.name));
-            dispatch(userSettings(userDetails));
-        })
-        .then(((userDetails) => {
-            // Second Fetch call for IOB
-            console.log(userDetails);
-            fetch(`http://localhost:8080/iob/create`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({loggedInUsername: user.username})
-            })
-            .then(res => res.json())
-            .then(iobDetails => console.log(iobDetails))
-            // dispatch(setIobId(iobDetails));
-            // dispatch(userIob(iobDetails));
-        }))   
+        .then(json => console.log(json))
+        // .then(userDetails => {
+        //     dispatch(setUser(userDetails, user.name));
+        //     dispatch(userSettings(userDetails));
+        // })
+        // .then(((userDetails) => {
+        //     // Second Fetch call for IOB
+        //     console.log(userDetails);
+        //     // fetch(`${API_BASE_URL}iob/create`, {
+        //     //     method: 'POST',
+        //     //     headers: {
+        //     //         'Content-Type': 'application/json'
+        //     //     },
+        //     //     body: JSON.stringify({loggedInUsername: user.username})
+        //     // })
+        //     // .then(res => res.json())
+        //     // .then(iobDetails => console.log(iobDetails))
+        //     // dispatch(setIobId(iobDetails));
+        //     // dispatch(userIob(iobDetails));
+        // }))   
         .catch(error => {
             if (error === 'Conflict') alert('User with that username already exists');
-            console.log(error)
+            return console.log(error)
         })
     }
 }
@@ -97,7 +99,7 @@ export const registerUser = (user, history) =>  {
 export const loginUser = (user) =>  {
     console.log(user);
     return dispatch => {
-        fetch(`http://localhost:8080/user/login`, {
+        fetch(`${API_BASE_URL}user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

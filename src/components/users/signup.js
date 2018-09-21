@@ -38,11 +38,11 @@ class Register extends Component {
         //Create User
         //Create Settings & IOB
         // Update State with form values
-        registerUser({
+        this.props.dispatch(registerUser({
             name: this.state.name, 
             username: this.state.username,
             password: this.state.password
-        })
+        }))
         // .then(() => this.setState({toDashboard: true}))
         //Save Id's of Settings and IOB to the state
         // this.props.dispatch(storeSettings())
@@ -99,10 +99,10 @@ class Register extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    registerUser: (user) => dispatch(registerUser(user))
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     registerUser: (user) => dispatch(registerUser(user))
+// });
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect()(Register);
 
 {/* <Link to='/register/disclaimer'></Link> */}
