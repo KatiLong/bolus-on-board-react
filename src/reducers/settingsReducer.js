@@ -1,31 +1,31 @@
 const initialState = {
     increment: {
-        amount: 5,
+        amount: 0,
         show: false,
         htmlInput: "increment"
     },
     duration: {
-        amount: 4,
+        amount: 0,
         show: false,
         htmlInput: "duration"
     },
     carbRatio: {
-        amount: 8,
+        amount: 0,
         show: false,
         htmlInput: "carb-ratio"
     },
     correction: {
-        amount: 32,
+        amount: 0,
         show: false,
         htmlInput: "correction"
     },
     targetBg: {
-        amount: 110,
+        amount: 0,
         show: false,
         htmlInput: "target-bg"
     },
     lowBg: {
-        amount: 70,
+        amount: 0,
         show: false,
         htmlInput: "low-bg"
     }
@@ -37,6 +37,34 @@ const settingsReducer = (state = initialState, action) => {
     console.log(action)
     let currentSetting, currentAmount;
     switch(action.type) {
+        case 'USER_SETTINGS' :
+            console.log(action);
+            return Object.assign({}, state, {
+                increment: {
+                    ...state.increment,
+                    amount: action.userDetails.insulinIncrement
+                },
+                duration: {
+                    ...state.duration,
+                    amount: action.userDetails.insulinDuration.hours
+                },
+                carbRatio: {
+                    ...state.carbRatio,
+                    amount: action.userDetails.carbRatio
+                },
+                correction: {
+                    ...state.correction,
+                    amount: action.userDetails.correctionFactor
+                },
+                targetBg: {
+                    ...state.targetBg,
+                    amount: action.userDetails.targetBG
+                },
+                lowBg: {
+                    ...state.lowBg,
+                    amount: action.userDetails.lowBg
+                }
+            })
         case 'SHOW_SETTING' :
             currentSetting =  action.settingType;
             return {

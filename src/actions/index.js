@@ -2,57 +2,8 @@
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
 let API_BASE_URL = `http://localhost:8080/`;
 
-/////////////////Dashboard/////////////////////
-const UPDATE_IOB = 'UPDATE_IOB';
-export const updateIob = (state) => ({
-    type: UPDATE_IOB,
-    state
-})
-
-const IOB_ON_LOGIN = 'IOB_ON_LOGIN';
-export const iobOnLogin = (state) => ({
-    type: IOB_ON_LOGIN,
-    state
-})
-
-const ADD_IOB_ENTRY = 'ADD_IOB_ENTRY';
-export const addIobEntry = (state) => ({
-    type: ADD_IOB_ENTRY,
-    state
-})
-
-const UPDATE_IOB_ENTRY = 'UPDATE_IOB_ENTRY';
-export const updateIobEntry = (state) => ({
-    type: UPDATE_IOB_ENTRY,
-    state
-})
-const DELETE_IOB_ENTRY = 'DELETE_IOB_ENTRY';
-export const deleteIobEntry = (state) => ({
-    type: DELETE_IOB_ENTRY,
-    state
-})
-
-export const handleDashForm = (formType, payload, history) => {
-    console.log(formType, payload);
-    return (dispatch) => {
-        //Fetch
-        fetch(`${API_BASE_URL}${formType}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(res => res.json())
-        .then(data => history.push('/dashboard'))
-        .catch(error => console.log(error))
-    }
-}
-
 export const registerUser = (user, history) =>  {
-    console.log(user);
     return (dispatch) => { 
-        console.log('Inside return statement',user);
         fetch(`${API_BASE_URL}user/create`, {
             method: 'POST',
             headers: {
@@ -61,40 +12,39 @@ export const registerUser = (user, history) =>  {
             body: JSON.stringify(user)
         })
         .then(res => res.json())
-        .then(json => console.log(json))
-        // .then(userDetails => {
-        //     dispatch(setUser(userDetails, user.name));
-        //     dispatch(userSettings(userDetails));
-        // })
-        // .then(((userDetails) => {
-        //     // Second Fetch call for IOB
-        //     console.log(userDetails);
-        //     // fetch(`${API_BASE_URL}iob/create`, {
-        //     //     method: 'POST',
-        //     //     headers: {
-        //     //         'Content-Type': 'application/json'
-        //     //     },
-        //     //     body: JSON.stringify({loggedInUsername: user.username})
-        //     // })
-        //     // .then(res => res.json())
-        //     // .then(iobDetails => console.log(iobDetails))
-        //     // dispatch(setIobId(iobDetails));
-        //     // dispatch(userIob(iobDetails));
-        // }))   
+        .then(userDetails => {
+            console.log('User Details in action registerUser:', userDetails);
+            // Set User info and Id's to Redux State
+            dispatch(setUser(userDetails, user.name));
+            // Set User Settings to Redux State
+            dispatch(userSettings(userDetails));
+            // Second Fetch call for IOB
+            fetch(`${API_BASE_URL}iob/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({loggedInUsername: user.username})
+            })
+            .then(res => res.json())
+            .then(iobDetails => {
+                // Set User IOB ID to User Redux State
+                dispatch(setIobId(iobDetails));
+                // Set User IOB Settings in IOB Redux State (none because new user)
+                // dispatch(userIobRegister(iobDetails));
+            })
+            .catch(error => console.log("Error in IOB fetch:", error))
+            return userDetails;
+        }) 
+        // Reroute User to User Dashboard when complete
+        .then(userDetails => history.push('/dashboard'))
         .catch(error => {
             if (error === 'Conflict') alert('User with that username already exists');
             return console.log(error)
         })
     }
 }
-// .then(response => response.json())
-// $.ajax({
-//     type: 'POST',
-//     url: '/users/login',
-//     dataType: 'json',
-//     data: JSON.stringify(loginUserObject),
-//     contentType: 'application/json'
-// })
+
 // alert('Incorrect Username or Password');
 export const loginUser = (user) =>  {
     console.log(user);
@@ -146,17 +96,58 @@ export const userSettings = (userDetails) => ({
     userDetails
 })
 
-const USER_IOB = 'USER_IOB';
-export const userIob = (userDetails) => ({
-    type: USER_IOB,
-    userDetails
-})
-
 const SET_IOB_ID = 'SET_IOB_ID';
 export const setIobId = (userDetails) => ({
     type: SET_IOB_ID,
     userDetails
 })
+
+/////////////////Dashboard/////////////////////
+const UPDATE_IOB = 'UPDATE_IOB';
+export const updateIob = (state) => ({
+    type: UPDATE_IOB,
+    state
+})
+
+const IOB_ON_LOGIN = 'IOB_ON_LOGIN';
+export const iobOnLogin = (state) => ({
+    type: IOB_ON_LOGIN,
+    state
+})
+
+const ADD_IOB_ENTRY = 'ADD_IOB_ENTRY';
+export const addIobEntry = (state) => ({
+    type: ADD_IOB_ENTRY,
+    state
+})
+
+const UPDATE_IOB_ENTRY = 'UPDATE_IOB_ENTRY';
+export const updateIobEntry = (state) => ({
+    type: UPDATE_IOB_ENTRY,
+    state
+})
+const DELETE_IOB_ENTRY = 'DELETE_IOB_ENTRY';
+export const deleteIobEntry = (state) => ({
+    type: DELETE_IOB_ENTRY,
+    state
+})
+
+export const handleDashForm = (formType, payload, history) => {
+    console.log(formType, payload);
+    return (dispatch) => {
+        //Fetch
+        fetch(`${API_BASE_URL}${formType}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => history.push('/dashboard'))
+        .catch(error => console.log(error))
+    }
+}
 
 const FORM_CHANGE = 'FORM_CHANGE';
 export const formChange = (name, username, password) => ({
@@ -223,3 +214,12 @@ export const updateSetting = (settingType) => console.log('update');
 //    }, 3000)
 //})
 //    .catch(error => console.log(error))
+
+// .then(response => response.json())
+// $.ajax({
+//     type: 'POST',
+//     url: '/users/login',
+//     dataType: 'json',
+//     data: JSON.stringify(loginUserObject),
+//     contentType: 'application/json'
+// })

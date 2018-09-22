@@ -1,6 +1,6 @@
 const initialState = {
-    email: 'carmen@gmail.com',
-    name: 'Carmen SanDiego',
+    email: '',
+    name: '',
     userId: '',
     settingsId: '',
     iobId: ''
@@ -8,25 +8,28 @@ const initialState = {
 
 //create the reducer
 const userReducer = (state = initialState, action) => {
-    console.log(action);
+    
     switch(action.type) {
         case 'SET_USER' :
+            console.log(action);
             return Object.assign({}, state, {
-                    email: action.userDetails.loggedInUsername,
-                    name: action.name,
-                    settingsId: action.userDetails.settingsId,
-                    userId: action.userDetails.userId
-                })
-        case 'SET_USER_LOGIN' :
-            return Object.assign({}, state, {
-                    email: action.username,
-                    name: action.name,
-                    userId: action._id
+                email: action.userDetails.loggedInUsername,
+                name: action.name,
+                settingsId: action.userDetails._id,
+                userId: action.userDetails.userID
             })
-        case 'SET_IOB' :
+        case 'SET_USER_LOGIN' :
+            console.log(action);
             return Object.assign({}, state, {
-                    userIob: action.userDetails._id
-                })
+                email: action.username,
+                name: action.name,
+                userId: action._id
+            })
+        case 'SET_IOB_ID' :
+            console.log(action);
+            return Object.assign({}, state, {
+                iobId: action.userDetails._id
+            })
         default :
             return state
 

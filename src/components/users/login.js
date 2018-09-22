@@ -29,10 +29,10 @@ class Login extends React.Component {
         // updateReduxState for User - server call for all info?
         // iobLoginCalculator(this.props);
 
-        loginUser({
+        this.props.dispatch(loginUser({
             username: this.state.username,
             password: this.state.password
-        })
+        }, this.props.history));
         // this.setState({
         //     toDashboard: true
         // })
@@ -91,14 +91,13 @@ class Login extends React.Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    updateIob: (iob) => dispatch(updateIob(iob)),
-    iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
-    addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
-    updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
-    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry)), 
-    loginUser: (user) => dispatch(loginUser(user))
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     updateIob: (iob) => dispatch(updateIob(iob)),
+//     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
+//     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
+//     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
+//     deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry)),
+// });
 
 const mapStateToProps = (state) => {
     return {
@@ -109,7 +108,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(Login);
 //
 //class Register extends React.Component {
 //    state = {
