@@ -50,6 +50,11 @@ export const registerUser = (user, history) =>  {
 }
 // Asynchronous Login User
 export const loginUser = (user, history, props) =>  {
+    let reduxStateToUpdate = {
+        user: {},
+        iob: {},
+        settings: {}
+    }
     return dispatch => {
         fetch(`${API_BASE_URL}user/login`, {
             method: 'POST',
@@ -63,7 +68,11 @@ export const loginUser = (user, history, props) =>  {
             if (results.message === "Not found!" || results.message === "Password Invalid") {
                 alert('Incorrect Username or Password');
             } else {
-                dispatch(setUserLogin(results));
+                // Set User Information in Redux State
+                reduxStateToUpdate.user.email = results.username
+                reduxStateToUpdate.user.name = results.name
+                reduxStateToUpdate.user.userId = results._id
+
                 // Call for Settings
                 fetch(`${API_BASE_URL}settings/${results.username}`, {
                     method: 'GET',
@@ -73,10 +82,17 @@ export const loginUser = (user, history, props) =>  {
                 })
                 .then(res => res.json())
                 .then(res => {
-                    // Set user settings ID
-                    dispatch(setSettingsId(res[0]))
-                    // Set User Settings from Server
-                    dispatch(userSettings(res[0]));
+                    // Set user settings ID in Redux State
+                    reduxStateToUpdate.user.settingsId = res[0]._id;
+
+                    // Set User Settings from Server in Redux State
+                    reduxStateToUpdate.settings.carbRatio = res[0].carbRatio;
+                    reduxStateToUpdate.settings.correction = res[0].correction;
+                    reduxStateToUpdate.settings.duration = res[0].duration;
+                    reduxStateToUpdate.settings.incrementInsulin = res[0].incrementInsulin;
+                    reduxStateToUpdate.settings.lowBg = res[0].lowBg;
+                    reduxStateToUpdate.settings.targetBg = res[0].targetBg;
+
                 })
                 .catch(error => console.log(error))
                 
@@ -89,10 +105,18 @@ export const loginUser = (user, history, props) =>  {
                 })
                 .then(res => res.json())
                 .then(res => {
-                    // dispatch IOB
-                    dispatch(setIobId(res[0]));
-                    // Call InsulinOnBoard Calc
-                    iobLoginCalculator(props);
+
+                    // Set IOB info and ID in Redux State
+                    reduxStateToUpdate.user.iobId = res[0]._id
+                    reduxStateToUpdate.iob.iobStack = [...res[0].currentInsulinStack];
+                    reduxStateToUpdate.iob.iobAmount = res[0].insulinOnBoard.amount;
+                    reduxStateToUpdate.iob.iobTimeLeft = res[0].insulinOnBoard.timeLeft;
+                    // Call InsulinOnBoard Calc ? 
+                    // iobLoginCalculator(props);
+                    console.log(reduxStateToUpdate);
+
+                    // Combined Reducer for all Login Actions (udpates all three Reducers in one)
+                    dispatch(onUserLogin(reduxStateToUpdate))
                 })
                 // Redirect to Dashboard
                 .then(() => history.push('/dashboard'))
@@ -102,6 +126,17 @@ export const loginUser = (user, history, props) =>  {
         .catch(error => console.log(error))
     }
 } 
+
+const ON_USER_LOGIN = 'ON_USER_LOGIN';
+export const onUserLogin = (userDetails) => ({
+    type: ON_USER_LOGIN,
+    userDetails
+})
+
+// dispatch(setUserLogin(results));
+// dispatch(setSettingsId(res[0]))
+// dispatch(userSettings(res[0]));
+// dispatch(setIobId(res[0]));
 
 // IOB GET return object
 // [{…}]
@@ -149,9 +184,10 @@ export const setSettingsId = (userDetails) => ({
 })
 /////////////////IOB/////////////////////
 const UPDATE_IOB = 'UPDATE_IOB';
-export const updateIob = (state) => ({
+export const updateIob = (iobAmount, iobTimeLeft) => ({
     type: UPDATE_IOB,
-    state
+    iobAmount, 
+    iobTimeLeft
 })
 
 const IOB_ON_LOGIN = 'IOB_ON_LOGIN';

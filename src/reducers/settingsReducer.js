@@ -45,7 +45,7 @@ const settingsReducer = (state = initialState, action) => {
                 },
                 duration: {
                     ...state.duration,
-                    amount: action.userDetails.duration.hours
+                    amount: action.userDetails.duration
                 },
                 carbRatio: {
                     ...state.carbRatio,
@@ -64,8 +64,36 @@ const settingsReducer = (state = initialState, action) => {
                     amount: action.userDetails.lowBg
                 }
             })
+        case 'ON_USER_LOGIN' :
+            console.log(action);
+            return Object.assign({}, state, {
+                incrementInsulin: {
+                    ...state.incrementInsulin,
+                    amount: action.userDetails.settings.incrementInsulin
+                },
+                duration: {
+                    ...state.duration,
+                    amount: action.userDetails.settings.duration
+                },
+                carbRatio: {
+                    ...state.carbRatio,
+                    amount: action.userDetails.settings.carbRatio
+                },
+                correction: {
+                    ...state.correction,
+                    amount: action.userDetails.settings.correction
+                },
+                targetBg: {
+                    ...state.targetBg,
+                    amount: action.userDetails.settings.targetBg
+                },
+                lowBg: {
+                    ...state.lowBg,
+                    amount: action.userDetails.settings.lowBg
+                }
+        })
         case 'SHOW_SETTING' :
-        console.log(action)
+            console.log(action)
             currentSetting =  action.settingType;
             return {
                 ...state,

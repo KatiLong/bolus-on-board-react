@@ -8,6 +8,12 @@ const initialState = {
 
 const iobReducer = (state = initialState, action) => {
     switch(action.type) {
+        case 'ON_USER_LOGIN' :
+            console.log(action);
+            return Object.assign({}, state, {
+                ...action.userDetails.iob,
+                iobStack: [...action.userDetails.iob.iobStack]
+            })
         case 'handleDashForm' :
         console.log(action)
             return {
@@ -21,12 +27,14 @@ const iobReducer = (state = initialState, action) => {
         case 'UPDATE_IOB_ENTRY' :
         console.log(action)
             return {
-                ...state,
+                ...state
             }
         case 'UPDATE_IOB' :
         console.log(action)
             return {
                 ...state,
+                iobAmount: action.iobAmount,
+                iobTimeLeft: action.iobTimeLeft
             }
         default :
             return state

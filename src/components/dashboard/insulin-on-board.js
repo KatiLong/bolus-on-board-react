@@ -1,46 +1,15 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry } from '../../actions';
-// import { iobCalculator } from './dashboard-calculators/iob-calculator';
-// import { newBolusEntry } from './dashboard-calculators/new-bolus-iob-calculator';
-
 import './dashboard.css';
 
-class InsulinOnBoard extends Component {
-
-    componentDidMount() {
-        // iobLoginCalculator(this.props)
-        // iobCalculator(this.props)
-        // newBolusEntry(this.props)         
-    }
-
-
-    render(){
-        return (
-            <section id="iob-display">
-                <h4>INSULIN ON BOARD</h4>
-                <span id="iob-left-span">Units: <span id="i-o-b">{this.props.iobAmount}</span></span>
-                <span id="iob-line"> | </span>
-                <span>Time Remaining: <span id="iob-time">{this.props.iobTimeLeft}</span></span>
-            </section>
-        )}
+function InsulinOnBoard  (props) {
+    return (
+        <section id="iob-display">
+            <h4>INSULIN ON BOARD</h4>
+            <span id="iob-left-span">Units: <span id="i-o-b">{props.iobAmount}</span></span>
+            <span id="iob-line"> | </span>
+            <span>Time Remaining: <span id="iob-time">{props.iobTimeLeft}</span></span>
+        </section>
+    )
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    updateIob: (iob) => dispatch(updateIob(iob)),
-    iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
-    addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
-    updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
-    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry))
-});
-
-const mapStateToProps = (state) => {
-    return {
-        iobAmount: state.iob.iobAmount,
-        iobTimeLeft: state.iob.iobTimeLeft,
-        iobStack: state.iob.iobStack,
-        duration: state.settings.duration.amount
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(InsulinOnBoard);
+export default InsulinOnBoard;

@@ -1,3 +1,5 @@
+// All parts of this Function can become actions
+
 export const newBolusEntry = (props) => {
     console.log(props);
     //event.target.input_name

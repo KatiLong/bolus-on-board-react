@@ -17,19 +17,10 @@ const userReducer = (state = initialState, action) => {
                 settingsId: action.userDetails._id,
                 userId: action.userDetails.userID
             })
-        case 'SET_USER_LOGIN' :
+        case 'ON_USER_LOGIN' :
+            console.log(action);
             return Object.assign({}, state, {
-                email: action.userDetails.username,
-                name: action.userDetails.name,
-                userId: action.userDetails._id
-            })
-        case 'SET_IOB_ID' :
-            return Object.assign({}, state, {
-                iobId: action.userDetails._id
-            })
-        case 'SET_SETTINGS_ID' :
-            return Object.assign({}, state, {
-                settingsId: action.userDetails._id
+                ...action.userDetails.user
             })
         default :
             return state
@@ -58,3 +49,12 @@ export default userReducer;
 // username: "HispanoSuiza@gmail.com"
 // __v: 0
 // _id: "5b9f3fe46a247f10810fc076"
+
+// case 'SET_IOB_ID' :
+// return Object.assign({}, state, {
+//     iobId: action.userDetails._id
+// })
+// case 'SET_SETTINGS_ID' :
+// return Object.assign({}, state, {
+//     settingsId: action.userDetails._id
+// })

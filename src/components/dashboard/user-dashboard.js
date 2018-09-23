@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import InsulinOnBoard from './insulin-on-board';
+import IobCalculator from './iob-calculator';
 
 import './dashboard.css';
 
@@ -15,7 +15,7 @@ function UserDashboard (props) {
                 <input id="current-username-id" type="hidden"/>
                 <input id="current-user-iob" type="hidden"/>
 
-                <InsulinOnBoard />
+                <IobCalculator />
 
                 <div id="dashboard-buttons">
                     <Link to='/dashboard/bolus'><button type="button" id="bolus-trigger" className="dash-button dash-4">Bolus</button></Link>

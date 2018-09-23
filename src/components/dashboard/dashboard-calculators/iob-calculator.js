@@ -1,20 +1,27 @@
 import React from 'react';
 
+// Need to update State (and IOB component) & then update server
+
 //Just updating insulinStack and Total IOB amounts (insulin & time)
 export const iobCalculator = (props) => { //should update iob via formula & PUT call
     console.log(props);
-    //CURRENT issues:
-    //Either need to make function for ONE array element at a Time OR
-    //Find a way to clear all but one Set-timeout at a time
 
+    const loginTime = (new Date()).getTime();
     let currentInsulinStack = [...props.insulinStack];
-    let updatedInsulinStack, bolusRate, stackLength;
-    let duration = props.duration;
+    let updatedInsulinStack, deleteStackEntry, bolusRate, stackLength;
+    let duration = (props.duration)*3600000;
     // let iobId =  $('#current-user-iob').val();
     // let settingId = $('#current-user-settings').val();
-
     let totalIOBAmount = props.iobAmount;
     let totalIOBTime = props.iobTime;
+
+
+    // let bolusRate; <---Does this work? 15 min, 1st half, 2nd half
+  
+    // let totalIOBAmount = props.iobAmount;
+    // let totalIOBTime = props.iobTimeLeft;
+    // // let iobId =  $('#current-user-iob').val();
+    // // let username = $('#current-username').val();
 
 //     //Update Entries if there are any
 //     if (currentInsulinStack.length > 0) {
@@ -101,3 +108,4 @@ export const iobCalculator = (props) => { //should update iob via formula & PUT 
 //         })
 //     }, 5000);//300000
 }
+
