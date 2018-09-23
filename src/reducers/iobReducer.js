@@ -36,6 +36,12 @@ const iobReducer = (state = initialState, action) => {
                 iobAmount: action.iobAmount,
                 iobTimeLeft: action.iobTimeLeft
             }
+        case 'ADD_IOB_ENTRY' :
+            console.log(action)
+                return {
+                    ...state,
+                    iobStack: [...state.iobStack]
+                }
         default :
             return state
     }

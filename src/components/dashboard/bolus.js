@@ -33,7 +33,7 @@ class Bolus extends React.Component {
         console.log("Bolus Form submitted");
         // 'bolusCarbs', 'bolusUnits', 'insulinType', 'bolusTime', 'bolusDate', 'bolusAmount', 'loggedInUsername', 'inputDateTime'
         //Add Bolus Entry to Server
-        handleDashForm(formType, {
+        this.props.handleDashForm(formType, {
             insulinType: this.state.insulinType,
             bolusUnits: this.state.insulinAmount,
             bolusCarbs: this.state.carbAmount,
@@ -45,7 +45,21 @@ class Bolus extends React.Component {
             loggedInUsername: this.props.loggedInUsername 
         }, this.props.history);
 
+        // New action - add bolus Entry to Stack
+        this.props.addIobEntry({
+            entryAmount: this.state.suggestedBolus,
+            currentInsulin: this.state.suggestedBolus,
+            timeStart: (new Date()).getTime(),
+            timeRemaining: this.props.duration
+        })
+
+
         //Update Insulin on Board 
+        // this.props.updateIob({
+    //         iobAmount: this.props.iobAmount + this.state.suggestedBolus,
+    //         iobTimeLeft: this.props.duration 
+        // })
+
     }
 
     carbInsulinChange (e){
@@ -72,45 +86,49 @@ class Bolus extends React.Component {
     calculateSuggestedBolus() {
         console.log("Calculate Suggested Bolus ran", this.state.insulinAmount, typeof(this.state.insulinAmount));
         let sum;
-        if (this.state.insulinAmount === "" || this.state.carbAmount === "") {
-            console.log("Insulin or Carbs empty");
-        } else if (this.state.bloodSugar === ""){
-            console.log("BG empty");
-            sum = 0 + parseFloat(this.state.insulinAmount);
-            //Suggested Bolus should never go below zero
-            if (sum < 0) sum = 0;
-            //Round to Two Decimal Places
-            sum = Math.round(sum * 100) / 100
-            //Update Suggested Bolus
-            this.setState({
-                suggestedBolus: sum
-            })
-        } else { //Calculating Blood Sugar with Total
-            sum = 0 + parseFloat(this.state.insulinAmount);
-            
-            //if inputted Blood Sugar is less than target
-            if (this.state.bloodSugar <= this.props.targetBg.amount) {
-                console.log("BG below");
-                // Do/add nothing unless Blood Sugar is low
-                if (this.state.bloodSugar <= this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
-                    console.log("BG Low");
-                    sum -= ((this.props.lowBg.amout - this.state.bloodSugar)/this.props.correction.amount)
+        if (this.props.correction.amount === 0) {
+            alert('Correction amount is set at Zero. To enable the Bolus Calculator, update your Correction Amount in settings.')
+        } else {
+            if (this.state.insulinAmount === "" || this.state.carbAmount === "") {
+                console.log("Insulin or Carbs empty");
+            } else if (this.state.bloodSugar === ""){
+                console.log("BG empty");
+                sum = 0 + parseFloat(this.state.insulinAmount);
+                //Suggested Bolus should never go below zero
+                if (sum < 0) sum = 0;
+                //Round to Two Decimal Places
+                sum = Math.round(sum * 100) / 100
+                //Update Suggested Bolus
+                this.setState({
+                    suggestedBolus: sum
+                })
+            } else { //Calculating Blood Sugar with Total
+                sum = 0 + parseFloat(this.state.insulinAmount);
+                
+                //if inputted Blood Sugar is less than target
+                if (this.state.bloodSugar <= this.props.targetBg.amount) {
+                    console.log("BG below");
+                    // Do/add nothing unless Blood Sugar is low
+                    if (this.state.bloodSugar <= this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
+                        console.log("BG Low");
+                        sum -= ((this.props.lowBg.amout - this.state.bloodSugar)/this.props.correction.amount)
+                        console.log(typeof(sum), sum);
+                    }
+                } else { //Add insulin for the amount the User's BG is High
+                    console.log("Calculator Else", sum, (this.state.bloodSugar - this.props.targetBg.amount), this.props.correction.amount)
+                    sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount);
                     console.log(typeof(sum), sum);
+                    // console.log(sum)
                 }
-            } else { //Add insulin for the amount the User's BG is High
-                console.log("Calculator Else", sum, (this.state.bloodSugar - this.props.targetBg.amount), this.props.correction.amount)
-                sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount);
-                console.log(typeof(sum), sum);
-                // console.log(sum)
+                //Suggested Bolus should never go below zero
+                if (sum < 0) sum = 0;
+                //Round to Two Decimal Places
+                sum = Math.round(sum * 100) / 100
+                //Update Suggested Bolus
+                this.setState({
+                    suggestedBolus: sum
+                })
             }
-            //Suggested Bolus should never go below zero
-            if (sum < 0) sum = 0;
-            //Round to Two Decimal Places
-            sum = Math.round(sum * 100) / 100
-            //Update Suggested Bolus
-            this.setState({
-                suggestedBolus: sum
-            })
         }
     }
 
@@ -180,7 +198,8 @@ const mapDispatchToProps = (dispatch) => ({
     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
-    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry))
+    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry)), 
+    handleDashForm: (formType, payload, history) => dispatch(handleDashForm(formType, payload, history))
 });
 
 const mapStateToProps = (state) => {

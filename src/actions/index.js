@@ -165,9 +165,9 @@ export const iobOnLogin = (state) => ({
 })
 
 const ADD_IOB_ENTRY = 'ADD_IOB_ENTRY';
-export const addIobEntry = (state) => ({
+export const addIobEntry = (bolusEntry) => ({
     type: ADD_IOB_ENTRY,
-    state
+    bolusEntry
 })
 
 const UPDATE_IOB_ENTRY = 'UPDATE_IOB_ENTRY';

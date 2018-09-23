@@ -17,6 +17,7 @@ export const newBolusEntry = (props) => {
     // }
     // console.log(insulinStackObject);
 
+
     // //Dispatch an Action with Fetch
     // $.ajax({
     //     type: 'POST',
@@ -38,6 +39,7 @@ export const newBolusEntry = (props) => {
     //         timeLeft: totalIOBTime
     //     }
     // })
+    
     // //Updates HTML with new totals
     // $('#i-o-b').text(`${totalIOBAmount}`);
     // $('#iob-time').text(`${totalIOBTime/3600000}`); //Convert to Hours
