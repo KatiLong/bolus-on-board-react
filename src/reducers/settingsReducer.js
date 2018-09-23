@@ -34,7 +34,6 @@ const initialState = {
 //create the reducer
 
 const settingsReducer = (state = initialState, action) => {
-    console.log(action)
     let currentSetting, currentAmount;
     switch(action.type) {
         case 'USER_SETTINGS' :
@@ -66,6 +65,7 @@ const settingsReducer = (state = initialState, action) => {
                 }
             })
         case 'SHOW_SETTING' :
+        console.log(action)
             currentSetting =  action.settingType;
             return {
                 ...state,
@@ -75,6 +75,7 @@ const settingsReducer = (state = initialState, action) => {
                 }
             }
         case 'SETTING_ON_CHANGE' :
+        console.log(action)
             currentSetting =  action.settingType;
             currentAmount = action.amount;
             console.log(currentAmount);
@@ -86,6 +87,7 @@ const settingsReducer = (state = initialState, action) => {
                 }
             }
         case 'HIDE_SETTING' :
+        console.log(action)
             currentSetting =  action.settingType;
             console.log(state[currentSetting])
             return {

@@ -10,9 +10,9 @@ import './dashboard.css';
 class InsulinOnBoard extends Component {
 
     componentDidMount() {
-        iobLoginCalculator(this.props)
-        iobCalculator(this.props)
-        newBolusEntry(this.props)         
+        // iobLoginCalculator(this.props)
+        // iobCalculator(this.props)
+        // newBolusEntry(this.props)         
     }
 
 

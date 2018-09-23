@@ -19,16 +19,20 @@ const userReducer = (state = initialState, action) => {
                 userId: action.userDetails.userID
             })
         case 'SET_USER_LOGIN' :
-            console.log(action);
             return Object.assign({}, state, {
-                email: action.username,
-                name: action.name,
-                userId: action._id
+                email: action.userDetails.username,
+                name: action.userDetails.name,
+                userId: action.userDetails._id
             })
         case 'SET_IOB_ID' :
             console.log(action);
             return Object.assign({}, state, {
                 iobId: action.userDetails._id
+            })
+        case 'SET_SETTINGS_ID' :
+            console.log(action);
+            return Object.assign({}, state, {
+                settingsId: action.userDetails._id
             })
         default :
             return state

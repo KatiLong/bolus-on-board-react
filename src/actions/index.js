@@ -13,18 +13,19 @@ export const registerUser = (user, history) =>  {
         })
         .then(res => res.json())
         .then(userDetails => {
-            console.log('User Details in action registerUser:', userDetails);
             // Set User info and Id's to Redux State
             dispatch(setUser(userDetails, user.name));
             // Set User Settings to Redux State
             dispatch(userSettings(userDetails));
             // Second Fetch call for IOB
+            console.log('loggedIn Username for IOB:', user)
+
             fetch(`${API_BASE_URL}iob/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({loggedInUsername: user.username})
+                body: JSON.stringify({username: user.username})
             })
             .then(res => res.json())
             .then(iobDetails => {
@@ -33,11 +34,10 @@ export const registerUser = (user, history) =>  {
                 // Set User IOB Settings in IOB Redux State (none because new user)
                 // dispatch(userIobRegister(iobDetails));
             })
+            // Reroute User to User Dashboard when complete
+            .then(() => history.push('/dashboard'))
             .catch(error => console.log("Error in IOB fetch:", error))
-            return userDetails;
         }) 
-        // Reroute User to User Dashboard when complete
-        .then(userDetails => history.push('/dashboard'))
         .catch(error => {
             if (error === 'Conflict') alert('User with that username already exists');
             return console.log(error)
@@ -45,9 +45,7 @@ export const registerUser = (user, history) =>  {
     }
 }
 
-// alert('Incorrect Username or Password');
-export const loginUser = (user) =>  {
-    console.log(user);
+export const loginUser = (user, history) =>  {
     return dispatch => {
         fetch(`${API_BASE_URL}user/login`, {
             method: 'POST',
@@ -59,28 +57,54 @@ export const loginUser = (user) =>  {
         .then(res => res.json())
         .then(results => {
             console.log(results);
-            if (results.message === "Not found!") {
+            if (results.message === "Not found!" || results.message === "Password Invalid") {
                 alert('Incorrect Username or Password');
             } else {
                 dispatch(setUserLogin(results));
                 // Call for Settings
-                // dispatch(userSettings(userDetails));
+                fetch(`${API_BASE_URL}settings/${results.username}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    // Set user settings ID
+                    dispatch(setSettingsId(res[0]))
+                    // Set User Settings from Server
+                    dispatch(userSettings(res[0]));
+                })
+                .catch(error => console.log(error))
+                
                 // Call for IOB info
-                // dispatch IOB
-                // Call InsulinOnBoard Calc
+                fetch(`${API_BASE_URL}iob-stack/${results.username}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    // dispatch IOB
+                    dispatch(setIobId(res[0]));
+                    // Call InsulinOnBoard Calc
+                })
                 // Redirect to Dashboard
+                .then(() => history.push('/dashboard'))
+                .catch(error => console.log(error))
             }
-
         })
         .catch(error => console.log(error))
     }
 } 
 
 const SET_USER_LOGIN = 'SET_USER_LOGIN';
-export const setUserLogin = (userDetails, name) => ({
+export const setUserLogin = (userDetails) => ({
     type: SET_USER_LOGIN,
-    userDetails,
-    name
+    userDetails
 })
 
 const SET_USER = 'SET_USER';
@@ -99,6 +123,12 @@ export const userSettings = (userDetails) => ({
 const SET_IOB_ID = 'SET_IOB_ID';
 export const setIobId = (userDetails) => ({
     type: SET_IOB_ID,
+    userDetails
+})
+
+const SET_SETTINGS_ID = 'SET_SETTINGS_ID';
+export const setSettingsId = (userDetails) => ({
+    type: SET_SETTINGS_ID,
     userDetails
 })
 
