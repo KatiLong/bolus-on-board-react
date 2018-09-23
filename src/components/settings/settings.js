@@ -12,14 +12,16 @@ import './settings.css';
 
 class Settings extends React.Component {
 
+    //Need to propagate
+
     handleSubmit(settingType, event) {
         event.preventDefault();
-
-        console.log(settingType, 'Form Submitted');
-        //dispatch
-        // updateSetting(settingType); 
-        //Add success conditional
-        this.props.hideSetting(settingType); 
+        let currentValue = this.props[settingType].amount;
+        console.log('Form Submitted', currentValue, this.props.settingsId);
+        // Update settting from Props
+        this.props.updateSetting(settingType, currentValue, this.props.settingsId); 
+        // Below is happening from updateSetting action
+        // this.props.hideSetting(settingType); 
     }
     
     render() {
@@ -104,22 +106,22 @@ class Settings extends React.Component {
                 </div>
 
                 <div className="settings-div">
-                    <h4>Insulin Increment: <span>{this.props.increment.amount}</span></h4>
-                    {!this.props.increment.show && 
+                    <h4>Insulin Increment: <span>{this.props.incrementInsulin.amount}</span></h4>
+                    {!this.props.incrementInsulin.show && 
                         <button
-                            name="increment"
+                            name="incrementInsulin"
                             type="button"
                             id="increment-trigger"
                             className="setting-button"
                             onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     }
-                    {this.props.increment.show && 
+                    {this.props.incrementInsulin.show && 
                         <SettingForm 
-                            onSubmit={e => this.handleSubmit("increment", e)}
-                            onChange={val => this.props.settingOnChange("increment", val)} 
-                            htmlId="increment"
-                            inputName="increment"
-                            currentAmount={this.props.increment.amount}
+                            onSubmit={e => this.handleSubmit("incrementInsulin", e)}
+                            onChange={val => this.props.settingOnChange("incrementInsulin", val)} 
+                            htmlId="increment-insulin"
+                            inputName="incrementInsulin"
+                            currentAmount={this.props.incrementInsulin.amount}
                             metric="units"
                             step=".5"
                         />
@@ -178,19 +180,20 @@ class Settings extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
     showSetting: (settingType) => dispatch(showSetting(settingType)),
-    updateSetting: (settingType) => dispatch(updateSetting(settingType)),
+    updateSetting: (settingType, settingAmount, settingsId) => dispatch(updateSetting(settingType, settingAmount, settingsId)),
     settingOnChange: (settingType, amount) => dispatch(settingOnChange(settingType, amount)),
     hideSetting: (settingType) => dispatch(hideSetting(settingType))
 });
 
 const mapStateToProps = (state) => {
     return {
-        increment: state.settings.increment,
+        incrementInsulin: state.settings.incrementInsulin,
         duration: state.settings.duration,
         carbRatio: state.settings.carbRatio,
         correction: state.settings.correction,
         targetBg: state.settings.targetBg,
-        lowBg: state.settings.lowBg
+        lowBg: state.settings.lowBg,
+        settingsId: state.user.settingsId
     }
 };
 

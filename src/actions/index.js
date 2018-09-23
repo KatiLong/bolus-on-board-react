@@ -1,7 +1,7 @@
 /////////////////User///////////////////////
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
 let API_BASE_URL = `http://localhost:8080/`;
-
+// Asynchronous Register User
 export const registerUser = (user, history) =>  {
     return (dispatch) => { 
         fetch(`${API_BASE_URL}user/create`, {
@@ -44,7 +44,7 @@ export const registerUser = (user, history) =>  {
         })
     }
 }
-
+// Asynchronous Login User
 export const loginUser = (user, history) =>  {
     return dispatch => {
         fetch(`${API_BASE_URL}user/login`, {
@@ -56,7 +56,6 @@ export const loginUser = (user, history) =>  {
         })
         .then(res => res.json())
         .then(results => {
-            console.log(results);
             if (results.message === "Not found!" || results.message === "Password Invalid") {
                 alert('Incorrect Username or Password');
             } else {
@@ -70,7 +69,6 @@ export const loginUser = (user, history) =>  {
                 })
                 .then(res => res.json())
                 .then(res => {
-                    console.log(res)
                     // Set user settings ID
                     dispatch(setSettingsId(res[0]))
                     // Set User Settings from Server
@@ -87,7 +85,6 @@ export const loginUser = (user, history) =>  {
                 })
                 .then(res => res.json())
                 .then(res => {
-                    console.log(res)
                     // dispatch IOB
                     dispatch(setIobId(res[0]));
                     // Call InsulinOnBoard Calc
@@ -100,6 +97,20 @@ export const loginUser = (user, history) =>  {
         .catch(error => console.log(error))
     }
 } 
+
+// IOB GET return object
+// [{…}]
+// 0:
+// currentInsulinStack: Array(0)
+// length: 0
+// __proto__: Array(0)
+// insulinOnBoard:
+// amount: 0
+// timeLeft: 0
+// __proto__: Object
+// loggedInUsername: "HispanoSuiza@gmail.com"
+// __v: 0
+// _id: "5ba72827db20961a2e6cfdcd"
 
 const SET_USER_LOGIN = 'SET_USER_LOGIN';
 export const setUserLogin = (userDetails) => ({
@@ -131,8 +142,7 @@ export const setSettingsId = (userDetails) => ({
     type: SET_SETTINGS_ID,
     userDetails
 })
-
-/////////////////Dashboard/////////////////////
+/////////////////IOB/////////////////////
 const UPDATE_IOB = 'UPDATE_IOB';
 export const updateIob = (state) => ({
     type: UPDATE_IOB,
@@ -162,6 +172,9 @@ export const deleteIobEntry = (state) => ({
     state
 })
 
+/////////////////Dashboard/////////////////////
+
+// Dashboard Forms (Bolus, Basal, BG, A1c Submit function to server)
 export const handleDashForm = (formType, payload, history) => {
     console.log(formType, payload);
     return (dispatch) => {
@@ -178,7 +191,7 @@ export const handleDashForm = (formType, payload, history) => {
         .catch(error => console.log(error))
     }
 }
-
+// Is this ever used? I believe all in React State now and updates to on Submit
 const FORM_CHANGE = 'FORM_CHANGE';
 export const formChange = (name, username, password) => ({
     type: FORM_CHANGE,
@@ -208,24 +221,31 @@ export const hideSetting = (settingType) => ({
     settingType
 })
 
-export const updateSetting = (settingType) => console.log('update');
+// export const updateSetting = (settingType) => console.log('update');
 
 
-// export const updateSetting = (insulinType, history) => {
-//     return (dispatch) => {
-//         //Fetch
-//         fetch('http://localhost:8080/settings/:id', {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({insulinType})
-//         })
-//         .then(res => res.json())
-//         .then(data => history.push('/dashboard'))
-//         .catch(error => console.log(error))
-//     }
-// }
+export const updateSetting = (settingType, settingAmount, settingsId) => {
+    console.log('Update Setting', settingType, settingAmount, settingsId);
+    return (dispatch) => {
+        //Fetch
+        fetch(`http://localhost:8080/settings/${settingsId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({[settingType]: settingAmount})
+        })
+        .then(res => {
+            console.log(res);
+            console.log(settingAmount);
+            if (res.status === 204) {
+                dispatch(settingOnChange(settingType, settingAmount))
+                dispatch(hideSetting(settingType))
+            }
+        })
+        .catch(error => console.log(error))
+    }
+}
 
 //fetch(`${API_BASE_URL}/expense/${localStorage.getItem('userId')}`, {
 //    method: 'POST',

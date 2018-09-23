@@ -11,7 +11,6 @@ const userReducer = (state = initialState, action) => {
     
     switch(action.type) {
         case 'SET_USER' :
-            console.log(action);
             return Object.assign({}, state, {
                 email: action.userDetails.loggedInUsername,
                 name: action.name,
@@ -25,12 +24,10 @@ const userReducer = (state = initialState, action) => {
                 userId: action.userDetails._id
             })
         case 'SET_IOB_ID' :
-            console.log(action);
             return Object.assign({}, state, {
                 iobId: action.userDetails._id
             })
         case 'SET_SETTINGS_ID' :
-            console.log(action);
             return Object.assign({}, state, {
                 settingsId: action.userDetails._id
             })

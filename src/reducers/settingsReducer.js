@@ -1,8 +1,8 @@
 const initialState = {
-    increment: {
+    incrementInsulin: {
         amount: 0,
         show: false,
-        htmlInput: "increment"
+        htmlInput: "increment-insulin"
     },
     duration: {
         amount: 0,
@@ -39,13 +39,13 @@ const settingsReducer = (state = initialState, action) => {
         case 'USER_SETTINGS' :
             console.log(action);
             return Object.assign({}, state, {
-                increment: {
-                    ...state.increment,
-                    amount: action.userDetails.insulinIncrement
+                incrementInsulin: {
+                    ...state.incrementInsulin,
+                    amount: action.userDetails.incrementInsulin
                 },
                 duration: {
                     ...state.duration,
-                    amount: action.userDetails.insulinDuration.hours
+                    amount: action.userDetails.duration.hours
                 },
                 carbRatio: {
                     ...state.carbRatio,
@@ -53,11 +53,11 @@ const settingsReducer = (state = initialState, action) => {
                 },
                 correction: {
                     ...state.correction,
-                    amount: action.userDetails.correctionFactor
+                    amount: action.userDetails.correction
                 },
                 targetBg: {
                     ...state.targetBg,
-                    amount: action.userDetails.targetBG
+                    amount: action.userDetails.targetBg
                 },
                 lowBg: {
                     ...state.lowBg,
@@ -83,7 +83,7 @@ const settingsReducer = (state = initialState, action) => {
                 ...state,
                 [currentSetting]: {
                     ...state[currentSetting],
-                    amount: [currentAmount]
+                    amount: currentAmount
                 }
             }
         case 'HIDE_SETTING' :
