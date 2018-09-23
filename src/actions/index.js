@@ -26,18 +26,13 @@ export const registerUser = (user, history) =>  {
         })
         .then(res => res.json())
         .then(userDetails => {
-            console.log(userDetails);
-            // Set User info and Id's to Redux State
-            // dispatch(setUser(userDetails, user.name));
-            // Set User Settings to Redux State
-            // dispatch(userSettings(userDetails));
             
             // Set User Information in Redux State
             reduxStateToUpdate.user.email = userDetails.loggedInUsername
             reduxStateToUpdate.user.name = user.name
             reduxStateToUpdate.user.userId = userDetails.userID
             reduxStateToUpdate.user.settingsId = userDetails._id;
-            // // Set User Settings from Server in Redux State
+            // Set User Settings from Server in Redux State
             reduxStateToUpdate.settings.carbRatio = userDetails.carbRatio;
             reduxStateToUpdate.settings.correction = userDetails.correction;
             reduxStateToUpdate.settings.duration = userDetails.duration;
@@ -45,18 +40,6 @@ export const registerUser = (user, history) =>  {
             reduxStateToUpdate.settings.lowBg = userDetails.lowBg;
             reduxStateToUpdate.settings.targetBg = userDetails.targetBg;
 
-            // carbRatio: 9
-            // correction: 32
-            // duration: 4.25
-            // incrementInsulin: 1
-            // loggedInUsername: "Trixie@gmail.com"
-            // lowBg: 65
-            // targetBg: 120
-            // userID: "5ba81963b955320894b6d6a4"
-            // __v: 0
-            // _id: "5ba81963b955320894b6d6a5"
-
-            console.log('loggedIn Username for IOB:', user)
             // Second Fetch call for IOB
             fetch(`${API_BASE_URL}iob/create`, {
                 method: 'POST',
@@ -68,7 +51,6 @@ export const registerUser = (user, history) =>  {
             .then(res => res.json())
             .then(iobDetails => {
                 // Set User IOB ID to User Redux State
-                // dispatch(setIobId(iobDetails));
                 reduxStateToUpdate.user.iobId = iobDetails._id
                 
                 console.log(reduxStateToUpdate);
@@ -147,10 +129,8 @@ export const loginUser = (user, history, props) =>  {
                     reduxStateToUpdate.iob.iobStack = [...res[0].currentInsulinStack];
                     reduxStateToUpdate.iob.iobAmount = res[0].insulinOnBoard.amount;
                     reduxStateToUpdate.iob.iobTimeLeft = res[0].insulinOnBoard.timeLeft;
-                    // Call InsulinOnBoard Calc ? 
-                    // iobLoginCalculator(props);
-                    console.log(reduxStateToUpdate);
 
+                    console.log(reduxStateToUpdate);
                     // Combined Reducer for all Login Actions (udpates all three Reducers in one)
                     dispatch(onUserLogin(reduxStateToUpdate));
                 })
@@ -169,44 +149,6 @@ export const onUserLogin = (userDetails) => ({
     userDetails
 })
 
-// dispatch(setUserLogin(results));
-// dispatch(setSettingsId(res[0]))
-// dispatch(userSettings(res[0]));
-// dispatch(setIobId(res[0]));
-
-// IOB GET return object
-// [{…}]
-// 0:
-// currentInsulinStack: Array(0)
-// length: 0
-// __proto__: Array(0)
-// insulinOnBoard:
-// amount: 0
-// timeLeft: 0
-// __proto__: Object
-// loggedInUsername: "HispanoSuiza@gmail.com"
-// __v: 0
-// _id: "5ba72827db20961a2e6cfdcd"
-
-
-const SET_USER = 'SET_USER';
-export const setUser = (userDetails, name) => ({
-    type: SET_USER,
-    userDetails,
-    name
-})
-
-const USER_SETTINGS = 'USER_SETTINGS';
-export const userSettings = (userDetails) => ({
-    type: USER_SETTINGS,
-    userDetails
-})
-
-const SET_IOB_ID = 'SET_IOB_ID';
-export const setIobId = (userDetails) => ({
-    type: SET_IOB_ID,
-    userDetails
-})
 
 /////////////////IOB/////////////////////
 const UPDATE_IOB = 'UPDATE_IOB';
