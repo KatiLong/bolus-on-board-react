@@ -1,21 +1,20 @@
 import React from 'react';
 
 //Just updating insulinStack and Total IOB amounts (insulin & time)
-export function iobCalculator (props) { //should update iob via formula & PUT call
-//     console.log(iobObject);
+export const iobCalculator = (props) => { //should update iob via formula & PUT call
     console.log(props);
-//     //CURRENT issues:
-//     //Either need to make function for ONE array element at a Time OR
-//     //Find a way to clear all but one Set-timeout at a time
+    //CURRENT issues:
+    //Either need to make function for ONE array element at a Time OR
+    //Find a way to clear all but one Set-timeout at a time
 
-//     let currentInsulinStack = [...iobObject.insulinStack];
-//     let updatedInsulinStack, bolusRate, stackLength;
-//     let duration = iobObject.duration;
-//     let iobId =  $('#current-user-iob').val();
-//     let settingId = $('#current-user-settings').val();
+    let currentInsulinStack = [...props.insulinStack];
+    let updatedInsulinStack, bolusRate, stackLength;
+    let duration = props.duration;
+    // let iobId =  $('#current-user-iob').val();
+    // let settingId = $('#current-user-settings').val();
 
-//     let totalIOBAmount = iobObject.iobAmount;
-//     let totalIOBTime = iobObject.iobTime;
+    let totalIOBAmount = props.iobAmount;
+    let totalIOBTime = props.iobTime;
 
 //     //Update Entries if there are any
 //     if (currentInsulinStack.length > 0) {
@@ -26,10 +25,9 @@ export function iobCalculator (props) { //should update iob via formula & PUT ca
 //             //For each element...Subtract 5 minutes, min = 0 and max = set duration
 //             el.timeRemaining = Math.min(Math.max((el.timeRemaining - 300000), 0), duration);
 
-//             //When all entries have 0 time remaining, stop recursively calling
+//             //When all entries have 0 time remaining, update everything to 0
 //             if (el.timeRemaining === 0) {
-//                 //update everything to 0
-
+//                 
 //                 el.currentInsulin = 0;
 //                 console.log('Time @ 0');
 //             }

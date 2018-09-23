@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { iobLoginCalculator } from '../dashboard/dashboard-calculators/login-iob-calculator';
 import { iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry, loginUser } from '../../actions';
 
 //import { loginUser } from '../../actions';
@@ -32,7 +31,7 @@ class Login extends React.Component {
         this.props.dispatch(loginUser({
             username: this.state.username,
             password: this.state.password
-        }, this.props.history));
+        }, this.props.history, this.props));
         // this.setState({
         //     toDashboard: true
         // })

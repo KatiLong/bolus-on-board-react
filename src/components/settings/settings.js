@@ -32,31 +32,29 @@ class Settings extends React.Component {
                 <Link to='/dashboard'><button className="home-button">Home</button></Link>
                 <br/>
                 <div className="settings-div">
-                    <div className="settings-content">
-                        <h4>Carb Ratio: <span>{this.props.carbRatio.amount}</span></h4>
-                        {!this.props.carbRatio.show && 
-                            <button
-                            name="carbRatio"
-                            type="button"
-                            id="trigger"
-                            className="setting-button"
-                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                        }
-                        {this.props.carbRatio.show && 
-                            <SettingForm 
-                                onSubmit={e => this.handleSubmit("carbRatio", e)}
-                                onChange={val => this.props.settingOnChange("carbRatio", val)} 
-                                htmlId="carb-ratio"
-                                inputName="carbRatio"
-                                currentAmount={this.props.carbRatio.amount}
-                                metric="carbs"
-                                step="1"
-                                >
-                                <h5>Hello World</h5>
-                                </SettingForm>
-                            
-                        }
-                    </div>
+                    <h4>Carb Ratio: <span>{this.props.carbRatio.amount}</span></h4>
+                    {!this.props.carbRatio.show && 
+                        <button
+                        name="carbRatio"
+                        type="button"
+                        id="trigger"
+                        className="setting-button"
+                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                    }
+                    {this.props.carbRatio.show && 
+                        <SettingForm 
+                            onSubmit={e => this.handleSubmit("carbRatio", e)}
+                            onChange={val => this.props.settingOnChange("carbRatio", val)} 
+                            htmlId="carb-ratio"
+                            inputName="carbRatio"
+                            currentAmount={this.props.carbRatio.amount}
+                            metric="carbs"
+                            step="1"
+                            >
+                            <h5>Hello World</h5>
+                            </SettingForm>
+                        
+                    }
                 </div>
 
                 <div className="settings-div">

@@ -1,4 +1,4 @@
-export function newBolusEntry(props) {
+export const newBolusEntry = (props) => {
     console.log(props);
     //event.target.input_name
     // let iobId =  $('#current-user-iob').val();

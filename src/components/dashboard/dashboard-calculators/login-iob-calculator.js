@@ -1,20 +1,22 @@
 import React from 'react';
 
-export function iobLoginCalculator (props) {
+export const iobLoginCalculator = (props) => {
 
     console.log(props);
-    // //All the variables needed for calculation and payload
-    // const loginTime = (new Date()).getTime();
-    // let currentInsulinStack = [...this.props.iobStack];
-    // let bolusRate;
-    // let updatedInsulinStack, deleteStackEntry;
-    // let duration = (this.props.duration)*3600000;
-    // let totalIOBAmount = this.props.iobAmount;
-    // let totalIOBTime = this.props.iobTimeLeft;
-    // // let iobId =  $('#current-user-iob').val();
-    // // let username = $('#current-username').val();
+    //All the variables needed for calculation and payload
+    const loginTime = (new Date()).getTime();
+    let currentInsulinStack = [...props.iobStack];
+    let bolusRate;
+    let updatedInsulinStack, deleteStackEntry;
+    let duration = (props.duration)*3600000;
+    let totalIOBAmount = props.iobAmount;
+    let totalIOBTime = props.iobTimeLeft;
+    // let iobId =  $('#current-user-iob').val();
+    // let username = $('#current-username').val();
 
-    // //If no entries, update TotalIob Displays and return
+    console.log(loginTime);
+
+    //If no entries, update TotalIob Displays and return
     // if (currentInsulinStack.length === 0) {
     //     console.log(totalIOBTime);
     //     updateIob({

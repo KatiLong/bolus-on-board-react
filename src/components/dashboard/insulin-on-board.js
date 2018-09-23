@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry } from '../../actions';
-import { iobLoginCalculator } from './dashboard-calculators/login-iob-calculator';
-import { iobCalculator } from './dashboard-calculators/iob-calculator';
-import { newBolusEntry } from './dashboard-calculators/new-bolus-iob-calculator';
+// import { iobCalculator } from './dashboard-calculators/iob-calculator';
+// import { newBolusEntry } from './dashboard-calculators/new-bolus-iob-calculator';
 
 import './dashboard.css';
 

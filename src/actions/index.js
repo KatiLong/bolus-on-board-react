@@ -1,3 +1,7 @@
+import { iobLoginCalculator } from '../components/dashboard/dashboard-calculators/login-iob-calculator.js';
+import { newBolusEntry } from '../components/dashboard/dashboard-calculators/new-bolus-iob-calculator';
+import { iobCalculator } from '../components/dashboard/dashboard-calculators/iob-calculator.js';
+
 /////////////////User///////////////////////
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
 let API_BASE_URL = `http://localhost:8080/`;
@@ -45,7 +49,7 @@ export const registerUser = (user, history) =>  {
     }
 }
 // Asynchronous Login User
-export const loginUser = (user, history) =>  {
+export const loginUser = (user, history, props) =>  {
     return dispatch => {
         fetch(`${API_BASE_URL}user/login`, {
             method: 'POST',
@@ -88,6 +92,7 @@ export const loginUser = (user, history) =>  {
                     // dispatch IOB
                     dispatch(setIobId(res[0]));
                     // Call InsulinOnBoard Calc
+                    iobLoginCalculator(props);
                 })
                 // Redirect to Dashboard
                 .then(() => history.push('/dashboard'))

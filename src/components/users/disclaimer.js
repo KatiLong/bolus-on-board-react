@@ -8,12 +8,12 @@ function Disclaimer(props) {
             <section id="medical-disclaimer">
                 <div id="disclaimer-wrapper">
                     <h2>MEDICAL DISCLAIMER</h2>
+                    <p>
+                        Before you get started, it's important that you understand and agree to the following.
+                    </p>
                     <p>THIS APPLICATION IS NOT INTENDED FOR THE PURPOSE OF PROVIDING MEDICAL ADVICE.</p>
                     <p>
                         Bolus on Board - B.O.B. - was built as tool for myself in managing my T1 Diabetes. The larger hope is that others will find it useful as well. Managing T1D can be a daunting task, and I firmly believe in having more accessible tools to empower us in managing it.
-                    </p>
-                    <p>
-                        Before you get started, it's important that you understand and agree to the following.
                     </p>
                     <p>
                         All information, content, and material of this application is for informational purposes only and are not intended to serve as a substitute for the consultation, diagnosis, and/or medical treatment of a qualified physician or healthcare provider.
