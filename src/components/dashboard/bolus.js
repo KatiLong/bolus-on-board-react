@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { handleBolus, iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry, iobEntryPost } from '../../actions';
+import { handleBolus, iobOnLogin, updateIob, addIobEntry, iobEntryPost } from '../../actions';
 import { populateDateTime, bolusEntryTime } from '../populateDateTime';
 
 import { connect } from 'react-redux';
@@ -44,18 +44,17 @@ class Bolus extends React.Component {
             loggedInUsername: this.props.loggedInUsername 
         }, this.props.history);
 
-        // Add bolus Entry to Redux Stack
-        // Add Bolus to IOB Stack Server Side
+        // Add Bolus to IOB Stack Server Side, Add bolus Entry to Redux Stack inside server success
         this.props.iobEntryPost({
             entryAmount: this.state.suggestedBolus,
             currentInsulin: this.state.suggestedBolus,
             timeStart: bolusEntryTime(this.state.currentDate, this.state.currentTime),
             timeRemaining: this.props.duration.amount
-        }, this.props.iobId, this.props.history)
+        }, this.props.iobId, this.props.iobAmount, this.props.history)
 
         console.log((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), this.props.duration.amount);
         //Update Insulin on Board 
-        this.props.updateIob((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), parseFloat(this.props.duration.amount))
+        // this.props.updateIobBolus((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), parseFloat(this.props.duration.amount))
     }
 
     carbInsulinChange (e){
@@ -186,11 +185,9 @@ class Bolus extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
     updateIob: (amount, time) => dispatch(updateIob(amount, time)),
     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
-    addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
-    updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
-    deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry)), 
+    addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)), 
     handleBolus: (formType, payload, history) => dispatch(handleBolus(formType, payload, history)),
-    iobEntryPost: (bolusEntry, iobId, history) => dispatch(iobEntryPost(bolusEntry, iobId, history))
+    iobEntryPost: (bolusEntry, iobId, iobAmount, history) => dispatch(iobEntryPost(bolusEntry, iobId, iobAmount, history))
 });
 
 const mapStateToProps = (state) => {

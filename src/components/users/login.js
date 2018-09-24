@@ -1,13 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry, loginUser } from '../../actions';
-
-//import { loginUser } from '../../actions';
-
-//onSubmit={this.props.handleSubmit(values =>
-//          this.onSubmit(values)
-//          )}
+import { loginUser } from '../../actions';
 
 class Login extends React.Component {
     constructor (props) {
@@ -23,19 +17,12 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
     onSubmit(event) {
-        // console.log(values);
         event.preventDefault();
-        // updateReduxState for User - server call for all info?
-        // iobLoginCalculator(this.props);
 
         this.props.dispatch(loginUser({
             username: this.state.username,
             password: this.state.password
         }, this.props.history, this.props));
-        // this.setState({
-        //     toDashboard: true
-        // })
-        // this.props.iobOnLogin()
 
     }
     handleChange(event) {
@@ -90,14 +77,6 @@ class Login extends React.Component {
     }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//     updateIob: (iob) => dispatch(updateIob(iob)),
-//     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
-//     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
-//     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
-//     deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry)),
-// });
-
 const mapStateToProps = (state) => {
     return {
         iobAmount: state.iob.iobAmount,
@@ -108,28 +87,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Login);
-//
-//class Register extends React.Component {
-//    state = {
-//        toDashboard: false,
-//    }
-//handleSubmit = (user) => {
-//    saveUser(user)
-//        .then(() => this.setState(() => ({
-//        toDashboard: true
-//    })))
-//}
-//render() {
-//    if (this.state.toDashboard === true) {
-//        return <Redirect to='/dashboard' />
-//    }
-//
-//        return (
-//            <div>
-//            <h1>Register</h1>
-//            <Form onSubmit={this.handleSubmit} />
-//            </div>
-//        )
-//    }
-//}
+
 //<Link to='/dashboard'><button type="submit" className="submit-button" id="login-button">Sign In</button></Link>
