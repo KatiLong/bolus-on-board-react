@@ -170,6 +170,23 @@ export const addIobEntry = (bolusEntry) => ({
     bolusEntry
 })
 
+export const iobEntryPost = (bolusEntry, iobId) => {
+    console.log(bolusEntry, iobId);
+    return (dispatch) => {
+        //Fetch
+        fetch(`${API_BASE_URL}iob/insulin-stack/${iobId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bolusEntry)
+        })
+        .then(res => res.json())
+        // .then(data => history.push('/dashboard'))
+        .catch(error => console.log(error))
+    }
+}
+
 const UPDATE_IOB_ENTRY = 'UPDATE_IOB_ENTRY';
 export const updateIobEntry = (state) => ({
     type: UPDATE_IOB_ENTRY,

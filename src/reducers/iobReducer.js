@@ -40,7 +40,7 @@ const iobReducer = (state = initialState, action) => {
             console.log(action)
                 return {
                     ...state,
-                    iobStack: [...state.iobStack]
+                    iobStack: [...state.iobStack, action.bolusEntry]
                 }
         default :
             return state

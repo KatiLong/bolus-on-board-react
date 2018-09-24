@@ -46,19 +46,15 @@ class Bolus extends React.Component {
         }, this.props.history);
 
         // New action - add bolus Entry to Stack
+
         this.props.addIobEntry({
             entryAmount: this.state.suggestedBolus,
             currentInsulin: this.state.suggestedBolus,
             timeStart: (new Date()).getTime(),
-            timeRemaining: this.props.duration
+            timeRemaining: this.props.duration.amount
         })
-
-
         //Update Insulin on Board 
-        // this.props.updateIob({
-    //         iobAmount: this.props.iobAmount + this.state.suggestedBolus,
-    //         iobTimeLeft: this.props.duration 
-        // })
+        this.props.updateIob((this.props.iobAmount + this.state.suggestedBolus), this.props.duration.amount)
 
     }
 

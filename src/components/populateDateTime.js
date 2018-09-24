@@ -2,7 +2,7 @@ export function populateDateTime () {
     let currentDateTime = new Date();
     let currentDate, currentTime = '';
     let month = currentDateTime.getMonth() + 1;
-    let day = currentDateTime.getDay() + 1;
+    let day = currentDateTime.getDate();
     let hour = currentDateTime.getHours();
     let year = currentDateTime.getFullYear();
     let minutes = currentDateTime.getMinutes();
@@ -17,7 +17,6 @@ export function populateDateTime () {
 
     let inputDateTime = currentDate.substring(0, 11) + 'T' + currentTime;
 
-    console.log(currentDateTime);
     return {
         date: currentDate,
         time: currentTime
