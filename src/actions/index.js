@@ -182,9 +182,8 @@ export const iobEntryPost = (bolusEntry, iobId, history) => {
             body: JSON.stringify(bolusEntry)
         })
         .then(res => res.json())
-        .then(res => console.log(res))
         //Adds Entry to Redux Stack when server successful
-        // .then(res => dispatch(addIobEntry(bolusEntry)))
+        .then(res => dispatch(addIobEntry(res.currentInsulinStack)))
         // .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }
@@ -203,7 +202,24 @@ export const deleteIobEntry = (state) => ({
 
 /////////////////Dashboard/////////////////////
 
-// Dashboard Forms (Bolus, Basal, BG, A1c Submit function to server)
+// Bolus Submit
+export const handleBolus = (formType, payload, history) => {
+    console.log(formType, payload);
+    return (dispatch) => {
+        //Fetch
+        fetch(`${API_BASE_URL}${formType}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .catch(error => console.log(error))
+    }
+}
+
+// Dashboard Forms (Basal, BG, A1c Submit function to server)
 export const handleDashForm = (formType, payload, history) => {
     console.log(formType, payload);
     return (dispatch) => {

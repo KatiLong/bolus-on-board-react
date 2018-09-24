@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { handleDashForm, iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry, iobEntryPost } from '../../actions';
+import { handleBolus, iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry, iobEntryPost } from '../../actions';
 import { populateDateTime, bolusEntryTime } from '../populateDateTime';
-import { newBolusEntry } from './dashboard-calculators/new-bolus-iob-calculator';
 
 import { connect } from 'react-redux';
 
 import './dashboard.css';
 
 class Bolus extends React.Component {
+    // Holds inputted form info until User Submits
     state = {
         insulinType: 'Humalog',
         insulinAmount: 0,
@@ -32,7 +32,7 @@ class Bolus extends React.Component {
         event.preventDefault();
         
         //Add Bolus Entry to Server
-        this.props.handleDashForm(formType, {
+        this.props.handleBolus(formType, {
             insulinType: this.state.insulinType,
             bolusUnits: this.state.insulinAmount,
             bolusCarbs: this.state.carbAmount,
@@ -45,12 +45,6 @@ class Bolus extends React.Component {
         }, this.props.history);
 
         // Add bolus Entry to Redux Stack
-        // this.props.addIobEntry({
-        //     entryAmount: this.state.suggestedBolus,
-        //     currentInsulin: this.state.suggestedBolus,
-        //     timeStart: bolusEntryTime(this.state.currentDate, this.state.currentTime),
-        //     timeRemaining: this.props.duration.amount
-        // })
         // Add Bolus to IOB Stack Server Side
         this.props.iobEntryPost({
             entryAmount: this.state.suggestedBolus,
@@ -65,7 +59,9 @@ class Bolus extends React.Component {
     }
 
     carbInsulinChange (e){
-        console.log(this.props.carbRatio)
+        console.log(this.props.carbRatio);
+
+        // if (e.target.value === Nan || !e.target.value) e.target.value = 0;
         if (e.target.name === "insulin") {
             this.setState({
                 insulinAmount: e.target.value,
@@ -73,7 +69,6 @@ class Bolus extends React.Component {
             }, () => {
                 this.calculateSuggestedBolus()
             })
-            
         } else if (e.target.name === "carbs") {
             this.setState({
                 insulinAmount: e.target.value/this.props.carbRatio.amount,
@@ -86,7 +81,6 @@ class Bolus extends React.Component {
     }
 
     calculateSuggestedBolus() {
-        console.log("Calculate Suggested Bolus ran", this.state.insulinAmount, typeof(this.state.insulinAmount));
         let sum;
         if (this.props.correction.amount === 0) {
             alert('Correction amount is set at Zero. To enable the Bolus Calculator, update your Correction Amount in settings.')
@@ -94,7 +88,6 @@ class Bolus extends React.Component {
             if (this.state.insulinAmount === "" || this.state.carbAmount === "") {
                 console.log("Insulin or Carbs empty");
             } else if (this.state.bloodSugar === ""){
-                console.log("BG empty");
                 sum = 0 + parseFloat(this.state.insulinAmount);
                 //Suggested Bolus should never go below zero
                 if (sum < 0) sum = 0;
@@ -109,18 +102,13 @@ class Bolus extends React.Component {
                 
                 //if inputted Blood Sugar is less than target
                 if (this.state.bloodSugar <= this.props.targetBg.amount) {
-                    console.log("BG below");
                     // Do/add nothing unless Blood Sugar is low
                     if (this.state.bloodSugar <= this.props.lowBg.amout) { //When Blood Sugar is low, use less insulin for how low the user is
                         console.log("BG Low");
                         sum -= ((this.props.lowBg.amout - this.state.bloodSugar)/this.props.correction.amount)
-                        console.log(typeof(sum), sum);
                     }
                 } else { //Add insulin for the amount the User's BG is High
-                    console.log("Calculator Else", sum, (this.state.bloodSugar - this.props.targetBg.amount), this.props.correction.amount)
                     sum += ((this.state.bloodSugar - this.props.targetBg.amount)/this.props.correction.amount);
-                    console.log(typeof(sum), sum);
-                    // console.log(sum)
                 }
                 //Suggested Bolus should never go below zero
                 if (sum < 0) sum = 0;
@@ -201,7 +189,7 @@ const mapDispatchToProps = (dispatch) => ({
     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
     deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry)), 
-    handleDashForm: (formType, payload, history) => dispatch(handleDashForm(formType, payload, history)),
+    handleBolus: (formType, payload, history) => dispatch(handleBolus(formType, payload, history)),
     iobEntryPost: (bolusEntry, iobId, history) => dispatch(iobEntryPost(bolusEntry, iobId, history))
 });
 
