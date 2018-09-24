@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { handleDashForm, iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry } from '../../actions';
-import { populateDateTime } from '../populateDateTime';
+import { populateDateTime, bolusEntryTime } from '../populateDateTime';
 import { newBolusEntry } from './dashboard-calculators/new-bolus-iob-calculator';
 
 import { connect } from 'react-redux';
@@ -30,8 +30,7 @@ class Bolus extends React.Component {
 
     onSubmit (formType, event){
         event.preventDefault();
-        console.log("Bolus Form submitted");
-        // 'bolusCarbs', 'bolusUnits', 'insulinType', 'bolusTime', 'bolusDate', 'bolusAmount', 'loggedInUsername', 'inputDateTime'
+        
         //Add Bolus Entry to Server
         this.props.handleDashForm(formType, {
             insulinType: this.state.insulinType,
@@ -46,16 +45,15 @@ class Bolus extends React.Component {
         }, this.props.history);
 
         // New action - add bolus Entry to Stack
-
         this.props.addIobEntry({
             entryAmount: this.state.suggestedBolus,
             currentInsulin: this.state.suggestedBolus,
-            timeStart: (new Date()).getTime(),
+            timeStart: bolusEntryTime(this.state.currentDate, this.state.currentTime),
             timeRemaining: this.props.duration.amount
         })
+        console.log((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), this.props.duration.amount);
         //Update Insulin on Board 
-        this.props.updateIob((this.props.iobAmount + this.state.suggestedBolus), this.props.duration.amount)
-
+        this.props.updateIob((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), parseFloat(this.props.duration.amount))
     }
 
     carbInsulinChange (e){
@@ -190,7 +188,7 @@ class Bolus extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    updateIob: (iob) => dispatch(updateIob(iob)),
+    updateIob: (amount, time) => dispatch(updateIob(amount, time)),
     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
