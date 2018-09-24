@@ -36,6 +36,7 @@ export const iobLoginCalculator = (props) => {
     //             el.timeRemaining = 0;
     //             el.currentInsulin = 0;
 
+    
     //             return el;
     //         }
     //         //Updating totals for Element and Global Totals

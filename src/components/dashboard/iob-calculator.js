@@ -46,64 +46,64 @@ class IobCalculator extends Component {
         } else {
             //All Calculation Code
             //Updates Each Entry on insulin stack
-    //         updatedInsulinStack = currentInsulinStack.map((el, ind) => {
-    //             console.log(el);
-    //             timeElapsed = loginTime - el.timeStart;
+            // updatedInsulinStack = currentInsulinStack.map((el, ind) => {
+            //     console.log(el);
+            //     timeElapsed = loginTime - el.timeStart;
 
-    // //         //If it's been longer than the User's set duration, zero out the element
-    // //         if (timeElapsed >= duration) {
-    // //             console.log('Element Zeroed Out', timeElapsed);
+            //     //If it's been longer than the User's set duration, zero out the element
+            //     if (timeElapsed >= duration) {
+            //         console.log('Element Zeroed Out', timeElapsed);
 
-    // //             totalIOBAmount = Math.min(Math.max((totalIOBAmount - el.currentInsulin), 0), duration);
-    // //             totalIOBTime = Math.min(Math.max((totalIOBTime - el.timeRemaining), 0), duration);
-    // //             el.timeRemaining = 0;
-    // //             el.currentInsulin = 0;
+            //         totalIOBAmount = Math.min(Math.max((totalIOBAmount - el.currentInsulin), 0), duration);
+            //         totalIOBTime = Math.min(Math.max((totalIOBTime - el.timeRemaining), 0), duration);
+            //         el.timeRemaining = 0;
+            //         el.currentInsulin = 0;
 
-    // //             return el;
-    // //         }
-    //             //For each element...Subtract 5 minutes, min = 0 and max = set duration
-    //             el.timeRemaining = Math.min(Math.max((el.timeRemaining - 300000), 0), duration);
+            //         return el;
+            //     }
+            //     //For each element...Subtract 5 minutes, min = 0 and max = set duration
+            //     el.timeRemaining = Math.min(Math.max((el.timeRemaining - 300000), 0), duration);
 
-    //             //When all entries have 0 time remaining, update everything to 0
-    //             if (el.timeRemaining === 0) {
+            //     //When all entries have 0 time remaining, update everything to 0
+            //     if (el.timeRemaining === 0) {
                     
-    //                 el.currentInsulin = 0;
-    //                 console.log('Time @ 0');
-    //             }
-    //             //First 15 minutes - time changes, insulin amount does not
-    //             else if (el.timeRemaining >= (duration-900000)) {
-    //                 //Minus 5 minutes
-    //                 console.log('First 15 minutes', el.timeRemaining);
-    //             }
-    //             //first half of entry duration
-    //             else if (el.timeRemaining >= (duration/2)) {
-    //                 bolusRate = ((el.entryAmount/2)/((duration-900000)/2))*300000; //5 minute increments
-    //                 el.currentInsulin = Math.max((el.currentInsulin - bolusRate), 0);
-    //                 totalIOBAmount -= bolusRate;
-    //                 console.log('First Half rate');
-    //             }
-    //             //second half of entry duration
-    //             else if (el.timeRemaining < (duration/2)) {
-    //                 bolusRate = ((el.entryAmount/2)/((duration/2)))*300000; //5 minute increments
-    //                 //            el.currentInsulin = Math.max((el.currentInsulin - bolusRate), 0);
-    //                 el.currentInsulin -= bolusRate;
-    //                 totalIOBAmount -= bolusRate;
-    //                 console.log('Second Half rate', bolusRate);
-    //             }
-    //             //Catch errors
-    //             else {
-    //                 console.log('Something went wrong in IOB');
-    //                 return false;
-    //             }
+            //         el.currentInsulin = 0;
+            //         console.log('Time @ 0');
+            //     }
+            //     //First 15 minutes - time changes, insulin amount does not
+            //     else if (el.timeRemaining >= (duration-900000)) {
+            //         //Minus 5 minutes
+            //         console.log('First 15 minutes', el.timeRemaining);
+            //     }
+            //     //first half of entry duration
+            //     else if (el.timeRemaining >= (duration/2)) {
+            //         bolusRate = ((el.entryAmount/2)/((duration-900000)/2))*300000; //5 minute increments
+            //         el.currentInsulin = Math.max((el.currentInsulin - bolusRate), 0);
+            //         totalIOBAmount -= bolusRate;
+            //         console.log('First Half rate');
+            //     }
+            //     //second half of entry duration
+            //     else if (el.timeRemaining < (duration/2)) {
+            //         bolusRate = ((el.entryAmount/2)/((duration/2)))*300000; //5 minute increments
+            //         //            el.currentInsulin = Math.max((el.currentInsulin - bolusRate), 0);
+            //         el.currentInsulin -= bolusRate;
+            //         totalIOBAmount -= bolusRate;
+            //         console.log('Second Half rate', bolusRate);
+            //     }
+            //     //Catch errors
+            //     else {
+            //         console.log('Something went wrong in IOB');
+            //         return false;
+            //     }
 
-    //             return el;
-    //         //Filter out entries that have zeroed out Locally and on Server
-    //         }).filter((el)=> {
-    //             console.log(el);
-    //             if (el.timeRemaining === 0) deleteStackEntry(iobId, el._id);
-    //             return !(el.timeRemaining === 0);
-    //         });
-    //         console.log(updatedInsulinStack);
+            //     return el;
+            // //Filter out entries that have zeroed out Locally and on Server
+            // }).filter((el)=> {
+            //     console.log(el);
+            //     if (el.timeRemaining === 0) deleteStackEntry(iobId, el._id);
+            //     return !(el.timeRemaining === 0);
+            // });
+            // console.log(updatedInsulinStack);
         }
 
         console.log('Calculator mountTime: ', mountTime);

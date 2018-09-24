@@ -169,8 +169,8 @@ export const addIobEntry = (bolusEntry) => ({
     type: ADD_IOB_ENTRY,
     bolusEntry
 })
-
-export const iobEntryPost = (bolusEntry, iobId) => {
+// POST to Server IOB Stack
+export const iobEntryPost = (bolusEntry, iobId, history) => {
     console.log(bolusEntry, iobId);
     return (dispatch) => {
         //Fetch
@@ -182,6 +182,9 @@ export const iobEntryPost = (bolusEntry, iobId) => {
             body: JSON.stringify(bolusEntry)
         })
         .then(res => res.json())
+        .then(res => console.log(res))
+        //Adds Entry to Redux Stack when server successful
+        // .then(res => dispatch(addIobEntry(bolusEntry)))
         // .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }

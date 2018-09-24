@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { handleDashForm, iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry } from '../../actions';
+import { handleDashForm, iobOnLogin, updateIob, addIobEntry, updateIobEntry, deleteIobEntry, iobEntryPost } from '../../actions';
 import { populateDateTime, bolusEntryTime } from '../populateDateTime';
 import { newBolusEntry } from './dashboard-calculators/new-bolus-iob-calculator';
 
@@ -44,13 +44,21 @@ class Bolus extends React.Component {
             loggedInUsername: this.props.loggedInUsername 
         }, this.props.history);
 
-        // New action - add bolus Entry to Stack
-        this.props.addIobEntry({
+        // Add bolus Entry to Redux Stack
+        // this.props.addIobEntry({
+        //     entryAmount: this.state.suggestedBolus,
+        //     currentInsulin: this.state.suggestedBolus,
+        //     timeStart: bolusEntryTime(this.state.currentDate, this.state.currentTime),
+        //     timeRemaining: this.props.duration.amount
+        // })
+        // Add Bolus to IOB Stack Server Side
+        this.props.iobEntryPost({
             entryAmount: this.state.suggestedBolus,
             currentInsulin: this.state.suggestedBolus,
             timeStart: bolusEntryTime(this.state.currentDate, this.state.currentTime),
             timeRemaining: this.props.duration.amount
-        })
+        }, this.props.iobId, this.props.history)
+
         console.log((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), this.props.duration.amount);
         //Update Insulin on Board 
         this.props.updateIob((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), parseFloat(this.props.duration.amount))
@@ -193,7 +201,8 @@ const mapDispatchToProps = (dispatch) => ({
     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
     deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry)), 
-    handleDashForm: (formType, payload, history) => dispatch(handleDashForm(formType, payload, history))
+    handleDashForm: (formType, payload, history) => dispatch(handleDashForm(formType, payload, history)),
+    iobEntryPost: (bolusEntry, iobId, history) => dispatch(iobEntryPost(bolusEntry, iobId, history))
 });
 
 const mapStateToProps = (state) => {
@@ -207,7 +216,8 @@ const mapStateToProps = (state) => {
         correction: state.settings.correction,
         targetBg: state.settings.targetBg,
         lowBg: state.settings.lowBg,
-        loggedInUsername: state.user.email
+        loggedInUsername: state.user.email,
+        iobId: state.user.iobId
     }
 };
 
