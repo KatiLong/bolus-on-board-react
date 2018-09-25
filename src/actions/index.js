@@ -165,6 +165,8 @@ export const updateIob = (iobAmount, iobTimeLeft) => ({
 //         timeLeft: totalIOBTime
 //     }
 // });
+
+//Update IOB on Server
 export const updateIobApi = (iob, iobId, history) => {
     console.log(iob, iobId);
     return (dispatch) => {
@@ -176,10 +178,9 @@ export const updateIobApi = (iob, iobId, history) => {
             },
             body: JSON.stringify(iob)
         })
-        .then(res => res.json())
         //Adds Entry to Redux Stack when server successful
-        .then(res => console.log(res))
-        // .then(res => dispatch(updateIob(amount, time)))
+        // .then(res => console.log(res))
+        .then(res => dispatch(updateIob(iob.insulinOnBoard.amount, iob.insulinOnBoard.timeLeft)))
         // .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }
@@ -217,14 +218,19 @@ export const iobEntryPost = (bolusEntry, iobId, iobAmount, history) => {
         })
         .then(res => res.json())
         //Adds Entry to Redux Stack when server successful
-        .then(res => dispatch(addIobEntry(res.currentInsulinStack)))
+        .then(res => {
+            console.log('iob Entry Post response: ', res )
+            dispatch(addIobEntry(res))
+        })
         .then(res => { // Add update to Server
             dispatch(updateIobApi({
-                amount: iobAmount + bolusEntry.entryAmount,
-                timeLeft: bolusEntry.timeRemaining
+                insulinOnBoard: {
+                    amount: iobAmount + bolusEntry.entryAmount,
+                    timeLeft: bolusEntry.timeRemaining
+                }
             }, iobId, history))
         }) 
-        // .then(data => history.push('/dashboard'))
+        .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }
 }

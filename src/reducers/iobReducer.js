@@ -16,6 +16,8 @@ const iobReducer = (state = initialState, action) => {
             })
         case 'ADD_IOB_ENTRY' : // bolus.js
             console.log(action)
+            // let newStack = [...state.iobStack];
+            // newStack.push(action.bolusEntry)
             return {
                 ...state,
                 iobStack: [...state.iobStack, action.bolusEntry]

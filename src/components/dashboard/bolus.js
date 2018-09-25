@@ -58,20 +58,19 @@ class Bolus extends React.Component {
     }
 
     carbInsulinChange (e){
-        console.log(this.props.carbRatio);
 
-        // if (e.target.value === Nan || !e.target.value) e.target.value = 0;
+        (e.target.value === NaN || !e.target.value) ? 0 : e.target.value
         if (e.target.name === "insulin") {
             this.setState({
-                insulinAmount: e.target.value,
-                carbAmount: e.target.value * this.props.carbRatio.amount
+                insulinAmount: (e.target.value === NaN || !e.target.value) ? 0 : e.target.value,
+                carbAmount: (e.target.value === NaN || !e.target.value) ? 0 : e.target.value * this.props.carbRatio.amount
             }, () => {
                 this.calculateSuggestedBolus()
             })
         } else if (e.target.name === "carbs") {
             this.setState({
-                insulinAmount: e.target.value/this.props.carbRatio.amount,
-                carbAmount: e.target.value
+                insulinAmount: (e.target.value === NaN || !e.target.value) ? 0 : e.target.value/this.props.carbRatio.amount,
+                carbAmount: (e.target.value === NaN || !e.target.value) ? 0 : e.target.value
             }, () => {
                 this.calculateSuggestedBolus()
             })
@@ -81,6 +80,7 @@ class Bolus extends React.Component {
 
     calculateSuggestedBolus() {
         let sum;
+        
         if (this.props.correction.amount === 0) {
             alert('Correction amount is set at Zero. To enable the Bolus Calculator, update your Correction Amount in settings.')
         } else {
