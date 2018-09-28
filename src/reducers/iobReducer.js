@@ -32,7 +32,14 @@ const iobReducer = (state = initialState, action) => {
                 return {
                     ...state
                 }
-        case 'UPDATE_IOB' : // Not Finished
+        case 'CLEAR_STACK' :
+                return {
+                    ...state,
+                    iobAmount: 0,
+                    iobTimeLeft: 0,
+                    iobStack: []
+                }
+        case 'UPDATE_IOB' : 
             console.log(action)
             return {
                 ...state,

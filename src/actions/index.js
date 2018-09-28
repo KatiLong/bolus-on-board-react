@@ -1,6 +1,4 @@
-import { iobLoginCalculator } from '../components/dashboard/dashboard-calculators/login-iob-calculator.js';
-import { newBolusEntry } from '../components/dashboard/dashboard-calculators/new-bolus-iob-calculator';
-import { iobCalculator } from '../components/dashboard/dashboard-calculators/iob-calculator.js';
+import { bolusEntryTime } from '../components/populateDateTime';
 
 /////////////////User///////////////////////
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
@@ -167,7 +165,7 @@ export const updateIob = (iobAmount, iobTimeLeft) => ({
 // });
 
 //Update IOB on Server
-export const updateIobApi = (iob, iobId, history) => {
+export const updateIobApi = (iob, iobId) => {
     console.log(iob, iobId);
     return (dispatch) => {
         //Fetch 'insulinOnBoard', 'amount', 'timeLeft'
@@ -181,7 +179,6 @@ export const updateIobApi = (iob, iobId, history) => {
         //Adds Entry to Redux Stack when server successful
         // .then(res => console.log(res))
         .then(res => dispatch(updateIob(iob.insulinOnBoard.amount, iob.insulinOnBoard.timeLeft)))
-        // .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }
 }
@@ -206,9 +203,8 @@ export const updateIobBolus = (iobAmount, iobTimeLeft) => ({
 })
 // POST to Server IOB Stack
 export const iobEntryPost = (bolusEntry, iobId, iobAmount, history) => {
-    console.log(bolusEntry, iobId, iobAmount);
+    console.log('iobEntryPost Ran');
     return (dispatch) => {
-        //Fetch
         fetch(`${API_BASE_URL}iob/insulin-stack/${iobId}`, {
             method: 'POST',
             headers: {
@@ -217,19 +213,18 @@ export const iobEntryPost = (bolusEntry, iobId, iobAmount, history) => {
             body: JSON.stringify(bolusEntry)
         })
         .then(res => res.json())
-        //Adds Entry to Redux Stack when server successful
         .then(res => {
-            console.log('iob Entry Post response: ', res )
-            dispatch(addIobEntry(res))
+            console.log('iob Entry Post response: ', res);
+                // Adds Entry to Redux Stack when server successful
+                dispatch(addIobEntry(res))
+                // PUT to Add Bolus Entry to Server IOB Stack
+                dispatch(updateIobApi({
+                    insulinOnBoard: {
+                        amount: iobAmount + bolusEntry.entryAmount,
+                        timeLeft: bolusEntry.timeRemaining
+                    }
+                }, iobId, history))
         })
-        .then(res => { // Add update to Server
-            dispatch(updateIobApi({
-                insulinOnBoard: {
-                    amount: iobAmount + bolusEntry.entryAmount,
-                    timeLeft: bolusEntry.timeRemaining
-                }
-            }, iobId, history))
-        }) 
         .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }
@@ -241,42 +236,72 @@ export const updateIobEntry = (state) => ({
     state
 })
 
-export const updateIobEntryApi = (bolusEntry, iobId, history) => {
+export const updateIobEntryApi = (iobEntry, iobId, history) => {
     return (dispatch) => {
         // console.log(bolusEntry, iobId);
-        // return (dispatch) => {
-        //     //Fetch
-        //     fetch(`${API_BASE_URL}iob/insulin-stack/${iobId}`, {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(bolusEntry)
-        //     })
-        //     .then(res => res.json())
-        //     //Adds Entry to Redux Stack when server successful
-        //     .then(res => dispatch(addIobEntry(res.currentInsulinStack)))
-        //     // .then(data => history.push('/dashboard'))
-        //     .catch(error => console.log(error))
+        return (dispatch) => {
+            //Fetch
+            fetch(`${API_BASE_URL}insulin-stack-entry/${iobEntry.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(iobEntry)
+            })
+            .then(res => {
+                console.log(res);
+
+            })
+            .catch(error => console.log(error))
+        }
     }
 }
 
 const DELETE_IOB_ENTRY = 'DELETE_IOB_ENTRY';
-export const deleteIobEntry = (state) => ({
+export const deleteIobEntry = (elId) => ({
     type: DELETE_IOB_ENTRY,
-    state
+    elId
 })
 
-export const deleteIobEntryApi = (bolusEntry, iobId, history) => {
-    return (dispatch) => {
-        
+export const deleteIobEntryApi = (iobId, elId, history) => {
+    return (dispatch) => { 
+        fetch(`${API_BASE_URL}iob/insulin-stack/${iobId}/${elId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => console.log(res))
+        // .then(res => dispatch(deleteIobEntry(elId)))
+        .catch(error => console.log(error))
+    }
+}
+// Clear IOB and IOB Stack in Redux
+const CLEAR_STACK = 'CLEAR_STACK';
+export const clearStack = () => ({
+    type: CLEAR_STACK
+})
+// Tempprary function to clear Bolus Post Tests
+export const clearIobStack = (iobId, reduxStack) => {
+    console.log('clearIobStack')
+    return dispatch => {
+        // reduxStack.map((el) => {
+        //     dispatch(deleteIobEntryApi(iobId, el._id))
+        // })
+        dispatch(updateIobApi({
+            insulinOnBoard: {
+                amount: 0,
+                timeLeft: 0
+            }
+        }, iobId))
+        // dispatch(clearStack());
     }
 }
 
 /////////////////Dashboard/////////////////////
 
 // Bolus Submit
-export const handleBolus = (formType, payload, history) => {
+export const handleBolus = (formType, duration, totalIobAmount, iobId, payload, history) => {
     console.log(formType, payload);
     return (dispatch) => {
         //Fetch
@@ -288,6 +313,16 @@ export const handleBolus = (formType, payload, history) => {
             body: JSON.stringify(payload)
         })
         .then(res => res.json())
+        .then(res => {
+            // Add Bolus to IOB Stack Server Side, Add bolus Entry to Redux Stack inside server success
+            console.log(res);
+            dispatch(iobEntryPost({
+                entryAmount: res.bolusAmount,
+                currentInsulin: res.bolusAmount,
+                timeStart: bolusEntryTime(res.bolusDate, res.bolusTime),
+                timeRemaining: duration,
+            }, iobId, totalIobAmount, history));
+        })
         .catch(error => console.log(error))
     }
 }

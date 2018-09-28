@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import InsulinOnBoard from './insulin-on-board';
-import { updateIobApi, updateIobEntryApi, deleteIobEntryApi } from '../../actions';
+import { updateIobApi, updateIobEntryApi, deleteIobEntryApi, clearIobStack } from '../../actions';
 
 import './dashboard.css';
 
@@ -27,9 +27,9 @@ class IobCalculator extends Component {
 
     calculator () {
         const mountTime = (new Date()).getTime();
-        console.log('Calculator mountTime: ', mountTime);
+        // console.log('Calculator mountTime: ', mountTime);
 
-        let currentInsulinStack = (!this.props.insulinStack) ? [] : [...this.props.insulinStack];
+        let currentInsulinStack = (!this.props.iobStack) ? [] : [...this.props.iobStack];
         
         let updatedInsulinStack, bolusRate, stackLength, timeElapsed;
         let duration = (this.props.duration)*3600000;
@@ -42,8 +42,24 @@ class IobCalculator extends Component {
         // Skips Map if Stack is currently Empty, makes sure IOB Amounts are Zeroed Out
         if (currentInsulinStack.length === 0) {
             console.log('Stack is Empty');
-            // this.props.dispatch(updateIobApi(0, 0));
+            this.props.dispatch(updateIobApi({
+                insulinOnBoard: {
+                    amount: 0,
+                    timeLeft: 0
+                }
+            }, iobId));
+
+            // Clear Entry Stack (for Testing only)
+            // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
         } else {
+            console.log('Stack is not empty');
+            // Clear Entry Stack (for Testing only)
+            // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
+
+            // this.props.dispatch(updateIobEntryApi(iobId, currentInsulinStack));
+
+            // this.props.dispatch(deleteIobEntryApi (iobId, elId, history)
+
             //Updates Each Entry on insulin stack
     //         updatedInsulinStack = currentInsulinStack.map((el, ind) => {
     //             console.log(el);
@@ -120,11 +136,22 @@ class IobCalculator extends Component {
     //         // Check after Filter for Empty array, update totals to 0 if it is
     //         if (updatedInsulinStack.length === 0) {
     //             console.log('Updated Stack is Empty');
-    //             this.props.dispatch(updateIobApi(0, 0));
+                // this.props.dispatch(updateIobApi({
+                //     insulinOnBoard: {
+                //         amount: 0,
+                //         timeLeft: 0
+                //     }
+                // }, iobId));
     //         } 
     //         // Updates IOB with New Amounts
     //         else { 
-    //             this.props.dispatch(updateIobApi(totalIOBAmount, totalIOBTime));
+                    // Updates Iob Totals in Server & then Redux State
+                    // this.props.dispatch(updateIobApi({
+                    //     insulinOnBoard: {
+                    //         amount: totalIOBAmount,
+                    //         timeLeft: totalIOBTime
+                    //     }
+                    // }, iobId))
     //         }
         }
 

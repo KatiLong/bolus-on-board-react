@@ -32,11 +32,11 @@ class Bolus extends React.Component {
         event.preventDefault();
         
         //Add Bolus Entry to Server
-        this.props.handleBolus(formType, {
+        this.props.handleBolus(formType, this.props.iobAmount, this.props.duration.amount, this.props.iobId, {
             insulinType: this.state.insulinType,
             bolusUnits: this.state.insulinAmount,
             bolusCarbs: this.state.carbAmount,
-            bloodSugar: this.state.bloodSugar,
+            bloodGlucose: this.state.bloodSugar, //BloodGlucose on Server Side
             bolusAmount: this.state.suggestedBolus,
             bolusDate: this.state.currentDate,
             bolusTime: this.state.currentTime,
@@ -44,15 +44,15 @@ class Bolus extends React.Component {
             loggedInUsername: this.props.loggedInUsername 
         }, this.props.history);
 
-        // Add Bolus to IOB Stack Server Side, Add bolus Entry to Redux Stack inside server success
-        this.props.iobEntryPost({
-            entryAmount: this.state.suggestedBolus,
-            currentInsulin: this.state.suggestedBolus,
-            timeStart: bolusEntryTime(this.state.currentDate, this.state.currentTime),
-            timeRemaining: this.props.duration.amount
-        }, this.props.iobId, this.props.iobAmount, this.props.history)
+        // // Add Bolus to IOB Stack Server Side, Add bolus Entry to Redux Stack inside server success
+        // this.props.iobEntryPost({
+        //     entryAmount: this.state.suggestedBolus,
+        //     currentInsulin: this.state.suggestedBolus,
+        //     timeStart: bolusEntryTime(this.state.currentDate, this.state.currentTime),
+        //     timeRemaining: this.props.duration.amount
+        // }, this.props.iobId, this.props.iobAmount, this.props.history)
 
-        console.log((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), this.props.duration.amount);
+        // console.log((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), this.props.duration.amount);
         //Update Insulin on Board 
         // this.props.updateIobBolus((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), parseFloat(this.props.duration.amount))
     }
@@ -186,7 +186,7 @@ const mapDispatchToProps = (dispatch) => ({
     updateIob: (amount, time) => dispatch(updateIob(amount, time)),
     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)), 
-    handleBolus: (formType, payload, history) => dispatch(handleBolus(formType, payload, history)),
+    handleBolus: (formType, duration, totalIobAmount, iobId, payload, history) => dispatch(handleBolus(formType, duration, totalIobAmount, iobId, payload, history)),
     iobEntryPost: (bolusEntry, iobId, iobAmount, history) => dispatch(iobEntryPost(bolusEntry, iobId, iobAmount, history))
 });
 
