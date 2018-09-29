@@ -13,7 +13,7 @@ class BloodGlucose extends React.Component {
         currentTime: ""
     }
     componentDidMount(){
-        const {date, time, dateTime} = populateDateTime();
+        const {date, time} = populateDateTime();
         this.setState({
             currentDate: date,
             currentTime: time

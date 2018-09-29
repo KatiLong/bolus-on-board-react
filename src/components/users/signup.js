@@ -104,5 +104,3 @@ class Register extends Component {
 // });
 
 export default connect()(Register);
-
-{/* <Link to='/register/disclaimer'></Link> */}

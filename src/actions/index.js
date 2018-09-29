@@ -196,6 +196,13 @@ export const addIobEntry = (bolusEntry) => ({
     bolusEntry
 })
 
+
+const BOLUS_TO_DASHBOARD = 'BOLUS_TO_DASHBOARD';
+export const bolusToDashboard = (state) => ({
+    type: BOLUS_TO_DASHBOARD,
+    state
+})
+
 const UPDATE_IOB_BOLUS = 'UPDATE_IOB_BOLUS';
 export const updateIobBolus = (iobAmount, iobTimeLeft) => ({
     type: UPDATE_IOB_BOLUS,

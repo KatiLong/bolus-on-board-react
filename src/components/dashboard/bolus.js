@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { handleBolus, iobOnLogin, updateIob, addIobEntry, iobEntryPost } from '../../actions';
-import { populateDateTime, bolusEntryTime } from '../populateDateTime';
+import { populateDateTime } from '../populateDateTime';
 
 import { connect } from 'react-redux';
 
@@ -58,19 +58,17 @@ class Bolus extends React.Component {
     }
 
     carbInsulinChange (e){
-
-        (e.target.value === NaN || !e.target.value) ? 0 : e.target.value
         if (e.target.name === "insulin") {
             this.setState({
-                insulinAmount: (e.target.value === NaN || !e.target.value) ? 0 : e.target.value,
-                carbAmount: (e.target.value === NaN || !e.target.value) ? 0 : e.target.value * this.props.carbRatio.amount
+                insulinAmount: ( isNaN(e.target.value) || !e.target.value) ? 0 : e.target.value,
+                carbAmount: (isNaN(e.target.value) || !e.target.value) ? 0 : e.target.value * this.props.carbRatio.amount
             }, () => {
                 this.calculateSuggestedBolus()
             })
         } else if (e.target.name === "carbs") {
             this.setState({
-                insulinAmount: (e.target.value === NaN || !e.target.value) ? 0 : e.target.value/this.props.carbRatio.amount,
-                carbAmount: (e.target.value === NaN || !e.target.value) ? 0 : e.target.value
+                insulinAmount: (isNaN(e.target.value) || !e.target.value) ? 0 : e.target.value/this.props.carbRatio.amount,
+                carbAmount: (isNaN(e.target.value) || !e.target.value) ? 0 : e.target.value
             }, () => {
                 this.calculateSuggestedBolus()
             })
@@ -122,6 +120,9 @@ class Bolus extends React.Component {
     }
 
     render() {
+        if (this.state.bolusToDashboard === true) {
+            return <Redirect to='/dashboard' />
+        }
         return (
             <div>
                 <form
@@ -202,7 +203,8 @@ const mapStateToProps = (state) => {
         targetBg: state.settings.targetBg,
         lowBg: state.settings.lowBg,
         loggedInUsername: state.user.email,
-        iobId: state.user.iobId
+        iobId: state.user.iobId,
+        bolusToDashboard: state.user.bolusToDashboard
     }
 };
 

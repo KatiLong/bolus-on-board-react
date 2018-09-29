@@ -4,7 +4,6 @@ import './App.css';
 import './responsive.css';
 import Login from './components/users/login';
 import Register from './components/users/signup';
-import Disclaimer from './components/users/disclaimer';
 import UserDashboard from './components/dashboard/user-dashboard';
 import Bolus from './components/dashboard/bolus';
 import Basal from './components/dashboard/basal';
@@ -53,8 +52,5 @@ class App extends Component {
 //LOGS
 // import Logs from './components/logs';
 // <Route exact path='/logs' component={Logs}/>
-
-// DISCLAIMER
-{/* <Route exact path='/register/disclaimer' component={Disclaimer}/> */}
 
 export default App;

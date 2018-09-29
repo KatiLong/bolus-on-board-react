@@ -3,7 +3,8 @@ const initialState = {
     name: '',
     userId: '',
     settingsId: '',
-    iobId: ''
+    iobId: '',
+    bolusToDashboard: false
 }
 
 //create the reducer
@@ -22,6 +23,12 @@ const userReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 ...action.userDetails.user
             })
+        case 'BOLUS_TO_DASHBOARD' :
+            console.log(action);
+            return {
+                ...state,
+                bolusToDashboard: true
+            }
         default :
             return state
 

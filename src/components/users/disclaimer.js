@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react';
-// import {Link} from 'react-router-dom';
 
 function Disclaimer(props) {
 
@@ -34,8 +33,3 @@ function Disclaimer(props) {
 }
 
 export default Disclaimer;
-
-{/* <span id="disclaimer-buttons">
-<Link to='/dashboard'><button type="button" onClick={() => this.handleSubmit()} className="submit-button" id="disclaimer-accept">I AGREE</button></Link>
-<Link to='/register'><button type="button" id="cancel-disclaimer">Cancel</button></Link>
-</span> */}
