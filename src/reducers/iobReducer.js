@@ -30,7 +30,11 @@ const iobReducer = (state = initialState, action) => {
         case 'DELETE_IOB_ENTRY' : // Not Finished
             console.log(action)
                 return {
-                    ...state
+                    ...state,
+                    iobStack: [
+                        ...state.iobStack.slice(0, action.index),
+                        ...state.iobStack.slice(action.index + 1)
+                    ]
                 }
         case 'CLEAR_STACK' :
                 return {

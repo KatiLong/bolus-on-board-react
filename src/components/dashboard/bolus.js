@@ -30,9 +30,17 @@ class Bolus extends React.Component {
 
     onSubmit (formType, event){
         event.preventDefault();
+
+        //////Bolus Actions/////
+        // handleBolus
+            // iobEntryPost POST Bolus Document
+                // addIobEntry Redux State
+                // updateIobApi PUT IOB Totals
+                    // updateIob Redux State
+            // History Redirect Dashboard from iobEntryPost
         
-        //Add Bolus Entry to Server
-        this.props.handleBolus(formType, this.props.iobAmount, this.props.duration.amount, this.props.iobId, {
+        //Add Bolus Entry to Server  formType, duration, totalIobAmount, iobId, payload, history
+        this.props.handleBolus(formType, this.props.duration.amount, this.props.iobAmount,  this.props.iobId, {
             insulinType: this.state.insulinType,
             bolusUnits: this.state.insulinAmount,
             bolusCarbs: this.state.carbAmount,
@@ -43,14 +51,6 @@ class Bolus extends React.Component {
             inputDateTime: this.state.currentDate + 'T' + this.state.currentTime,
             loggedInUsername: this.props.loggedInUsername 
         }, this.props.history);
-
-        // // Add Bolus to IOB Stack Server Side, Add bolus Entry to Redux Stack inside server success
-        // this.props.iobEntryPost({
-        //     entryAmount: this.state.suggestedBolus,
-        //     currentInsulin: this.state.suggestedBolus,
-        //     timeStart: bolusEntryTime(this.state.currentDate, this.state.currentTime),
-        //     timeRemaining: this.props.duration.amount
-        // }, this.props.iobId, this.props.iobAmount, this.props.history)
 
         // console.log((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), this.props.duration.amount);
         //Update Insulin on Board 

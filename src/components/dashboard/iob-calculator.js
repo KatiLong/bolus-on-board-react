@@ -17,7 +17,7 @@ class IobCalculator extends Component {
             console.log('Set Interval test, chainId: ', chainId)
             // Call Calculator Second Time
             this.calculator();
-        }, 5000);
+        }, 60000); //1 minute increment
           
     }
     componentWillUnmount() {
@@ -32,7 +32,7 @@ class IobCalculator extends Component {
         let currentInsulinStack = (!this.props.iobStack) ? [] : [...this.props.iobStack];
         
         let updatedInsulinStack, bolusRate, stackLength, timeElapsed;
-        let duration = (this.props.duration)*3600000;
+        let duration = (this.props.duration)*3600000; //In Milliseconds
         let iobId =  this.props.iobId;
         let settingsId = this.props.settingsId;
         let totalIOBAmount = this.props.iobAmount;
@@ -42,6 +42,7 @@ class IobCalculator extends Component {
         // Skips Map if Stack is currently Empty, makes sure IOB Amounts are Zeroed Out
         if (currentInsulinStack.length === 0) {
             console.log('Stack is Empty');
+
             this.props.dispatch(updateIobApi({
                 insulinOnBoard: {
                     amount: 0,
@@ -53,30 +54,38 @@ class IobCalculator extends Component {
             // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
         } else {
             console.log('Stack is not empty');
+
             // Clear Entry Stack (for Testing only)
+            
             // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
-
-            // this.props.dispatch(updateIobEntryApi(iobId, currentInsulinStack));
-
+            // this.props.dispatch(updateIobEntryApi(currentInsulinStack));
             // this.props.dispatch(deleteIobEntryApi (iobId, elId, history)
 
-            //Updates Each Entry on insulin stack
-    //         updatedInsulinStack = currentInsulinStack.map((el, ind) => {
-    //             console.log(el);
-    //             // Time Elapsed is the difference from IOB Component Mounting (i.e. Login) from the Time of Bolus 
-    //             timeElapsed = mountTime - el.timeStart;
+            // MAP Updates Each Entry on insulin stack
+            updatedInsulinStack = currentInsulinStack.map((el, ind) => {
+                console.log(el);
+                // Element
+                // currentInsulin: 1.22
+                // entryAmount: 1.22
+                // timeRemaining: 4.25
+                // timeStart: 1538092839193
+                // _id: "5bad6f27a122bf07f21eaafb"
 
-    //             //If it's been longer than the User's set duration, zero out the element
-    //             if (timeElapsed >= duration) {
-    //                 console.log('Element Zeroed Out', timeElapsed);
-    //                 //Update Total Amount, Total Time set by Element with most time remaining
-    //                 totalIOBAmount = Math.min(Math.max((totalIOBAmount - el.currentInsulin), 0), duration);
+                // this.props.dispatch(updateIobEntryApi(el));
+                // Time Elapsed is the difference from IOB Component Mounting (i.e. Login) from the Time of Bolus 
+                timeElapsed = mountTime - el.timeStart;
+
+                //If it's been longer than the User's set duration, zero out the element
+                if (timeElapsed >= duration) {
+                    console.log('Element Zeroed Out', timeElapsed);
+                    //Update Total Amount, Total Time set by Element with most time remaining
+                    totalIOBAmount = Math.min(Math.max((totalIOBAmount - el.currentInsulin), 0), duration);
                     
-    //                 //Set Current Element to 0
-    //                 el.timeRemaining = 0;
-    //                 el.currentInsulin = 0;
-    //                 return el;
-    //             }
+                    //Set Current Element to 0
+                    el.timeRemaining = 0;
+                    el.currentInsulin = 0;
+                    return el;
+                }
     //             ///////////From login Calculator/////////////
     // //         //Updating totals for Element and Global Totals
     // //         bolusRate = ((el.entryAmount)/(duration-900000))*timeElapsed
@@ -125,24 +134,24 @@ class IobCalculator extends Component {
     //                 return false;
     //             }
 
-    //             return el;
+                return el;
     //         //Filter out entries that have zeroed out Locally and on Server
-    //         }).filter((el)=> {
-    //             console.log(el);
-    //             if (el.timeRemaining === 0) this.props.dispatch(deleteIobEntryApi(iobId, el._id));
-    //             return !(el.timeRemaining === 0);
-    //         });
+            }).filter((el, index) => {
+                console.log(el);
+                if (el.timeRemaining === 0) this.props.dispatch(deleteIobEntryApi(iobId, el._id, index));
+                return !(el.timeRemaining === 0);
+            });
     //         console.log(updatedInsulinStack);
-    //         // Check after Filter for Empty array, update totals to 0 if it is
-    //         if (updatedInsulinStack.length === 0) {
-    //             console.log('Updated Stack is Empty');
-                // this.props.dispatch(updateIobApi({
-                //     insulinOnBoard: {
-                //         amount: 0,
-                //         timeLeft: 0
-                //     }
-                // }, iobId));
-    //         } 
+            // Check after Filter for Empty array, update totals to 0 if it is
+            if (updatedInsulinStack.length === 0) {
+                console.log('Updated Stack is Empty');
+                this.props.dispatch(updateIobApi({
+                    insulinOnBoard: {
+                        amount: 0,
+                        timeLeft: 0
+                    }
+                }, iobId));
+            } 
     //         // Updates IOB with New Amounts
     //         else { 
                     // Updates Iob Totals in Server & then Redux State
