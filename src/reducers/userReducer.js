@@ -4,7 +4,8 @@ const initialState = {
     userId: '',
     settingsId: '',
     iobId: '',
-    bolusToDashboard: false
+    bolusToDashboard: false,
+    bolusStatus: "not successful"
 }
 
 //create the reducer

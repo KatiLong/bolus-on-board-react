@@ -10,6 +10,7 @@ import Basal from './components/dashboard/basal';
 import BloodGlucose from './components/dashboard/bg';
 import A1c from './components/dashboard/a1c';
 import Settings from './components/settings/settings';
+import BolusStatus from './components/dashboard/bolus-status';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -28,6 +29,7 @@ class App extends Component {
                 
                 <Route exact path='/dashboard' component={UserDashboard}/>
                 <Route exact path='/dashboard/bolus' component={Bolus}/>
+                <Route exact path='/dashboard/bolus-status' component={BolusStatus}/>
                 <Route exact path='/dashboard/basal' component={Basal}/>
                 <Route exact path='/dashboard/blood-glucose' component={BloodGlucose}/>
                 <Route exact path='/dashboard/a1c' component={A1c}/>

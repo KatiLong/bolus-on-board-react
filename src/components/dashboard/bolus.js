@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { handleBolus, iobOnLogin, updateIob, addIobEntry, iobEntryPost } from '../../actions';
+import { handleBolus } from '../../actions';
 import { populateDateTime } from '../populateDateTime';
 
 import { connect } from 'react-redux';
@@ -40,7 +40,7 @@ class Bolus extends React.Component {
             // History Redirect Dashboard from iobEntryPost
         
         //Add Bolus Entry to Server  formType, duration, totalIobAmount, iobId, payload, history
-        this.props.handleBolus(formType, this.props.duration.amount, this.props.iobAmount,  this.props.iobId, {
+        this.props.dispatch(handleBolus(formType, this.props.duration.amount, this.props.iobAmount,  this.props.iobId, {
             insulinType: this.state.insulinType,
             bolusUnits: this.state.insulinAmount,
             bolusCarbs: this.state.carbAmount,
@@ -50,11 +50,8 @@ class Bolus extends React.Component {
             bolusTime: this.state.currentTime,
             inputDateTime: this.state.currentDate + 'T' + this.state.currentTime,
             loggedInUsername: this.props.loggedInUsername 
-        }, this.props.history);
+        }, this.props.history));
 
-        // console.log((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), this.props.duration.amount);
-        //Update Insulin on Board 
-        // this.props.updateIobBolus((parseFloat(this.props.iobAmount) + parseFloat(this.state.suggestedBolus)), parseFloat(this.props.duration.amount))
     }
 
     carbInsulinChange (e){
@@ -183,14 +180,6 @@ class Bolus extends React.Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    updateIob: (amount, time) => dispatch(updateIob(amount, time)),
-    iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
-    addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)), 
-    handleBolus: (formType, duration, totalIobAmount, iobId, payload, history) => dispatch(handleBolus(formType, duration, totalIobAmount, iobId, payload, history)),
-    iobEntryPost: (bolusEntry, iobId, iobAmount, history) => dispatch(iobEntryPost(bolusEntry, iobId, iobAmount, history))
-});
-
 const mapStateToProps = (state) => {
     return {
         iobAmount: state.iob.iobAmount,
@@ -208,4 +197,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bolus);
+export default connect(mapStateToProps)(Bolus);

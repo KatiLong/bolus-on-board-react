@@ -82,60 +82,63 @@ export const loginUser = (user, history, props) =>  {
         .then(results => {
             if (results.message === "Not found!" || results.message === "Password Invalid") {
                 alert('Incorrect Username or Password');
+                throw 'Incorrect Username or Password';
             } else {
                 // Set User Information in Redux State
                 reduxStateToUpdate.user.email = results.username
                 reduxStateToUpdate.user.name = results.name
                 reduxStateToUpdate.user.userId = results._id
-
-                // Call for Settings
-                fetch(`${API_BASE_URL}settings/${results.username}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(res => res.json())
-                .then(res => {
-                    // Set user settings ID in Redux State
-                    reduxStateToUpdate.user.settingsId = res[0]._id;
-
-                    // Set User Settings from Server in Redux State
-                    reduxStateToUpdate.settings.carbRatio = res[0].carbRatio;
-                    reduxStateToUpdate.settings.correction = res[0].correction;
-                    reduxStateToUpdate.settings.duration = res[0].duration;
-                    reduxStateToUpdate.settings.incrementInsulin = res[0].incrementInsulin;
-                    reduxStateToUpdate.settings.lowBg = res[0].lowBg;
-                    reduxStateToUpdate.settings.targetBg = res[0].targetBg;
-
-                })
-                .catch(error => console.log(error))
-                
-                // Call for IOB info
-                fetch(`${API_BASE_URL}iob-stack/${results.username}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(res => res.json())
-                .then(res => {
-
-                    // Set IOB info and ID in Redux State
-                    reduxStateToUpdate.user.iobId = res[0]._id
-                    reduxStateToUpdate.iob.iobStack = [...res[0].currentInsulinStack];
-                    reduxStateToUpdate.iob.iobAmount = res[0].insulinOnBoard.amount;
-                    reduxStateToUpdate.iob.iobTimeLeft = res[0].insulinOnBoard.timeLeft;
-
-                    console.log(reduxStateToUpdate);
-                    // Combined Reducer for all Login Actions (udpates all three Reducers in one)
-                    dispatch(onUserLogin(reduxStateToUpdate));
-                })
-                // Redirect to Dashboard
-                .then(() => history.push('/dashboard'))
-                .catch(error => console.log(error))
-            }
+                return results;
+            };
         })
+        // Call for Settings
+        .then(results => {
+            fetch(`${API_BASE_URL}settings/${results.username}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(res => {
+                // Set user settings ID in Redux State
+                reduxStateToUpdate.user.settingsId = res[0]._id;
+                // Set User Settings from Server in Redux State
+                reduxStateToUpdate.settings.carbRatio = res[0].carbRatio;
+                reduxStateToUpdate.settings.correction = res[0].correction;
+                reduxStateToUpdate.settings.duration = res[0].duration;
+                reduxStateToUpdate.settings.incrementInsulin = res[0].incrementInsulin;
+                reduxStateToUpdate.settings.lowBg = res[0].lowBg;
+                reduxStateToUpdate.settings.targetBg = res[0].targetBg;
+            })
+            .catch(error => {throw error})
+            return results;
+        })
+        // Call for IOB info
+        .then((results) => {
+            fetch(`${API_BASE_URL}iob-stack/${results.username}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                // Set IOB info and ID in Redux State
+                reduxStateToUpdate.user.iobId = res[0]._id
+                reduxStateToUpdate.iob.iobStack = (!res[0].currentInsulinStack) ? [] : [...res[0].currentInsulinStack];
+                reduxStateToUpdate.iob.iobAmount = res[0].insulinOnBoard.amount;
+                reduxStateToUpdate.iob.iobTimeLeft = res[0].insulinOnBoard.timeLeft;
+
+                console.log(reduxStateToUpdate);
+            })
+            .catch(error => { throw error})
+        })
+        // Combined Reducer for all Login Actions (udpates all three Reducers in one)
+        .then(() => dispatch(onUserLogin(reduxStateToUpdate)))
+        // Redirect to Dashboard once all calls complete
+        .then(() => history.push('/dashboard'))
         .catch(error => console.log(error))
     }
 } 
@@ -165,7 +168,7 @@ export const updateIob = (iobAmount, iobTimeLeft) => ({
 
 //Update IOB on Server
 export const updateIobApi = (iob, iobId) => {
-    // console.log('updateIobApi action', iob, iobId);
+    console.log('updateIobApi action', iob, iobId);
     return (dispatch) => {
         //Fetch 'insulinOnBoard', 'amount', 'timeLeft'
         fetch(`${API_BASE_URL}insulin-on-board/${iobId}`, {
@@ -177,7 +180,7 @@ export const updateIobApi = (iob, iobId) => {
         })
         //Adds Entry to Redux Stack when server successful
         .then(res => {
-            console.log('updateIobApi action', iob.insulinOnBoard.amount, iob.insulinOnBoard.timeLeft);
+            console.log('updateIobApi action',  iob.insulinOnBoard.amount, iob.insulinOnBoard.timeLeft);
             dispatch(updateIob(iob.insulinOnBoard.amount, iob.insulinOnBoard.timeLeft))
         })
         .catch(error => console.log(error))
@@ -234,6 +237,7 @@ export const iobEntryPost = (bolusEntry, iobId, iobAmount, history) => {
                     }
                 }, iobId, history))
         })
+        .then(data => console.log('Bolus Successfully submitted'))
         .then(data => history.push('/dashboard'))
         .catch(error => console.log(error))
     }
