@@ -88,12 +88,11 @@ export const loginUser = (user, history, props) =>  {
                 reduxStateToUpdate.user.email = results.username
                 reduxStateToUpdate.user.name = results.name
                 reduxStateToUpdate.user.userId = results._id
-                return results;
             };
         })
         // Call for Settings
-        .then(results => {
-            fetch(`${API_BASE_URL}settings/${results.username}`, {
+        .then(() => {
+            return fetch(`${API_BASE_URL}settings/${reduxStateToUpdate.user.email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -112,11 +111,10 @@ export const loginUser = (user, history, props) =>  {
                 reduxStateToUpdate.settings.targetBg = res[0].targetBg;
             })
             .catch(error => {throw error})
-            return results;
         })
         // Call for IOB info
         .then((results) => {
-            fetch(`${API_BASE_URL}iob-stack/${results.username}`, {
+            return fetch(`${API_BASE_URL}iob-stack/${reduxStateToUpdate.user.email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -127,16 +125,17 @@ export const loginUser = (user, history, props) =>  {
                 console.log(res)
                 // Set IOB info and ID in Redux State
                 reduxStateToUpdate.user.iobId = res[0]._id
-                reduxStateToUpdate.iob.iobStack = (!res[0].currentInsulinStack) ? [] : [...res[0].currentInsulinStack];
+                reduxStateToUpdate.iob.iobStack = [...res[0].currentInsulinStack];
                 reduxStateToUpdate.iob.iobAmount = res[0].insulinOnBoard.amount;
                 reduxStateToUpdate.iob.iobTimeLeft = res[0].insulinOnBoard.timeLeft;
-
-                console.log(reduxStateToUpdate);
             })
             .catch(error => { throw error})
         })
         // Combined Reducer for all Login Actions (udpates all three Reducers in one)
-        .then(() => dispatch(onUserLogin(reduxStateToUpdate)))
+        .then(() => {
+            console.log(reduxStateToUpdate);
+            dispatch(onUserLogin(reduxStateToUpdate))
+        })
         // Redirect to Dashboard once all calls complete
         .then(() => history.push('/dashboard'))
         .catch(error => console.log(error))

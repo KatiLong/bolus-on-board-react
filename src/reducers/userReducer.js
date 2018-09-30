@@ -20,10 +20,16 @@ const userReducer = (state = initialState, action) => {
                 userId: action.userDetails.userID
             })
         case 'ON_USER_LOGIN' :
-            console.log(action);
-            return Object.assign({}, state, {
-                ...action.userDetails.user
-            })
+            console.log(action.userDetails.user); 
+            console.log(action.userDetails.user.settingsId, action.userDetails.user.iobId); 
+            return {
+                ...state,
+                email: action.userDetails.user.email,
+                name: action.userDetails.user.name,
+                userId: action.userDetails.user.userId,
+                settingsId: action.userDetails.user.settingsId,
+                iobId: action.userDetails.user.iobId
+            }
         case 'BOLUS_TO_DASHBOARD' :
             console.log(action);
             return {
