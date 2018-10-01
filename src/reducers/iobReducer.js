@@ -11,7 +11,7 @@ const iobReducer = (state = initialState, action) => {
         case 'ON_USER_LOGIN' : // login.js
             console.log(action);
             return Object.assign({}, state, {
-                ...action.userDetails.iob,
+                // ...action.userDetails.iob,
                 iobStack: (!action.userDetails.iob.iobStack) ? [] : [...action.userDetails.iob.iobStack]
             })
         case 'ADD_IOB_ENTRY' : // bolus.js

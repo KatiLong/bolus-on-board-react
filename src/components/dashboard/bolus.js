@@ -35,8 +35,8 @@ class Bolus extends React.Component {
         // handleBolus
             // iobEntryPost POST Bolus Document
                 // addIobEntry Redux State
-                // updateIobApi PUT IOB Totals
-                    // updateIob Redux State
+                // // updateIobApi PUT IOB Totals
+                // //     updateIob Redux State
             // History Redirect Dashboard from iobEntryPost
         
         //Add Bolus Entry to Server  formType, duration, totalIobAmount, iobId, payload, history

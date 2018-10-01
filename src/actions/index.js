@@ -1,4 +1,5 @@
 import { bolusEntryTime } from '../components/populateDateTime';
+import bolus from '../components/dashboard/bolus';
 
 /////////////////User///////////////////////
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
@@ -126,8 +127,8 @@ export const loginUser = (user, history, props) =>  {
                 // Set IOB info and ID in Redux State
                 reduxStateToUpdate.user.iobId = res[0]._id
                 reduxStateToUpdate.iob.iobStack = [...res[0].currentInsulinStack];
-                reduxStateToUpdate.iob.iobAmount = res[0].insulinOnBoard.amount;
-                reduxStateToUpdate.iob.iobTimeLeft = res[0].insulinOnBoard.timeLeft;
+                // reduxStateToUpdate.iob.iobAmount = res[0].insulinOnBoard.amount;
+                // reduxStateToUpdate.iob.iobTimeLeft = res[0].insulinOnBoard.timeLeft;
             })
             .catch(error => { throw error})
         })
@@ -214,6 +215,7 @@ export const updateIobBolus = (iobAmount, iobTimeLeft) => ({
 // POST to Server IOB Stack
 // Something in math wrong for IOB amount
 export const iobEntryPost = (bolusEntry, iobId, iobAmount, history) => {
+    console.log(bolusEntry);
     console.log('iobEntryPost Ran, iobAmount: ', iobAmount, 'bolusEntry Amount: ', bolusEntry.entryAmount);
     return (dispatch) => {
         fetch(`${API_BASE_URL}iob/insulin-stack/${iobId}`, {
@@ -226,15 +228,15 @@ export const iobEntryPost = (bolusEntry, iobId, iobAmount, history) => {
         .then(res => res.json())
         .then(res => {
             console.log('iob Entry Post response: ', res);
-                // Adds Entry to Redux Stack when server successful
-                dispatch(addIobEntry(res))
+            // Adds Entry to Redux Stack when server successful
+            dispatch(addIobEntry(res));
                 // PUT to Add Bolus Entry to Server IOB Stack
-                dispatch(updateIobApi({
-                    insulinOnBoard: {
-                        amount: iobAmount + bolusEntry.entryAmount,
-                        timeLeft: bolusEntry.timeRemaining
-                    }
-                }, iobId, history))
+                // dispatch(updateIobApi({
+                //     insulinOnBoard: {
+                //         amount: iobAmount + bolusEntry.entryAmount,
+                //         timeLeft: bolusEntry.timeRemaining
+                //     }
+                // }, iobId, history))
         })
         .then(data => console.log('Bolus Successfully submitted'))
         .then(data => history.push('/dashboard'))
@@ -330,7 +332,7 @@ export const handleBolus = (formType, duration, totalIobAmount, iobId, payload, 
                 entryAmount: res.bolusAmount,
                 currentInsulin: res.bolusAmount,
                 timeStart: bolusEntryTime(res.bolusDate, res.bolusTime),
-                timeRemaining: duration,
+                timeRemaining: duration*3600000, //In Milliseconds,
             }, iobId, totalIobAmount, history));
         })
         .catch(error => console.log(error))

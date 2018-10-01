@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import InsulinOnBoard from './insulin-on-board';
-import { updateIobApi, updateIobEntryApi, deleteIobEntryApi, clearIobStack } from '../../actions';
+import { updateIob, updateIobEntryApi, deleteIobEntryApi, clearIobStack } from '../../actions';
 
 import './dashboard.css';
 
@@ -31,24 +31,19 @@ class IobCalculator extends Component {
 
         let currentInsulinStack = (!this.props.iobStack) ? [] : [...this.props.iobStack];
         
-        let updatedInsulinStack, bolusRate, stackLength, timeElapsed;
+        let updatedInsulinStack, bolusElapsed, bolusRate, timeElapsed;
         let duration = (this.props.duration)*3600000; //In Milliseconds
         let iobId =  this.props.iobId;
         let settingsId = this.props.settingsId;
-        let totalIOBAmount = this.props.iobAmount;
-        let totalIOBTime = this.props.iobTimeLeft;
+        let totalIOBAmount = 0;
+        let totalIOBTime = 0;
 
         console.log(duration, iobId, settingsId);
         // Skips Map if Stack is currently Empty, makes sure IOB Amounts are Zeroed Out
         if (currentInsulinStack.length === 0) {
             console.log('Stack is Empty');
 
-            this.props.dispatch(updateIobApi({
-                insulinOnBoard: {
-                    amount: 0,
-                    timeLeft: 0
-                }
-            }, iobId));
+            this.props.dispatch(updateIob(0,0));
 
             // Clear Entry Stack (for Testing only)
             // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
@@ -70,8 +65,7 @@ class IobCalculator extends Component {
                 // timeRemaining: 4.25
                 // timeStart: 1538092839193
                 // _id: "5bad6f27a122bf07f21eaafb"
-
-                // this.props.dispatch(updateIobEntryApi(el));
+                
                 // Time Elapsed is the difference from IOB Component Mounting (i.e. Login) from the Time of Bolus 
                 timeElapsed = mountTime - el.timeStart;
 
@@ -86,17 +80,19 @@ class IobCalculator extends Component {
                     el.currentInsulin = 0;
                     return el;
                 }
-    //             ///////////From login Calculator/////////////
-    // //         //Updating totals for Element and Global Totals
-    // //         bolusRate = ((el.entryAmount)/(duration-900000))*timeElapsed
+                /////////From login Calculator/////////////
+                //Updating totals for Element and Global Totals
+                bolusRate = (el.entryAmount)/(duration);
+                bolusElapsed = bolusRate*timeElapsed;
 
-    // //         el.timeRemaining = Math.min(Math.max((el.timeRemaining - timeElapsed), 0), duration);
-    // //         el.currentInsulin = Math.min(Math.max(el.currentInsulin - bolusRate, 0), duration);
+                el.timeRemaining = Math.min(Math.max((el.timeRemaining - timeElapsed), 0), duration);
+                el.currentInsulin = Math.min(Math.max(el.currentInsulin - bolusElapsed, 0), el.currentInsulin);
 
-    // //         totalIOBAmount = Math.min(Math.max(totalIOBAmount - bolusRate, 0), duration);
-
-    // //         //Setting Total IOB Time to highest Time Remaining of an Entry
-    // //         if (totalIOBTime < el.timeRemaining) totalIOBTime = el.timeRemaining
+                //////TOTALS////
+                // Setting Total IOB Time to highest Time Remaining of an Entry
+                if (totalIOBTime < el.timeRemaining) totalIOBTime = el.timeRemaining
+                // Adding current entry currentInsulin to Total IOB Amount
+                totalIOBAmount += el.currentInsulin;
 
 
     //             //For each element...Subtract 5 minutes, min = 0 and max = set duration
@@ -115,53 +111,44 @@ class IobCalculator extends Component {
     //             }
     //             //first half of entry duration
     //             else if (el.timeRemaining >= (duration/2)) {
-    //                 bolusRate = ((el.entryAmount/2)/((duration-900000)/2))*300000; //5 minute increments
-    //                 el.currentInsulin = Math.max((el.currentInsulin - bolusRate), 0);
-    //                 totalIOBAmount -= bolusRate;
+    //                 bolusElapsed = ((el.entryAmount/2)/((duration-900000)/2))*300000; //5 minute increments
+    //                 el.currentInsulin = Math.max((el.currentInsulin - bolusElapsed), 0);
+    //                 totalIOBAmount -= bolusElapsed;
     //                 console.log('First Half rate');
     //             }
     //             //second half of entry duration
     //             else if (el.timeRemaining < (duration/2)) {
-    //                 bolusRate = ((el.entryAmount/2)/((duration/2)))*300000; //5 minute increments
-    //                 //            el.currentInsulin = Math.max((el.currentInsulin - bolusRate), 0);
-    //                 el.currentInsulin -= bolusRate;
-    //                 totalIOBAmount -= bolusRate;
-    //                 console.log('Second Half rate', bolusRate);
+    //                 bolusElapsed = ((el.entryAmount/2)/((duration/2)))*300000; //5 minute increments
+    //                 //            el.currentInsulin = Math.max((el.currentInsulin - bolusElapsed), 0);
+    //                 el.currentInsulin -= bolusElapsed;
+    //                 totalIOBAmount -= bolusElapsed;
+    //                 console.log('Second Half rate', bolusElapsed);
     //             }
     //             //Catch errors
     //             else {
     //                 console.log('Something went wrong in IOB');
     //                 return false;
     //             }
-
+                // this.props.dispatch(updateIobEntryApi(el));
                 return el;
     //         //Filter out entries that have zeroed out Locally and on Server
             }).filter((el, index) => {
                 console.log(el);
-                if (el.timeRemaining === 0) this.props.dispatch(deleteIobEntryApi(iobId, el._id, index));
-                return !(el.timeRemaining === 0);
+                // if (el.timeRemaining === 0) this.props.dispatch(deleteIobEntryApi(iobId, el._id, index));
+                // return !(el.timeRemaining === 0);
             });
     //         console.log(updatedInsulinStack);
             // Check after Filter for Empty array, update totals to 0 if it is
             if (updatedInsulinStack.length === 0) {
                 console.log('Updated Stack is Empty');
-                this.props.dispatch(updateIobApi({
-                    insulinOnBoard: {
-                        amount: 0,
-                        timeLeft: 0
-                    }
-                }, iobId));
+                this.props.dispatch(updateIob(0,0));
             } 
-    //         // Updates IOB with New Amounts
-    //         else { 
-                    // Updates Iob Totals in Server & then Redux State
-                    // this.props.dispatch(updateIobApi({
-                    //     insulinOnBoard: {
-                    //         amount: totalIOBAmount,
-                    //         timeLeft: totalIOBTime
-                    //     }
-                    // }, iobId))
-    //         }
+            // Updates IOB with New Amounts
+            else { 
+                // Updates Iob Totals in Server & then Redux State
+                this.props.dispatch(updateIob(totalIOBAmount, totalIOBTime/3600000))
+                // totalIOBAmount = Math.min(Math.max(totalIOBAmount - bolusElapsed, 0), duration);
+            }
         }
 
         // console.log(result);
@@ -170,16 +157,6 @@ class IobCalculator extends Component {
 
         // if (result[0].currentInsulinStack.length === 0) insulinStack = [];
         // else insulinStack = [...result[0].currentInsulinStack];
-
-        // setTimeout(() => {
-        //     insulinOnBoardCalculator({
-        //         insulinStack,
-        //         duration,
-        //         iobAmount: result[0].insulinOnBoard.amount,
-        //         iobTime: result[0].insulinOnBoard.timeLeft,
-        //         initialTime
-        //     });
-        // }, 5000);//300000
     }
 
     render(){
