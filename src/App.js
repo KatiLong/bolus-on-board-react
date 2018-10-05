@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import './App.css';
 import './responsive.css';
@@ -16,7 +17,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class App extends Component {
   render() {
-    //
     return (
         <Router>
             <div>
@@ -26,7 +26,7 @@ class App extends Component {
                 </header>
                 <Route exact path='/' component={Login}/>
                 <Route exact path='/register' component={Register}/>
-                
+
                 <Route exact path='/dashboard' component={UserDashboard}/>
                 <Route exact path='/dashboard/bolus' component={Bolus}/>
                 <Route exact path='/dashboard/bolus-status' component={BolusStatus}/>
@@ -34,6 +34,8 @@ class App extends Component {
                 <Route exact path='/dashboard/blood-glucose' component={BloodGlucose}/>
                 <Route exact path='/dashboard/a1c' component={A1c}/>
                 <Route exact path='/settings' component={Settings}/>
+
+
             </div>
         </Router>
     );
@@ -45,6 +47,12 @@ class App extends Component {
 //    return <Redirect to='/dashboard' />
 //}
 
+const mapStateToProps = (state) => {
+    return {
+        authenticated: state.user.authenticated
+    }
+};
+
 //<Route exact path='/settings/carb-ratio' component={CarbRatio}/>
 //    <Route exact path='/settings/correction' component={CorrectionFactor}/>
 //        <Route exact path='/settings/duration' component={Duration}/>
@@ -55,4 +63,4 @@ class App extends Component {
 // import Logs from './components/logs';
 // <Route exact path='/logs' component={Logs}/>
 
-export default App;
+export default connect(mapStateToProps)(App);

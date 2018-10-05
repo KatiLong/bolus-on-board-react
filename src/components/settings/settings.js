@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showSetting, hideSetting, updateSetting, settingOnChange  } from '../../actions';
 
@@ -12,8 +12,6 @@ import './settings.css';
 
 class Settings extends React.Component {
 
-    //Need to propagate
-
     handleSubmit(settingType, event) {
         event.preventDefault();
         let currentValue = this.props[settingType].amount;
@@ -25,6 +23,9 @@ class Settings extends React.Component {
     }
     
     render() {
+        if (!this.props.authenticated) {
+            return <Redirect to='/' />
+        }
         return (
             <div className="settings">
 
@@ -191,7 +192,8 @@ const mapStateToProps = (state) => {
         correction: state.settings.correction,
         targetBg: state.settings.targetBg,
         lowBg: state.settings.lowBg,
-        settingsId: state.user.settingsId
+        settingsId: state.user.settingsId,
+        authenticated: state.user.authenticated
     }
 };
 

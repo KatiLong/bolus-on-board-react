@@ -31,10 +31,6 @@ class Register extends Component {
     
     onAgree(event) {
 
-        console.log('onAgree ran');
-
-        // Authentication goes here
-
         //Create User
         //Create Settings & IOB
         // Update State with form values
@@ -43,10 +39,6 @@ class Register extends Component {
             username: this.state.username,
             password: this.state.password
         }, this.props.history))
-        // .then(() => this.setState({toDashboard: true}))
-        //Save Id's of Settings and IOB to the state
-        // this.props.dispatch(storeSettings())
-        // this.setState({toDashboard: true})
     }
     onCancel(event) { //If User cancels Disclaimer, take them back to Signup
         this.setState({

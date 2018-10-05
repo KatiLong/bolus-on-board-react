@@ -245,9 +245,9 @@ export const iobEntryPost = (bolusEntry, iobId, iobAmount, history) => {
 }
 
 const UPDATE_IOB_ENTRY = 'UPDATE_IOB_ENTRY';
-export const updateIobEntry = (state) => ({
+export const updateIobEntries = (updatedStack) => ({
     type: UPDATE_IOB_ENTRY,
-    state
+    updatedStack
 })
 
 export const updateIobEntryApi = (iobEntry) => {
@@ -269,11 +269,11 @@ export const updateIobEntryApi = (iobEntry) => {
     }
 }
 
-const DELETE_IOB_ENTRY = 'DELETE_IOB_ENTRY';
-export const deleteIobEntry = (elId) => ({
-    type: DELETE_IOB_ENTRY,
-    elId
-})
+// const DELETE_IOB_ENTRY = 'DELETE_IOB_ENTRY';
+// export const deleteIobEntry = (elId) => ({
+//     type: DELETE_IOB_ENTRY,
+//     elId
+// })
 
 export const deleteIobEntryApi = (iobId, elId, index) => {
     return (dispatch) => { 
@@ -284,7 +284,6 @@ export const deleteIobEntryApi = (iobId, elId, index) => {
             }
         })
         .then(res => console.log(res))
-        .then(res => dispatch(deleteIobEntry(index)))
         .catch(error => console.log(error))
     }
 }

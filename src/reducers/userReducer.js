@@ -4,7 +4,7 @@ const initialState = {
     userId: '',
     settingsId: '',
     iobId: '',
-    bolusToDashboard: false,
+    authenticated: false,
     bolusStatus: "not successful"
 }
 
@@ -28,7 +28,8 @@ const userReducer = (state = initialState, action) => {
                 name: action.userDetails.user.name,
                 userId: action.userDetails.user.userId,
                 settingsId: action.userDetails.user.settingsId,
-                iobId: action.userDetails.user.iobId
+                iobId: action.userDetails.user.iobId,
+                authenticated: true
             }
         case 'BOLUS_TO_DASHBOARD' :
             console.log(action);

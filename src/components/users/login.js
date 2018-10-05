@@ -32,10 +32,6 @@ class Login extends React.Component {
     }
     render() {
 
-        if (this.state.toDashboard === true) {
-            return <Redirect to='/dashboard' />
-        }
-
         return (
             <div>
                 <section id="login-page" className="metal linear">
@@ -82,7 +78,8 @@ const mapStateToProps = (state) => {
         iobAmount: state.iob.iobAmount,
         iobTimeLeft: state.iob.iobTimeLeft,
         iobStack: state.iob.iobStack,
-        duration: state.settings.duration.amount
+        duration: state.settings.duration.amount,
+        authenticated: state.user.authenticated
     }
 };
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import InsulinOnBoard from './insulin-on-board';
-import { updateIob, updateIobEntryApi, deleteIobEntryApi, clearIobStack } from '../../actions';
+import { updateIob, updateIobEntries, updateIobEntryApi, deleteIobEntryApi, clearIobStack } from '../../actions';
 
 import './dashboard.css';
 
@@ -17,7 +17,7 @@ class IobCalculator extends Component {
             console.log('Set Interval test, chainId: ', chainId)
             // Call Calculator Second Time
             this.calculator();
-        }, 60000); //1 minute increment
+        }, 15000); //1 minute increment
           
     }
     componentWillUnmount() {
@@ -27,18 +27,14 @@ class IobCalculator extends Component {
 
     calculator () {
         const mountTime = (new Date()).getTime();
-        // console.log('Calculator mountTime: ', mountTime);
 
         let currentInsulinStack = (!this.props.iobStack) ? [] : [...this.props.iobStack];
         
         let updatedInsulinStack, bolusElapsed, bolusRate, timeElapsed;
         let duration = (this.props.duration)*3600000; //In Milliseconds
-        let iobId =  this.props.iobId;
-        let settingsId = this.props.settingsId;
         let totalIOBAmount = 0;
         let totalIOBTime = 0;
 
-        console.log(duration, iobId, settingsId);
         // Skips Map if Stack is currently Empty, makes sure IOB Amounts are Zeroed Out
         if (currentInsulinStack.length === 0) {
             console.log('Stack is Empty');
@@ -48,7 +44,7 @@ class IobCalculator extends Component {
             // Clear Entry Stack (for Testing only)
             // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
         } else {
-            console.log('Stack is not empty');
+            console.log('Stack is not empty, map running');
 
             // Clear Entry Stack (for Testing only)
             
@@ -59,6 +55,7 @@ class IobCalculator extends Component {
             // MAP Updates Each Entry on insulin stack
             updatedInsulinStack = currentInsulinStack.map((el, ind) => {
                 console.log(el);
+                console.log('Mount Time: ', mountTime);
                 // Element
                 // currentInsulin: 1.22
                 // entryAmount: 1.22
@@ -68,7 +65,7 @@ class IobCalculator extends Component {
                 
                 // Time Elapsed is the difference from IOB Component Mounting (i.e. Login) from the Time of Bolus 
                 timeElapsed = mountTime - el.timeStart;
-
+                console.log('Time Elapsed: ',  timeElapsed);
                 //If it's been longer than the User's set duration, zero out the element
                 if (timeElapsed >= duration) {
                     console.log('Element Zeroed Out', timeElapsed);
@@ -134,8 +131,8 @@ class IobCalculator extends Component {
     //         //Filter out entries that have zeroed out Locally and on Server
             }).filter((el, index) => {
                 console.log(el);
-                // if (el.timeRemaining === 0) this.props.dispatch(deleteIobEntryApi(iobId, el._id, index));
-                // return !(el.timeRemaining === 0);
+                if (el.timeRemaining === 0) this.props.dispatch(deleteIobEntryApi(this.props.iobId, el._id, index));
+                return !(el.timeRemaining === 0);
             });
     //         console.log(updatedInsulinStack);
             // Check after Filter for Empty array, update totals to 0 if it is
@@ -145,8 +142,9 @@ class IobCalculator extends Component {
             } 
             // Updates IOB with New Amounts
             else { 
-                // Updates Iob Totals in Server & then Redux State
-                this.props.dispatch(updateIob(totalIOBAmount, totalIOBTime/3600000))
+                // Updates IOB Stack & IOB Totals in Redux State
+                this.props.dispatch(updateIobEntries(updatedInsulinStack))
+                this.props.dispatch(updateIob(Math.round(totalIOBAmount * 100) / 100, Math.round((totalIOBTime/3600000)* 100) / 100))
                 // totalIOBAmount = Math.min(Math.max(totalIOBAmount - bolusElapsed, 0), duration);
             }
         }
