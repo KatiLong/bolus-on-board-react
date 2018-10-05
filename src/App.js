@@ -35,7 +35,6 @@ class App extends Component {
                 <Route exact path='/dashboard/a1c' component={A1c}/>
                 <Route exact path='/settings' component={Settings}/>
 
-
             </div>
         </Router>
     );

@@ -12,11 +12,11 @@ class IobCalculator extends Component {
         let chainId = Math.random();
         console.log('Component Did Update, Set Interval test, chainId: ', chainId);
         // Call Calculator First Time
-        this.calculator();
+        this.calculator((new Date()).getTime());
         this.interval = setInterval(() => {
             console.log('Set Interval test, chainId: ', chainId)
             // Call Calculator Second Time
-            this.calculator();
+            this.calculator((new Date()).getTime());
         }, 15000); //1 minute increment
           
     }
@@ -25,8 +25,19 @@ class IobCalculator extends Component {
         clearInterval(this.interval);
     }
 
-    calculator () {
-        const mountTime = (new Date()).getTime();
+    iobTimeFormat (totalIOBTime) {
+        let newTime;
+        let hour = Math.floor(totalIOBTime);
+        let remainder = totalIOBTime - hour;
+        console.log('Hour: ', hour, 'remainder: ', remainder);
+
+        let minutes = Math.round(remainder*60)
+
+        return `${hour}:${minutes}mins`;
+    }
+
+    calculator (mountTime) {
+        // const mountTime = (new Date()).getTime();
 
         let currentInsulinStack = (!this.props.iobStack) ? [] : [...this.props.iobStack];
         
@@ -46,26 +57,22 @@ class IobCalculator extends Component {
         } else {
             console.log('Stack is not empty, map running');
 
-            // Clear Entry Stack (for Testing only)
-            
-            // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
-            // this.props.dispatch(updateIobEntryApi(currentInsulinStack));
-            // this.props.dispatch(deleteIobEntryApi (iobId, elId, history)
-
             // MAP Updates Each Entry on insulin stack
             updatedInsulinStack = currentInsulinStack.map((el, ind) => {
-                console.log(el);
-                console.log('Mount Time: ', mountTime);
+                // Time Elapsed is the difference from IOB Component Mounting (i.e. Login) from the Time of Bolus
+                // Both Numbers calculated using getTime method (number of milliseconds since 1 January 1970 00:00:00)
+                timeElapsed = mountTime - el.timeStart;
+                // The rate that the insulin has expired
+                bolusRate = (el.entryAmount)/(duration-900000);
+                // How much insulin has expired
+                bolusElapsed = bolusRate*timeElapsed;
                 // Element
                 // currentInsulin: 1.22
                 // entryAmount: 1.22
                 // timeRemaining: 4.25
                 // timeStart: 1538092839193
                 // _id: "5bad6f27a122bf07f21eaafb"
-                
-                // Time Elapsed is the difference from IOB Component Mounting (i.e. Login) from the Time of Bolus 
-                timeElapsed = mountTime - el.timeStart;
-                console.log('Time Elapsed: ',  timeElapsed);
+
                 //If it's been longer than the User's set duration, zero out the element
                 if (timeElapsed >= duration) {
                     console.log('Element Zeroed Out', timeElapsed);
@@ -77,13 +84,26 @@ class IobCalculator extends Component {
                     el.currentInsulin = 0;
                     return el;
                 }
-                /////////From login Calculator/////////////
-                //Updating totals for Element and Global Totals
-                bolusRate = (el.entryAmount)/(duration);
-                bolusElapsed = bolusRate*timeElapsed;
 
-                el.timeRemaining = Math.min(Math.max((el.timeRemaining - timeElapsed), 0), duration);
-                el.currentInsulin = Math.min(Math.max(el.currentInsulin - bolusElapsed, 0), el.currentInsulin);
+                // For first 15 minutes of Bolus Entry, don't change Amount 
+                if (timeElapsed <=  900000/30) {
+                    console.log(el._id, 'First 15 minutes');
+                    el.currentInsulin = el.entryAmount;
+                    el.timeRemaining = Math.min(Math.max((duration - timeElapsed), 0), duration);
+
+                    totalIOBAmount += el.entryAmount;
+                    // Setting Total IOB Time to highest Time Remaining of an Entry
+                    if (totalIOBTime < el.timeRemaining) totalIOBTime = el.timeRemaining
+
+                    return el;
+                }
+                
+                // All other cases, run Calculator
+                console.log('time start: ', el.timeStart, 'time Elapsed: ', timeElapsed, 'el.timeRemian: ', Math.max((el.timeStart - timeElapsed), 0));
+                // Element TimeRemaining calculated from Bolus Start Time & Time Elapesd, minimum amount 0, max amount duration
+                el.timeRemaining = Math.min(Math.max((duration - timeElapsed), 0), duration);
+                // Element CurrentInsulin calculated from Bolus Total Entry amount & Bolus Elapesd, minimum amount 0, max amount entry amount
+                el.currentInsulin = Math.min(Math.max(el.entryAmount - bolusElapsed, 0), el.entryAmount);
 
                 //////TOTALS////
                 // Setting Total IOB Time to highest Time Remaining of an Entry
@@ -91,42 +111,6 @@ class IobCalculator extends Component {
                 // Adding current entry currentInsulin to Total IOB Amount
                 totalIOBAmount += el.currentInsulin;
 
-
-    //             //For each element...Subtract 5 minutes, min = 0 and max = set duration
-    //             el.timeRemaining = Math.min(Math.max((el.timeRemaining - 300000), 0), duration);
-
-    //             //When entry has 0 time remaining, update everything to 0
-    //             if (el.timeRemaining === 0) {
-                    
-    //                 el.currentInsulin = 0;
-    //                 console.log('Time @ 0');
-    //             }
-    //             //First 15 minutes - time changes, insulin amount does not
-    //             else if (el.timeRemaining >= (duration-900000)) {
-    //                 //Minus 5 minutes
-    //                 console.log('First 15 minutes', el.timeRemaining);
-    //             }
-    //             //first half of entry duration
-    //             else if (el.timeRemaining >= (duration/2)) {
-    //                 bolusElapsed = ((el.entryAmount/2)/((duration-900000)/2))*300000; //5 minute increments
-    //                 el.currentInsulin = Math.max((el.currentInsulin - bolusElapsed), 0);
-    //                 totalIOBAmount -= bolusElapsed;
-    //                 console.log('First Half rate');
-    //             }
-    //             //second half of entry duration
-    //             else if (el.timeRemaining < (duration/2)) {
-    //                 bolusElapsed = ((el.entryAmount/2)/((duration/2)))*300000; //5 minute increments
-    //                 //            el.currentInsulin = Math.max((el.currentInsulin - bolusElapsed), 0);
-    //                 el.currentInsulin -= bolusElapsed;
-    //                 totalIOBAmount -= bolusElapsed;
-    //                 console.log('Second Half rate', bolusElapsed);
-    //             }
-    //             //Catch errors
-    //             else {
-    //                 console.log('Something went wrong in IOB');
-    //                 return false;
-    //             }
-                // this.props.dispatch(updateIobEntryApi(el));
                 return el;
     //         //Filter out entries that have zeroed out Locally and on Server
             }).filter((el, index) => {
@@ -159,17 +143,9 @@ class IobCalculator extends Component {
 
     render(){
         return (
-            <InsulinOnBoard iobAmount={this.props.iobAmount} iobTimeLeft= {this.props.iobTimeLeft} />
+            <InsulinOnBoard iobAmount={this.props.iobAmount} iobTimeLeft= {this.props.iobTimeLeft} iobTimeFormat={time => this.iobTimeFormat(time)} />
         )}
 }
-
-// const mapDispatchToProps = (dispatch) => ({
-//     updateIob: (iob) => dispatch(updateIob(iob)),
-//     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
-//     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
-//     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
-//     deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry))
-// });
 
 const mapStateToProps = (state) => {
     return {
@@ -186,3 +162,16 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(IobCalculator);
+
+            // Clear Entry Stack (for Testing only)
+            // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
+            // this.props.dispatch(updateIobEntryApi(currentInsulinStack));
+            // this.props.dispatch(deleteIobEntryApi (iobId, elId, history)
+
+            // const mapDispatchToProps = (dispatch) => ({
+//     updateIob: (iob) => dispatch(updateIob(iob)),
+//     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
+//     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
+//     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
+//     deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry))
+// });
