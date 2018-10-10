@@ -1,5 +1,4 @@
 import { bolusEntryTime } from '../components/populateDateTime';
-import bolus from '../components/dashboard/bolus';
 
 /////////////////User///////////////////////
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676

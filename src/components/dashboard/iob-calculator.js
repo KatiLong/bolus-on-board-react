@@ -17,7 +17,7 @@ class IobCalculator extends Component {
             console.log('Set Interval test, chainId: ', chainId)
             // Call Calculator Second Time
             this.calculator((new Date()).getTime());
-        }, 15000); //1 minute increment
+        }, 15000*5); //1 minute increment -> 5 min increment
           
     }
     componentWillUnmount() {
@@ -26,14 +26,17 @@ class IobCalculator extends Component {
     }
 
     iobTimeFormat (totalIOBTime) {
-        let newTime;
+
         let hour = Math.floor(totalIOBTime);
         let remainder = totalIOBTime - hour;
         console.log('Hour: ', hour, 'remainder: ', remainder);
-
         let minutes = Math.round(remainder*60)
 
-        return `${hour}:${minutes}mins`;
+        if(hour <= 1) {
+            return `${minutes} mins`;
+        } else {
+            return `${hour}:${minutes} mins`;
+        }
     }
 
     calculator (mountTime) {
@@ -86,7 +89,7 @@ class IobCalculator extends Component {
                 }
 
                 // For first 15 minutes of Bolus Entry, don't change Amount 
-                if (timeElapsed <=  900000/30) {
+                if (timeElapsed <=  900000) {
                     console.log(el._id, 'First 15 minutes');
                     el.currentInsulin = el.entryAmount;
                     el.timeRemaining = Math.min(Math.max((duration - timeElapsed), 0), duration);
@@ -162,16 +165,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(IobCalculator);
-
-            // Clear Entry Stack (for Testing only)
-            // this.props.dispatch(clearIobStack(iobId, currentInsulinStack));
-            // this.props.dispatch(updateIobEntryApi(currentInsulinStack));
-            // this.props.dispatch(deleteIobEntryApi (iobId, elId, history)
-
-            // const mapDispatchToProps = (dispatch) => ({
-//     updateIob: (iob) => dispatch(updateIob(iob)),
-//     iobOnLogin: (iob) => dispatch(iobOnLogin(iob)),
-//     addIobEntry: (bolusEntry) => dispatch(addIobEntry(bolusEntry)),
-//     updateIobEntry: (iobEntry) => dispatch(updateIobEntry(iobEntry)),
-//     deleteIobEntry: (iobEntry) => dispatch(deleteIobEntry(iobEntry))
-// });
