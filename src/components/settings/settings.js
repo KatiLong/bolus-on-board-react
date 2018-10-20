@@ -42,7 +42,7 @@ class Settings extends React.Component {
                         <button
                         name="carbRatio"
                         type="button"
-                        id="trigger"
+                        id="carb-ratio-trigger"
                         className="setting-button"
                         onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     }

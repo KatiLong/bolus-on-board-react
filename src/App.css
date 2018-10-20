@@ -332,16 +332,15 @@ margin-left: 2.5%;
     cursor: pointer;
 }
 
-#iob-info ul {
+#iob-info p {
     color: white;
     width: 90%;
     margin: 0 auto;
     text-align: left;
-    border: 1px lightskyblue solid;
-    list-style: none;
+    padding-left: 10%;
 }
 
-#iob-info li::before {
-    content: "*"; 
-    color: white
+
+#iob-info p::after {
+    margin-bottom: 1rem;
 }
