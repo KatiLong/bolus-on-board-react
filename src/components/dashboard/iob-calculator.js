@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import InsulinOnBoard from './insulin-on-board';
 import { updateIob, updateIobEntries, deleteIobEntryApi } from '../../actions';
-import IobInfo from '../app-walkthrough';
+import IobInfo from '../iob-info.js';
 
 import './dashboard.css';
 
