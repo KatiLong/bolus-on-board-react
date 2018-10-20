@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { showSetting, hideSetting, updateSetting, settingOnChange, hideOtherSettings  } from '../../actions';
+import { showSetting, hideSetting, updateSetting, settingOnChange  } from '../../actions';
 
 import SettingForm from './settingForm';
 
@@ -14,7 +14,7 @@ import './settings.css';
 class Settings extends React.Component {
 
     state = {
-        style: {}
+        settings: ['carbRatio', 'correction', 'duration', 'incrementInsulin', 'targetBg', 'lowBg']
     }
 
     handleSubmit(settingType, event) {
@@ -25,11 +25,6 @@ class Settings extends React.Component {
         this.props.updateSetting(settingType, currentValue, this.props.settingsId); 
         // Below is happening from updateSetting action
         // this.props.hideSetting(settingType); 
-    }
-
-    showSetting (name) {
-        this.props.showSetting(name)
-        this.setState({ style: {float: 'right'}})
     }
     
     render() {
@@ -42,7 +37,8 @@ class Settings extends React.Component {
                 <h1>Settings</h1>
                 <Link to='/dashboard'><button className="home-button">Home</button></Link>
                 <br/>
-                <div className="settings-div" style={this.state.style}>
+
+                <div className="settings-div">
                     <h4>Carb Ratio: <span>{this.props.carbRatio.amount}</span></h4>
                     {!this.props.carbRatio.show && 
                         <button
@@ -50,7 +46,7 @@ class Settings extends React.Component {
                         type="button"
                         id="trigger"
                         className="setting-button"
-                        onClick={(event) => this.showSetting(event.target.name)}>Edit</button>
+                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
                     }
                     {this.props.carbRatio.show && 
                         <SettingForm 
@@ -190,8 +186,7 @@ const mapDispatchToProps = (dispatch) => ({
     showSetting: (settingType) => dispatch(showSetting(settingType)),
     updateSetting: (settingType, settingAmount, settingsId) => dispatch(updateSetting(settingType, settingAmount, settingsId)),
     settingOnChange: (settingType, amount) => dispatch(settingOnChange(settingType, amount)),
-    hideSetting: (settingType) => dispatch(hideSetting(settingType)),
-    hideOtherSettings: (settingType) => dispatch(hideOtherSettings(settingType)) 
+    hideSetting: (settingType) => dispatch(hideSetting(settingType))
 });
 
 const mapStateToProps = (state) => {
