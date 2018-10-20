@@ -55,7 +55,6 @@ The app's functionality includes:
 ## Technology
 * Front-End: HTML5 | CSS3 | JavaScript ES6 | React | Redux | Redux-Form
 * Back-End: Node.js | Express.js | Mocha | Chai | RESTful API Endpoints | MongoDB | Mongoose
-* Other: React-Native | Netlify
 
 
 ## Responsive
@@ -63,5 +62,7 @@ App is strongly built to be usuable on mobile devices, as well as responsive acr
 
 ## Development Roadmap
 This is v1.0 of the app, but future enhancements are expected to include:
+* User Logs, so that a User can pull up entries and share them with their Medical Professionals
+* A React Native version of the app for Phone use
 * A Support chatbot to help provide levity and resources for Users with the Dialogflow API (https://dialogflow.com/)
-* Nutrition and Exercise Functionality
+

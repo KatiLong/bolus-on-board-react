@@ -125,6 +125,39 @@ const settingsReducer = (state = initialState, action) => {
                     show: false
                 }
             }
+        case 'HIDE_OTHER_SETTINGS' :
+            currentSetting =  action.settingType;
+                return {
+                    ...state,
+                    incrementInsulin: {
+                        ...state.incrementInsulin,
+                        show: false
+                    },
+                    duration: {
+                        ...state.duration,
+                        show: false
+                    },
+                    carbRatio: {
+                        ...state.carbRatio,
+                        show: false
+                    },
+                    correction: {
+                        ...state.correction,
+                        show: false
+                    },
+                    targetBg: {
+                        ...state.targetBg,
+                        show: false
+                    },
+                    lowBg: {
+                        ...state.lowBg,
+                        show: false
+                    },
+                    [currentSetting]: {
+                        ...state[currentSetting],
+                        show: true
+                    }
+                }
         default :
             return state
     }

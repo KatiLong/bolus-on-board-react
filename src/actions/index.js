@@ -384,6 +384,12 @@ export const hideSetting = (settingType) => ({
     settingType
 })
 
+const HIDE_OTHER_SETTINGS = 'HIDE_OTHER_SETTINGS';
+export const hideOtherSettings = (settingType) => ({
+    type: HIDE_OTHER_SETTINGS,
+    settingType
+})
+
 // export const updateSetting = (settingType) => console.log('update');
 
 
