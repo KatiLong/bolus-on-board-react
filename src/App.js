@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './App.css';
+import './components/settings/settings.css';
 import './responsive.css';
 import Login from './components/users/login';
 import Register from './components/users/signup';

@@ -39,7 +39,7 @@ class BloodGlucose extends React.Component {
                 <form id="blood-glucose-form" onSubmit={(e) => this.onSubmit("blood-glucose", e)} >
                     <fieldset>
                         <legend>Blood Glucose</legend>
-                        <p>For correction calculator, use</p><Link to='/dashboard/bolus'><button type="button">Bolus</button></Link>
+                        <p>For correction calculator, use <Link to='/dashboard/bolus'>Bolus</Link></p>
                         <label htmlFor="bg-input">Blood Sugar</label>
                         <input type="number" id="bg-input" defaultValue={this.state.bgAmount} 
                             onChange={(e) => this.setState({bgAmount: e.target.value})} /><span>mg/dl</span>

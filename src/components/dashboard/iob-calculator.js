@@ -1,11 +1,16 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import InsulinOnBoard from './insulin-on-board';
-import { updateIob, updateIobEntries, updateIobEntryApi, deleteIobEntryApi, clearIobStack } from '../../actions';
+import { updateIob, updateIobEntries, deleteIobEntryApi } from '../../actions';
+import IobInfo from '../app-walkthrough';
 
 import './dashboard.css';
 
 class IobCalculator extends Component {
+
+    state = {
+        iobInfoShow: false
+    }
 
     componentDidMount() {
         // Test code for recursive setTimeout Loop
@@ -37,6 +42,11 @@ class IobCalculator extends Component {
         } else {
             return `${hour}:${minutes} mins`;
         }
+    }
+
+    toggleIobInfo () {
+        console.log('Toggle iobInfo');
+        this.setState({iobInfoShow: (this.state.iobInfoShow) ? false : true})
     }
 
     calculator (mountTime) {
@@ -146,8 +156,13 @@ class IobCalculator extends Component {
 
     render(){
         return (
-            <InsulinOnBoard iobAmount={this.props.iobAmount} iobTimeLeft= {this.props.iobTimeLeft} iobTimeFormat={time => this.iobTimeFormat(time)} />
-        )}
+            <Fragment>
+                <InsulinOnBoard iobInfoShow={this.state.iobInfoShow} onClick={() => this.toggleIobInfo()} iobAmount={this.props.iobAmount} iobTimeLeft= {this.props.iobTimeLeft} iobTimeFormat={time => this.iobTimeFormat(time)} />
+                {this.state.iobInfoShow && 
+                    <IobInfo/>
+                }
+            </Fragment>
+        )} 
 }
 
 const mapStateToProps = (state) => {

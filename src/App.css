@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
 *{
     box-sizing: border-box;
 }
@@ -68,7 +70,7 @@ button {
 form {
     margin: 30px auto;
     max-width: 600px;
-    width: 100%;
+    width: 95%;
     padding: 0 1rem;
     background-color: #fff;
     border-radius: 8px;
@@ -137,6 +139,7 @@ button {
 button:hover {
     cursor: pointer;
     background-color: azure;
+    color: black;
 }
 .submit-button {
     background-color:#53bfe2; /*#2884a2*/
@@ -307,4 +310,24 @@ margin-left: 2.5%;
 #log-options span:hover {
     cursor: pointer;
     color: aquamarine;
+}
+
+.info-button {
+    font-family: Abril Fatface, sans-serif;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 20px;
+    line-height: 1.428571429;
+    border-radius: 20px;
+    color: black;
+    background-color: rgba(255, 255, 255, .9);
+    margin-left: 3%;
+}
+
+.info-button:hover {
+    background-color:  rgba(255, 255, 255, .2);
+    color: white;
+    cursor: pointer;
 }

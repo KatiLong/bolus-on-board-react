@@ -5,8 +5,6 @@ import { showSetting, hideSetting, updateSetting, settingOnChange  } from '../..
 
 import SettingForm from './settingForm';
 
-import './settings.css';
-
 //container for all settings related actions - showSetting & updateSetting
 //currently also contains static 'HTML' of setting containers
 

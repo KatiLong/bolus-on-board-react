@@ -167,7 +167,6 @@ class Bolus extends React.Component {
                             <label htmlFor="suggested-bolus">Suggested Bolus Amount</label>
                             <input type="number" className="insulin-input" id="suggested-bolus" name="suggestedBolus" value={this.state.suggestedBolus} step=".5"
                                 onChange={(e) => this.setState({suggestedBolus: e.target.value})} required/><span>unit(s)</span>
-                            <p>Info Toggle: "Insulin Total Suggestions are calculated and rounded to nearest unit of insulin."</p>
 
                             <button type="submit" className="submit-button">Add Bolus</button>
 

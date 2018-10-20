@@ -2,7 +2,8 @@ import { bolusEntryTime } from '../components/populateDateTime';
 
 /////////////////User///////////////////////
 // For future refactor and to understand later: https://github.com/reduxjs/redux/issues/1676
-let API_BASE_URL = `http://localhost:8080/`;
+const {API_BASE_URL} = require('../config');
+// let API_BASE_URL = `http://localhost:8080/`;
 // Asynchronous Register User
 export const registerUser = (user, history) =>  {
     let reduxStateToUpdate = {

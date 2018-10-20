@@ -63,6 +63,7 @@ App is strongly built to be usuable on mobile devices, as well as responsive acr
 ## Development Roadmap
 This is v1.0 of the app, but future enhancements are expected to include:
 * User Logs, so that a User can pull up entries and share them with their Medical Professionals
+* Separate Bolus view from Bolus container (functionality)
 * A React Native version of the app for Phone use
 * A Support chatbot to help provide levity and resources for Users with the Dialogflow API (https://dialogflow.com/)
 
