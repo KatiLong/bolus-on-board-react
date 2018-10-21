@@ -9,6 +9,14 @@
 
 #settings h1 {
     line-height: 2.7rem;
+    padding-top: 3%;
+}
+
+#settings .home-button {
+    margin-bottom: 2%;
+    background: none;
+    background-color: white;
+    color: navy;
 }
 
 .settings-div {
@@ -64,13 +72,30 @@ visibility: visible;
 }
 
 @media only screen and (min-width: 640px) {
-    .settings-div {
+    /* .settings-div {
         width: 46%;
+        border: none;
     }
     .col-1 {
         border-right: white 1px solid;
     }
-    .bottom {
-        border-right: white 1px solid;
-    }
+    .top,  .middle {
+        border-bottom:  white 1px solid;
+    } */
+}
+
+
+/*ipad potrait*/
+
+@media only screen and (min-width: 768px) {
+
+
+}
+
+
+/*ipad lanscape / small laptop*/
+
+@media only screen and (min-width: 1024px) {
+
+
 }

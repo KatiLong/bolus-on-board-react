@@ -232,12 +232,20 @@
 #bolus-info {
     width: 95%;
     color: navy;
+}
 
+#bolus-info-trigger {
+    background: lightcyan;
+    color: navy;
 }
 
 span #iob-info-trigger .info-button {
     display: block;
     margin: 10px auto;
+}
+
+#dash-section-1, #dash-section-2 {
+    width: 100%;
 }
 
 /*iPhone landscape*/
@@ -247,4 +255,14 @@ span #iob-info-trigger .info-button {
         display: inline-block;
         margin: 0 auto;
     }
+}
+
+/*ipad lanscape / small laptop*/
+
+@media only screen and (min-width: 1024px) {
+    #dash-section-1, #dash-section-2 {
+        width: 50%;
+        display: inline;    
+    }
+
 }

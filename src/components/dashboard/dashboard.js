@@ -24,26 +24,30 @@ class UserDashboard extends React.Component {
                     <IobCalculator />
 
                     <div id="dashboard-buttons">
-                        <Link to='/dashboard/bolus'><button type="button" id="bolus-trigger" className="dash-button dash-4">Bolus
-                            <span className="info-box" id="bolus">
-                                <p>Bolus allows a User to input carbs and blood sugar to calculate a suggested bolus amount.</p>
-                            </span>
-                        </button></Link>
-                        <Link to='/dashboard/blood-glucose'><button type="button" id="bg-trigger" className="dash-button dash-4 tooltip">Blood Sugar
-                            <span className="info-box" id="bg">
-                                The Blood Sugar button allows a user to track a Blood Glucose reading.
-                            </span>
-                        </button></Link>
-                        <Link to='/dashboard/basal'><button type="button" id="basal-trigger" className="dash-button dash-4">Basal
-                            <span className="info-box" id="basal">
-                                The Basal button allows a user to track a Basal shot, which is specifically a Long-Acting Insulin (generally lasting for 24 hours) and taken once or twice daily.
-                            </span>
-                        </button></Link>
-                        <Link to='/dashboard/a1c'><button type="button" id="a1c-trigger" className="dash-button dash-4">A1c
-                            <span className="info-box" id="a1c">
-                            The A1c button allows a user to track an A1c reading, a bloodwork test generally recommended every three months.
-                            </span>
-                        </button></Link>
+                        <div id="dash-section-1">
+                            <Link to='/dashboard/bolus'><button type="button" id="bolus-trigger" className="dash-button dash-4">Bolus
+                                <span className="info-box" id="bolus">
+                                    <p>Bolus allows a User to input carbs and blood sugar to calculate a suggested bolus amount.</p>
+                                </span>
+                            </button></Link>
+                            <Link to='/dashboard/blood-glucose'><button type="button" id="bg-trigger" className="dash-button dash-4 tooltip">Blood Sugar
+                                <span className="info-box" id="bg">
+                                    The Blood Sugar button allows a user to track a Blood Glucose reading.
+                                </span>
+                            </button></Link>
+                        </div>
+                        <div id="dash-section-2">
+                            <Link to='/dashboard/basal'><button type="button" id="basal-trigger" className="dash-button dash-4">Basal
+                                <span className="info-box" id="basal">
+                                    The Basal button allows a user to track a Basal shot, which is specifically a Long-Acting Insulin (generally lasting for 24 hours) and taken once or twice daily.
+                                </span>
+                            </button></Link>
+                            <Link to='/dashboard/a1c'><button type="button" id="a1c-trigger" className="dash-button dash-4">A1c
+                                <span className="info-box" id="a1c">
+                                The A1c button allows a user to track an A1c reading, a bloodwork test generally recommended every three months.
+                                </span>
+                            </button></Link>
+                        </div>
                     </div>
                     <div className="lower-dash-buttons">
                         <Link to='/settings/'><button type="button" id="settings-trigger" className="dash-button dash-2">Settings
