@@ -46,27 +46,6 @@
     position: relative;
 }
 
-.info-box {
-    visibility: hidden;
-    width: 120px;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #3E9DC0;
-    text-align: center;
-    padding: 5px;
-    border-radius: 6px;
- 
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    z-index: 1;
-}
-
-.setting-button .info-box {
-width: 200px;
-bottom: 105%;
-left: 50%; 
-margin-left: -100px;
-}
-
 #bolus-trigger:hover #bolus {
 visibility: visible;
 }

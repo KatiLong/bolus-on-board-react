@@ -51,7 +51,7 @@ class UserDashboard extends React.Component {
                     </div>
                     <div className="lower-dash-buttons">
                         <Link to='/settings/'><button type="button" id="settings-trigger" className="dash-button dash-2">Settings
-                            <span className="info-box" id="settings">
+                            <span className="info-box" id="settings-info">
                                 Settings allow the User to update factors specific to them in making calculations, and these are use in the IOB Calculator as well as the Bolus Calculator.
                             </span>
                         </button></Link>
