@@ -29,7 +29,6 @@ class App extends Component {
 
                 <Route exact path='/dashboard' component={UserDashboard}/>
                 <Route exact path='/dashboard/bolus' component={Bolus}/>
-                <Route exact path='/dashboard/bolus-status' component={BolusStatus}/>
                 <Route exact path='/dashboard/basal' component={Basal}/>
                 <Route exact path='/dashboard/blood-glucose' component={BloodGlucose}/>
                 <Route exact path='/dashboard/a1c' component={A1c}/>
