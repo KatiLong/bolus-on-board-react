@@ -30,13 +30,13 @@ class Settings extends React.Component {
             return <Redirect to='/' />
         }
         return (
-            <div className="settings">
+            <div id="settings">
 
                 <h1>Settings</h1>
                 <Link to='/dashboard'><button className="home-button">Home</button></Link>
                 <br/>
 
-                <div className="settings-div">
+                <div className="settings-div col-1 top">
                     <h4>Carb Ratio: <span>{this.props.carbRatio.amount}</span></h4>
                     {!this.props.carbRatio.show && 
                         <button
@@ -63,7 +63,7 @@ class Settings extends React.Component {
                     }
                 </div>
 
-                <div className="settings-div">
+                <div className="settings-div col-1 middle">
                     <h4>Correction Factor: <span>{this.props.correction.amount}</span></h4>
                     {!this.props.correction.show && 
                         <button
@@ -86,7 +86,7 @@ class Settings extends React.Component {
                     }
                 </div>
 
-                <div className="settings-div">
+                <div className="settings-div col-1 bottom">
                     <h4>Insulin Duration: <span>{this.props.duration.amount}</span></h4>
                     {!this.props.duration.show && 
                         <button
@@ -109,7 +109,7 @@ class Settings extends React.Component {
                     }
                 </div>
 
-                <div className="settings-div">
+                <div className="settings-div col-2 top">
                     <h4>Insulin Increment: <span>{this.props.incrementInsulin.amount}</span></h4>
                     {!this.props.incrementInsulin.show && 
                         <button
@@ -132,7 +132,7 @@ class Settings extends React.Component {
                     }
                 </div>
 
-                <div className="settings-div">
+                <div className="settings-div col-2 middle">
                     <h4>Target BG: <span>{this.props.targetBg.amount}</span></h4>
                     {!this.props.targetBg.show && 
                         <button
@@ -154,7 +154,7 @@ class Settings extends React.Component {
                         />}
                 </div>
 
-                <div className="settings-div">
+                <div className="settings-div col-1 bottom">
                     <h4>Low BG: <span>{this.props.lowBg.amount}</span></h4>
                     {!this.props.lowBg.show && 
                         <button

@@ -1,21 +1,35 @@
 /*Settings*/
-.settings {
+#settings {
     width: 100%;
     min-height: 65vh;
     max-width: 1400px;
     margin: 0  auto;
+    background-color: hsla(0,0%,100%,.2);
 }
 
-.settings .settings-div {
-    background-color: rgba (255, 255, 255, .2);
-    width: 95%;
+#settings h1 {
+    line-height: 2.7rem;
+}
+
+.settings-div {
+    width: 85%;
+    padding: 5% 0;
     display: inline-block;
     vertical-align: top;
-    border-bottom-width: 0.5;
+    border-bottom:  white 1px solid;
+}
+
+.col-2 .bottom {
+    border-bottom:  none;
 }
 
 .settings-div h4 {
     display: block;
+}
+
+.form-div {
+    width: 75%;
+    margin: 0 auto;
 }
 
 .setting-button {
@@ -51,7 +65,12 @@ visibility: visible;
 
 @media only screen and (min-width: 640px) {
     .settings-div {
-        width: 46% !important;
+        width: 46%;
     }
-
+    .col-1 {
+        border-right: white 1px solid;
+    }
+    .bottom {
+        border-right: white 1px solid;
+    }
 }

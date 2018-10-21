@@ -234,3 +234,17 @@
     color: navy;
 
 }
+
+span #iob-info-trigger .info-button {
+    display: block;
+    margin: 10px auto;
+}
+
+/*iPhone landscape*/
+
+@media only screen and (min-width: 480px) {
+    span #iob-info-trigger .info-button {
+        display: inline-block;
+        margin: 0 auto;
+    }
+}
