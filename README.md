@@ -3,6 +3,9 @@ This repository is the Front-End - React version - and connects with the Server 
 
 BOB - aka Bolus on Board - is designed for users that take Multiple Daily Injections (MDI) of insulin. It is meant to fill the gap for those that do not have access to insulin pumps or who prefer MDIs. It allows the User to input and track a number of Diabetic factors including: insulin on board (for multiple types of insulin), time of Basal Injection, and Blood Glucose readings. It also has the option to sync with a user's Dexcom account. This application is designed to help those with T1D track all the many aspects of the disease that are impossible to track from memory.
 
+## Working Prototype
+A running version of the app can be found here: https://bolus-on-board-react.herokuapp.com/dashboard
+
 ## About this project
 BOB is built as a capstone project for Thinkful.
 
