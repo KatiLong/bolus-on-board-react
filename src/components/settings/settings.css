@@ -48,3 +48,10 @@ margin-left: -100px;
 #bolus-trigger:hover #bolus {
 visibility: visible;
 }
+
+@media only screen and (min-width: 640px) {
+    .settings-div {
+        width: 46% !important;
+    }
+
+}

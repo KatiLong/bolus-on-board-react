@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { handleBolus } from '../../actions';
-import { populateDateTime } from '../populateDateTime';
+import { populateDateTime } from './populateDateTime';
 import BolusInfo from './user-walkthrough/bolus-info';
 
 import { connect } from 'react-redux';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { populateDateTime } from '../populateDateTime';
+import { populateDateTime } from './populateDateTime';
 import { handleDashForm } from '../../actions';
 import { connect } from 'react-redux';
 

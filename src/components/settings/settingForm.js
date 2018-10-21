@@ -21,18 +21,3 @@ function SettingForm (props) {
 
 
 export default SettingForm;
-
-
-//Getting input value for Form submit?
-
-// Setting Form props
-// onSubmit
-// onChange
-// legendName
-// htmlId
-// inputName
-// currentAmount
-
-//NEED TO ADD
-//step amount in input (duration, increment) step="0.5"
-//number metric (hours, bg/ml, /unit of Insulin)

@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './App.css';
-import './components/settings/settings.css';
+// import './components/settings/settings.css';
 import './responsive.css';
 import Login from './components/users/login';
 import Register from './components/users/signup';
-import UserDashboard from './components/dashboard/user-dashboard';
+import UserDashboard from './components/dashboard/dashboard';
 import Bolus from './components/dashboard/bolus';
 import Basal from './components/dashboard/basal';
 import BloodGlucose from './components/dashboard/bg';
 import A1c from './components/dashboard/a1c';
 import Settings from './components/settings/settings';
-import BolusStatus from './components/dashboard/bolus-status';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 

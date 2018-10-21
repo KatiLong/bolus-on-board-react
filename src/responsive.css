@@ -113,9 +113,9 @@
         margin-left: 25px;
     }
 
-    .settings-div {
-        width: 46%;
-    }
+    /* .settings-div {
+        width: 46% !important;
+    } */
 
 }
 

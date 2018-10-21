@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showSetting, hideSetting, updateSetting, settingOnChange  } from '../../actions';
-
+import './settings.css';
 import SettingForm from './settingForm';
 
 //container for all settings related actions - showSetting & updateSetting
