@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { handleBolus } from '../../actions';
 import { populateDateTime } from '../populateDateTime';
+import BolusInfo from './user-walkthrough/bolus-info';
 
 import { connect } from 'react-redux';
 
@@ -16,7 +17,8 @@ class Bolus extends React.Component {
         bloodSugar: 110,
         suggestedBolus: 0,
         currentDate: "",
-        currentTime: ""
+        currentTime: "",
+        bolusInfoShow: false
     }
 
     componentDidMount(){
@@ -116,6 +118,10 @@ class Bolus extends React.Component {
         }
     }
 
+    infoOnClick () {
+        this.setState({bolusInfoShow: !(this.state.bolusInfoShow)})
+    }
+
     render() {
         if (this.state.bolusToDashboard === true) {
             return <Redirect to='/dashboard' />
@@ -126,6 +132,10 @@ class Bolus extends React.Component {
                     id="bolus-htmlForm"
                     action="#root"
                     onSubmit={(e) => this.onSubmit("bolus", e) }>
+                    <span className="info-button" id="bolus-info-trigger" onClick={e => this.infoOnClick()}>i</span>
+                    {this.state.bolusInfoShow &&
+                        <BolusInfo />
+                    }
                     <fieldset>
                         <div id="bolus-section">
                             <label htmlFor="insulin-type">Insulin Type</label>

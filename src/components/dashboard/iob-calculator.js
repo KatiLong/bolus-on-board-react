@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import InsulinOnBoard from './insulin-on-board';
 import { updateIob, updateIobEntries, deleteIobEntryApi } from '../../actions';
-import IobInfo from '../iob-info.js';
+import IobInfo from './user-walkthrough/iob-info.js';
 
 import './dashboard.css';
 
@@ -22,7 +22,7 @@ class IobCalculator extends Component {
             console.log('Set Interval test, chainId: ', chainId)
             // Call Calculator Second Time
             this.calculator((new Date()).getTime());
-        }, 15000*5); //1 minute increment -> 5 min increment
+        }, 15000*5); //1 minute increment
           
     }
     componentWillUnmount() {

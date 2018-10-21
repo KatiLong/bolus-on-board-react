@@ -331,16 +331,3 @@ margin-left: 2.5%;
     color: white;
     cursor: pointer;
 }
-
-#iob-info p {
-    color: white;
-    width: 90%;
-    margin: 0 auto;
-    text-align: left;
-    padding-left: 10%;
-}
-
-
-#iob-info p::after {
-    margin-bottom: 1rem;
-}

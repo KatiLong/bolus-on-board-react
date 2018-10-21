@@ -41,7 +41,7 @@ class UserDashboard extends React.Component {
                         </button></Link>
                         <Link to='/dashboard/a1c'><button type="button" id="a1c-trigger" className="dash-button dash-4">A1c
                             <span className="info-box" id="a1c">
-                            The A1c button allows a user to track an A1c reading, a bloodwork test generally reccomended every three months.
+                            The A1c button allows a user to track an A1c reading, a bloodwork test generally recommended every three months.
                             </span>
                         </button></Link>
                     </div>

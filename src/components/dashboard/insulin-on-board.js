@@ -9,7 +9,7 @@ function InsulinOnBoard  (props) {
             <span id="iob-left-span">Units: <span id="i-o-b">{props.iobAmount}</span></span>
             <span id="iob-line"> | </span>
             <span>Time Remaining: <span id="iob-time">{props.iobTimeFormat(props.iobTimeLeft)}</span></span>
-            <span className="info-button" id="iob-info" onClick={e => props.onClick()}>i</span>
+            <span className="info-button" id="iob-info-trigger" onClick={e => props.onClick()}>i</span>
         </section>
     )
 }
