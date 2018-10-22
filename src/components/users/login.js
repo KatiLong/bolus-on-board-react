@@ -8,8 +8,8 @@ class Login extends React.Component {
         super(props);
 
         this.state = {
-            username: 'katileighlong@gmail.com',
-            password: 'detective',
+            username: 'carmen@gmail.com',
+            password: 'where2018',
             toDashboard: false
         }
 
@@ -85,4 +85,7 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(Login);
 
-//<Link to='/dashboard'><button type="submit" className="submit-button" id="login-button">Sign In</button></Link>
+// Test Account
+// Name: Phynre Fisher
+// Username: HispanoSuiza@gmail.com
+// Password: detective

@@ -7,10 +7,12 @@ import Disclaimer from './disclaimer.js';
 class Register extends Component {
     constructor(props) {
         super(props);
+        // Username: carmen@gmail.com
+        // Password: where2018
         this.state = {
-            name: 'Phynre Fisher',
-            username: 'HispanoSuiza@gmail.com',
-            password: 'detective',
+            name: '',
+            username: '',
+            password: '',
             disclaimer: false,
             toDashboard: false
         };
