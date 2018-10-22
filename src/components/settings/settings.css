@@ -67,13 +67,27 @@
 }
 
 /* Toggle Information */
-.settings-div h4 {
-    line-height: 1.2rem;
-    text-decoration: underline dotted black;
+
+.settings-info-box {
+    visibility: hidden;
+    width: 150%;
+    font-size: 1.4rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: navy;
+    text-align: center;
+    padding: 3%;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
 }
 
+.settings-info .settings-info-box {
+    bottom: 105%;
+    left: 50%;
+    margin-left: -100px;
+}
 
-#carb-ratio-trigger:hover #carb-ratio-info {
+#carb-ratio-info-trigger:hover #carb-ratio-info {
     visibility: visible;
 }
 

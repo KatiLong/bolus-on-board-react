@@ -37,14 +37,12 @@ class Settings extends React.Component {
                 <br/>
                 <p>These settings are plugged into the Bolus Calculator and Insulin On Board calculations. </p>
                 <br/>
-                <p>Hover over a setting for more information.</p>
+                
                 
                 
                     <div className="settings-div col-1 top">
-                        <h4 id="carb-ratio-trigger">Carb Ratio: <span>{this.props.carbRatio.amount}</span>
-                            <span className="info-box" id="carb-ratio-info">
-                                    <p>Carb Ratio is how many carbohydrates to 1 unit of insulin needed.</p>
-                            </span>
+                        <h4 className="settings-info" id="carb-ratio-info-trigger">Carb Ratio: <span>{this.props.carbRatio.amount}</span>
+                            <span className="settings-info-box" id="carb-ratio-info">Carb Ratio is how many carbohydrates to 1 unit of insulin needed.</span>
                         </h4>
                         {!this.props.carbRatio.show && 
                             <button
@@ -72,7 +70,7 @@ class Settings extends React.Component {
                     </div>
 
                     <div className="settings-div col-2 top">
-                        <h4 id="correction-info">Correction Factor: <span>{this.props.correction.amount}</span></h4>
+                        <h4 id="correction-info-trigger">Correction Factor: <span>{this.props.correction.amount}</span></h4>
                         {!this.props.correction.show && 
                             <button
                                 name="correction"
@@ -95,7 +93,7 @@ class Settings extends React.Component {
                     </div>
                 
                     <div className="settings-div col-1 middle">
-                        <h4 id="duration-info">Insulin Duration: <span>{this.props.duration.amount}</span></h4>
+                        <h4 id="duration-info-trigger">Insulin Duration: <span>{this.props.duration.amount}</span></h4>
                         {!this.props.duration.show && 
                             <button
                                 name="duration"
@@ -118,7 +116,7 @@ class Settings extends React.Component {
                     </div>
 
                     <div className="settings-div col-2 middle">
-                        <h4 id="increment-info">Insulin Increment: <span>{this.props.incrementInsulin.amount}</span></h4>
+                        <h4 id="increment-info-trigger">Insulin Increment: <span>{this.props.incrementInsulin.amount}</span></h4>
                         {!this.props.incrementInsulin.show && 
                             <button
                                 name="incrementInsulin"
@@ -141,7 +139,7 @@ class Settings extends React.Component {
                     </div>
                 
                     <div className="settings-div col-1 bottom">
-                        <h4  id="target-bg-info">Target BG: <span>{this.props.targetBg.amount}</span></h4>
+                        <h4  id="target-bg-info-trigger">Target BG: <span>{this.props.targetBg.amount}</span></h4>
                         {!this.props.targetBg.show && 
                             <button
                                 name="targetBg"
@@ -163,7 +161,7 @@ class Settings extends React.Component {
                     </div>
 
                     <div className="settings-div col-2 bottom">
-                        <h4 id="low-bg-info">Low BG: <span>{this.props.lowBg.amount}</span></h4>
+                        <h4 id="low-bg-info-trigger">Low BG: <span>{this.props.lowBg.amount}</span></h4>
                         {!this.props.lowBg.show && 
                             <button
                                 name="lowBg"
@@ -211,37 +209,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
 
-
-// constructor(props) {
-//     super(props);
-
-//     this.showSetting = this.showSetting.bind(this);
-//     this.settingSubmit = this.settingSubmit.bind(this);
-// }
-
-// showSetting(event) {
-//     console.log('Show setting ran', event.target.name);
-//     if (event.target.name === 'increment') this.setState({incrementShow: true});
-// }
-
-// settingSubmit (event) {
-//     event.preventDefault();
-//     console.log('Update setting ran', event.target.value);
-
-//     if (event.target.name === 'increment') {
-//         this.setState({
-//             incrementAmount: event.target.increment,
-//             incrementShow: false
-//         });
-//         event.target.increment = '';
-//         //Dispatch Action
-//     }
-// }
-
-// onSubmit={this.updateSetting}
-
-// carbRatioShow: state.settings.carbRatioShow,
-// incrementShow: state.settings.incrementShow,
-// durationShow: state.settings.durationShow,
-// correctionShow: state.settings.correctionShow,
-// targetBgShow: state.settings.targetBgShow
+// <p>Hover over a setting for more information.</p>
