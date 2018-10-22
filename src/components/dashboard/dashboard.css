@@ -230,8 +230,14 @@
 }
 
 #bolus-info {
-    width: 95%;
+    width: 90%;
+    margin: 0 auto;
     color: navy;
+    text-align: left;
+}
+
+#bolus-info p {
+    margin: 10px 0;
 }
 
 #bolus-info-trigger {

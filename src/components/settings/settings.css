@@ -5,13 +5,17 @@
     max-width: 1400px;
     margin: 0  auto;
     background-color: hsla(0,0%,100%,.2);
+    color: white;
 }
 
 #settings h1 {
     line-height: 2.7rem;
     padding-top: 3%;
 }
-
+#settings p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
 #settings .home-button {
     margin-bottom: 1%;
     background: none;

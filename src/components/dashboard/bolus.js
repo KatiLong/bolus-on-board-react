@@ -18,7 +18,8 @@ class Bolus extends React.Component {
         suggestedBolus: 0,
         currentDate: "",
         currentTime: "",
-        bolusInfoShow: false
+        bolusInfoShow: false,
+        suggestedBolusStyle: {}
     }
 
     componentDidMount(){
@@ -57,6 +58,7 @@ class Bolus extends React.Component {
     }
 
     carbInsulinChange (e){
+        this.highlightTotalChange();
         if (e.target.name === "insulin") {
             this.setState({
                 insulinAmount: ( isNaN(e.target.value) || !e.target.value) ? 0 : e.target.value,
@@ -122,9 +124,16 @@ class Bolus extends React.Component {
         this.setState({bolusInfoShow: !(this.state.bolusInfoShow)})
     }
 
+    highlightTotalChange(){
+        this.setState({suggestedBolusStyle: { 'box-shadow': '0 0 5px rgba(252, 135, 187, 1)'}})
+    }
+
     render() {
         if (this.state.bolusToDashboard === true) {
             return <Redirect to='/dashboard' />
+        }
+        if (!this.props.authenticated) {
+            return <Redirect to='/' />
         }
         return (
             <div>
@@ -175,7 +184,7 @@ class Bolus extends React.Component {
                         </div>
                         <div id="suggested-bolus-section">
                             <label htmlFor="suggested-bolus">Suggested Bolus Amount</label>
-                            <input type="number" className="insulin-input" id="suggested-bolus" name="suggestedBolus" value={this.state.suggestedBolus} step=".5"
+                            <input style={this.state.suggestedBolusStyle} type="number" className="insulin-input" id="suggested-bolus" name="suggestedBolus" value={this.state.suggestedBolus} step=".5"
                                 onChange={(e) => this.setState({suggestedBolus: e.target.value})} required/><span>unit(s)</span>
 
                             <button type="submit" className="submit-button">Add Bolus</button>
@@ -202,7 +211,8 @@ const mapStateToProps = (state) => {
         lowBg: state.settings.lowBg,
         loggedInUsername: state.user.email,
         iobId: state.user.iobId,
-        bolusToDashboard: state.user.bolusToDashboard
+        bolusToDashboard: state.user.bolusToDashboard,
+        authenticated: state.user.authenticated
     }
 };
 

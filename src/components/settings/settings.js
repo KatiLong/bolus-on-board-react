@@ -35,6 +35,10 @@ class Settings extends React.Component {
                 <h1>Settings</h1>
                 <Link to='/dashboard'><button className="home-button">Home</button></Link>
                 <br/>
+                <p>These settings are plugged into the Bolus Calculator and Insulin On Board calculations. </p>
+                <br/>
+                <p>Hover over a setting for more information.</p>
+                
                 
                     <div className="settings-div col-1 top">
                         <h4 id="carb-ratio-trigger">Carb Ratio: <span>{this.props.carbRatio.amount}</span>
