@@ -13,7 +13,7 @@
 }
 
 #settings .home-button {
-    margin-bottom: 2%;
+    margin-bottom: 1%;
     background: none;
     background-color: white;
     color: navy;
@@ -22,9 +22,10 @@
 .settings-div {
     width: 85%;
     padding: 5% 0;
-    display: inline-block;
+    display: block;
     vertical-align: top;
     border-bottom:  white 1px solid;
+    margin: 0 auto;
 }
 
 .col-2 .bottom {
@@ -47,19 +48,48 @@
 }
 
 #bolus-trigger:hover #bolus {
-visibility: visible;
+    visibility: visible;
+}
+.settings-forms input {
+    width: 45%;
+    text-align: center;
+}
+
+.settings-forms input, .metric {
+    display: inline-block;
+}
+.form-div form {
+    padding: 0 0;
+}
+
+/* Toggle Information */
+.settings-div h4 {
+    line-height: 1.2rem;
+    text-decoration: underline dotted black;
+}
+
+
+#carb-ratio-trigger:hover #carb-ratio-info {
+    visibility: visible;
 }
 
 @media only screen and (min-width: 640px) {
+    .settings-div {
+        width: 45%;
+        padding: 2% 0;
+    }
     /* .settings-div {
-        width: 46%;
-        border: none;
+        width: 40%;
+        height: 100%;
     }
     .col-1 {
-        border-right: white 1px solid;
+        margin-right: 1%;
     }
-    .top,  .middle {
-        border-bottom:  white 1px solid;
+    .col-2 {
+        margin-left: 1%;
+    }
+    #row-1, #row-2, #row-3 {
+        width: 100%;
     } */
 }
 

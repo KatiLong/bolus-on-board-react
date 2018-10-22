@@ -158,7 +158,7 @@ export const updateIob = (iobAmount, iobTimeLeft) => ({
     iobTimeLeft
 })
 
-// updateIobApi call example
+// updateIobApi EXAMPLE
 // updateIobApi({
 //     insulinOnBoard: {
 //         amount: iob.insulinOnBoard.amount,
@@ -230,13 +230,6 @@ export const iobEntryPost = (bolusEntry, iobId, iobAmount, history) => {
             console.log('iob Entry Post response: ', res);
             // Adds Entry to Redux Stack when server successful
             dispatch(addIobEntry(res));
-                // PUT to Add Bolus Entry to Server IOB Stack
-                // dispatch(updateIobApi({
-                //     insulinOnBoard: {
-                //         amount: iobAmount + bolusEntry.entryAmount,
-                //         timeLeft: bolusEntry.timeRemaining
-                //     }
-                // }, iobId, history))
         })
         .then(data => console.log('Bolus Successfully submitted'))
         .then(data => history.push('/dashboard'))
@@ -268,12 +261,6 @@ export const updateIobEntryApi = (iobEntry) => {
         .catch(error => console.log(error))
     }
 }
-
-// const DELETE_IOB_ENTRY = 'DELETE_IOB_ENTRY';
-// export const deleteIobEntry = (elId) => ({
-//     type: DELETE_IOB_ENTRY,
-//     elId
-// })
 
 export const deleteIobEntryApi = (iobId, elId, index) => {
     return (dispatch) => { 
@@ -410,30 +397,3 @@ export const updateSetting = (settingType, settingAmount, settingsId) => {
         .catch(error => console.log(error))
     }
 }
-
-//fetch(`${API_BASE_URL}/expense/${localStorage.getItem('userId')}`, {
-//    method: 'POST',
-//    headers: {
-//        'Content-Type': 'application/json',
-//        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-//    },
-//    body: JSON.stringify(expense)
-//})
-//    .then(res => res.json())
-//    .then(response => {
-//    dispatch(fetchExpenses())
-//    setTimeout(() => {
-//        console.log('Made it');
-//        dispatch(toggleAlert())
-//    }, 3000)
-//})
-//    .catch(error => console.log(error))
-
-// .then(response => response.json())
-// $.ajax({
-//     type: 'POST',
-//     url: '/users/login',
-//     dataType: 'json',
-//     data: JSON.stringify(loginUserObject),
-//     contentType: 'application/json'
-// })

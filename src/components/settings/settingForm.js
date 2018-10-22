@@ -9,9 +9,16 @@ function SettingForm (props) {
                     <fieldset>
 
                         <label htmlFor={props.htmlId}>Amount</label>
-                        <input autoFocus type="number" name={props.inputName} id={props.htmlId} step={props.step} defaultValue={props.currentAmount} 
-                        onChange={e => props.onChange(e.target.value)} />
+                        <input 
+                            autoFocus 
+                            type="number" 
+                            name={props.inputName} 
+                            id={props.htmlId} 
+                            step={props.step} 
+                            defaultValue={props.currentAmount} 
+                            onChange={e => props.onChange(e.target.value)} />
                         <span className="metric">{props.metric}</span>
+                        <br/>
                         <button type="submit">Update</button>
                     </fieldset>
                 </form>

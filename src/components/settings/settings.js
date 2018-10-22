@@ -35,147 +35,150 @@ class Settings extends React.Component {
                 <h1>Settings</h1>
                 <Link to='/dashboard'><button className="home-button">Home</button></Link>
                 <br/>
-
-                <div className="settings-div col-1 top">
-                    <h4>Carb Ratio: <span>{this.props.carbRatio.amount}</span></h4>
-                    {!this.props.carbRatio.show && 
-                        <button
-                        name="carbRatio"
-                        type="button"
-                        id="carb-ratio-trigger"
-                        className="setting-button"
-                        onClick={(event) => this.props.showSetting(event.target.name)}>Edit
-                        
-                        </button>
-                    }
-                    {this.props.carbRatio.show && 
-                        <SettingForm 
-                            onSubmit={e => this.handleSubmit("carbRatio", e)}
-                            onChange={val => this.props.settingOnChange("carbRatio", val)} 
-                            htmlId="carb-ratio"
-                            inputName="carbRatio"
-                            currentAmount={this.props.carbRatio.amount}
-                            metric="carbs"
-                            step="1"
-                            >
-                            <h5>Hello World</h5>
-                            </SettingForm>
-                    }
-                </div>
-
-                <div className="settings-div col-2 top">
-                    <h4>Correction Factor: <span>{this.props.correction.amount}</span></h4>
-                    {!this.props.correction.show && 
-                        <button
-                            name="correction"
+                
+                    <div className="settings-div col-1 top">
+                        <h4 id="carb-ratio-trigger">Carb Ratio: <span>{this.props.carbRatio.amount}</span>
+                            <span className="info-box" id="carb-ratio-info">
+                                    <p>Carb Ratio is how many carbohydrates to 1 unit of insulin needed.</p>
+                            </span>
+                        </h4>
+                        {!this.props.carbRatio.show && 
+                            <button
+                            name="carbRatio"
                             type="button"
-                            id="correction-factor-trigger"
+                            id="carb-ratio-trigger"
                             className="setting-button"
-                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    }
-                    {this.props.correction.show && 
-                        <SettingForm 
-                            onSubmit={e => this.handleSubmit("correction", e)}
-                            onChange={val => this.props.settingOnChange("correction", val)} 
-                            htmlId="correction-amount"
-                            inputName="correctionAmount"
-                            currentAmount={this.props.correction.amount}
-                            metric="per Unit of Insulin"
-                            step="1"
-                        />
-                    }
-                </div>
+                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit
+                            
+                            </button>
+                        }
+                        {this.props.carbRatio.show && 
+                            <SettingForm 
+                                onSubmit={e => this.handleSubmit("carbRatio", e)}
+                                onChange={val => this.props.settingOnChange("carbRatio", val)} 
+                                htmlId="carb-ratio"
+                                inputName="carbRatio"
+                                currentAmount={this.props.carbRatio.amount}
+                                metric="carbs"
+                                step="1"
+                                >
+                                <h5>Hello World</h5>
+                                </SettingForm>
+                        }
+                    </div>
 
-                <div className="settings-div col-1 middle">
-                    <h4>Insulin Duration: <span>{this.props.duration.amount}</span></h4>
-                    {!this.props.duration.show && 
-                        <button
-                            name="duration"
-                            type="button"
-                            id="duration-trigger"
-                            className="setting-button"
-                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    }
-                    {this.props.duration.show && 
-                        <SettingForm 
-                            onSubmit={e => this.handleSubmit("duration", e)}
-                            onChange={val => this.props.settingOnChange("duration", val)} 
-                            htmlId="duration"
-                            inputName="duration"
-                            currentAmount={this.props.duration.amount}
-                            metric="hours"
-                            step=".25"
-                         />
-                    }
-                </div>
+                    <div className="settings-div col-2 top">
+                        <h4 id="correction-info">Correction Factor: <span>{this.props.correction.amount}</span></h4>
+                        {!this.props.correction.show && 
+                            <button
+                                name="correction"
+                                type="button"
+                                id="correction-factor-trigger"
+                                className="setting-button"
+                                onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                        }
+                        {this.props.correction.show && 
+                            <SettingForm 
+                                onSubmit={e => this.handleSubmit("correction", e)}
+                                onChange={val => this.props.settingOnChange("correction", val)} 
+                                htmlId="correction-amount"
+                                inputName="correctionAmount"
+                                currentAmount={this.props.correction.amount}
+                                metric="/ Unit of Insulin"
+                                step="1"
+                            />
+                        }
+                    </div>
+                
+                    <div className="settings-div col-1 middle">
+                        <h4 id="duration-info">Insulin Duration: <span>{this.props.duration.amount}</span></h4>
+                        {!this.props.duration.show && 
+                            <button
+                                name="duration"
+                                type="button"
+                                id="duration-trigger"
+                                className="setting-button"
+                                onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                        }
+                        {this.props.duration.show && 
+                            <SettingForm 
+                                onSubmit={e => this.handleSubmit("duration", e)}
+                                onChange={val => this.props.settingOnChange("duration", val)} 
+                                htmlId="duration"
+                                inputName="duration"
+                                currentAmount={this.props.duration.amount}
+                                metric="hours"
+                                step=".25"
+                            />
+                        }
+                    </div>
 
-                <div className="settings-div col-2 middle">
-                    <h4>Insulin Increment: <span>{this.props.incrementInsulin.amount}</span></h4>
-                    {!this.props.incrementInsulin.show && 
-                        <button
-                            name="incrementInsulin"
-                            type="button"
-                            id="increment-trigger"
-                            className="setting-button"
-                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    }
-                    {this.props.incrementInsulin.show && 
-                        <SettingForm 
-                            onSubmit={e => this.handleSubmit("incrementInsulin", e)}
-                            onChange={val => this.props.settingOnChange("incrementInsulin", val)} 
-                            htmlId="increment-insulin"
-                            inputName="incrementInsulin"
-                            currentAmount={this.props.incrementInsulin.amount}
-                            metric="units"
-                            step=".5"
-                        />
-                    }
-                </div>
+                    <div className="settings-div col-2 middle">
+                        <h4 id="increment-info">Insulin Increment: <span>{this.props.incrementInsulin.amount}</span></h4>
+                        {!this.props.incrementInsulin.show && 
+                            <button
+                                name="incrementInsulin"
+                                type="button"
+                                id="increment-trigger"
+                                className="setting-button"
+                                onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                        }
+                        {this.props.incrementInsulin.show && 
+                            <SettingForm 
+                                onSubmit={e => this.handleSubmit("incrementInsulin", e)}
+                                onChange={val => this.props.settingOnChange("incrementInsulin", val)} 
+                                htmlId="increment-insulin"
+                                inputName="incrementInsulin"
+                                currentAmount={this.props.incrementInsulin.amount}
+                                metric="units"
+                                step=".5"
+                            />
+                        }
+                    </div>
+                
+                    <div className="settings-div col-1 bottom">
+                        <h4  id="target-bg-info">Target BG: <span>{this.props.targetBg.amount}</span></h4>
+                        {!this.props.targetBg.show && 
+                            <button
+                                name="targetBg"
+                                type="button"
+                                id="target-bg-trigger"
+                                className="setting-button"
+                                onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                        }
+                        {this.props.targetBg.show && 
+                            <SettingForm 
+                                onSubmit={e => this.handleSubmit("targetBg", e)}
+                                onChange={val => this.props.settingOnChange("targetBg", val)} 
+                                htmlId="target-bg"
+                                inputName="targetBg"
+                                currentAmount={this.props.targetBg.amount}
+                                metric="mg/dL"
+                                step="1"
+                            />}
+                    </div>
 
-                <div className="settings-div col-1 bottom">
-                    <h4>Target BG: <span>{this.props.targetBg.amount}</span></h4>
-                    {!this.props.targetBg.show && 
-                        <button
-                            name="targetBg"
-                            type="button"
-                            id="target-bg-trigger"
-                            className="setting-button"
-                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    }
-                    {this.props.targetBg.show && 
-                        <SettingForm 
-                            onSubmit={e => this.handleSubmit("targetBg", e)}
-                            onChange={val => this.props.settingOnChange("targetBg", val)} 
-                            htmlId="target-bg"
-                            inputName="targetBg"
-                            currentAmount={this.props.targetBg.amount}
-                            metric="mg/dL"
-                            step="1"
-                        />}
-                </div>
-
-                <div className="settings-div col-2 bottom">
-                    <h4>Low BG: <span>{this.props.lowBg.amount}</span></h4>
-                    {!this.props.lowBg.show && 
-                        <button
-                            name="lowBg"
-                            type="button"
-                            id="low-bg-trigger"
-                            className="setting-button"
-                            onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
-                    }
-                    {this.props.lowBg.show && 
-                        <SettingForm 
-                            onSubmit={e => this.handleSubmit("lowBg", e)}
-                            onChange={val => this.props.settingOnChange("lowBg", val)} 
-                            htmlId="low-bg"
-                            inputName="lowBg"
-                            currentAmount={this.props.lowBg.amount}
-                            metric="mg/dL"
-                            step="1"
-                        />}
-                </div>
-
+                    <div className="settings-div col-2 bottom">
+                        <h4 id="low-bg-info">Low BG: <span>{this.props.lowBg.amount}</span></h4>
+                        {!this.props.lowBg.show && 
+                            <button
+                                name="lowBg"
+                                type="button"
+                                id="low-bg-trigger"
+                                className="setting-button"
+                                onClick={(event) => this.props.showSetting(event.target.name)}>Edit</button>
+                        }
+                        {this.props.lowBg.show && 
+                            <SettingForm 
+                                onSubmit={e => this.handleSubmit("lowBg", e)}
+                                onChange={val => this.props.settingOnChange("lowBg", val)} 
+                                htmlId="low-bg"
+                                inputName="lowBg"
+                                currentAmount={this.props.lowBg.amount}
+                                metric="mg/dL"
+                                step="1"
+                            />}
+                    </div>
             </div>
         )
     }
