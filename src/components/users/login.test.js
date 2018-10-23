@@ -1,11 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import BloodGlucose from './bg';
+import Login from './login';
 
-describe('<BloodGlucose />', () => {
+describe('<Login />', () => {
   it('Renders without crashing', () => {
-    shallow(<BloodGlucose />);
+    shallow(<Login />);
   });
-
 });
