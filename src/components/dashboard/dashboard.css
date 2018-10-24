@@ -213,7 +213,7 @@
     margin-left: -100px;
 }
 
-#bolus-trigger:hover #bolus {
+/* #bolus-trigger:hover #bolus {
     visibility: visible;
 }
 #bg-trigger:hover #bg {
@@ -227,7 +227,7 @@
 }
 #settings-trigger:hover #settings-info {
     visibility: visible;
-}
+} */
 
 #bolus-info {
     width: 90%;
