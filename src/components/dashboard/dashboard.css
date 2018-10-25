@@ -213,22 +213,6 @@
     margin-left: -100px;
 }
 
-/* #bolus-trigger:hover #bolus {
-    visibility: visible;
-}
-#bg-trigger:hover #bg {
-    visibility: visible;
-}
-#basal-trigger:hover #basal {
-    visibility: visible;
-}
-#a1c-trigger:hover #a1c {
-    visibility: visible;
-}
-#settings-trigger:hover #settings-info {
-    visibility: visible;
-} */
-
 #bolus-info {
     width: 90%;
     margin: 0 auto;
@@ -261,6 +245,24 @@ span #iob-info-trigger .info-button {
         display: inline-block;
         margin: 0 auto;
     }
+}
+
+@media only screen and (min-width: 640px) {
+#bolus-trigger:hover #bolus {
+    visibility: visible;
+}
+#bg-trigger:hover #bg {
+    visibility: visible;
+}
+#basal-trigger:hover #basal {
+    visibility: visible;
+}
+#a1c-trigger:hover #a1c {
+    visibility: visible;
+}
+#settings-trigger:hover #settings-info {
+    visibility: visible;
+}
 }
 
 /*ipad lanscape / small laptop*/

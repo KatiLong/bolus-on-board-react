@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import './dashboard.css';
 
+
 class Bolus extends React.Component {
     // Holds inputted form info until User Submits
     state = {

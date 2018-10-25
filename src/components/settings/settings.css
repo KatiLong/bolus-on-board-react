@@ -50,10 +50,6 @@
     border-radius: 5px;
     position: relative;
 }
-
-#bolus-trigger:hover #bolus {
-    visibility: visible;
-}
 .settings-forms input {
     width: 45%;
     text-align: center;
