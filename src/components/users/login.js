@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions';
+import DemoButton from './demo-button';
 
 class Login extends React.Component {
     constructor (props) {
@@ -15,6 +16,7 @@ class Login extends React.Component {
 
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.demoLogin = this.demoLogin.bind(this);
     }
     onSubmit(event) {
         event.preventDefault();
@@ -29,6 +31,15 @@ class Login extends React.Component {
         console.log(event.target.name);
         if (event.target.name === 'loginUsername') this.setState({username: event.target.value});
         if (event.target.name === 'loginPassword') this.setState({password: event.target.value});
+    }
+    demoLogin(event) {
+        event.preventDefault();
+        console.log('Demo Button pressed');
+
+        this.props.dispatch(loginUser({
+            username: 'carmen@gmail.com',
+            password: 'where2018'
+        }, this.props.history, this.props));
     }
     render() {
 
@@ -58,14 +69,7 @@ class Login extends React.Component {
                             <Link to='/register'><p>Need to <span id="change-form-signup">Signup?</span></p></Link>
                         </fieldset>
                     </form>
-                    <div className="demo-account">
-                        <h6>Demo Account</h6>
-                        <div className="demo-info">
-                            <p>Username: carmen@gmail.com</p>
-                            <br/>
-                            <p>Password: where2018</p>
-                        </div>
-                    </div>
+                    <DemoButton demoLogin={this.demoLogin} />
                 </section>
 
             </div>

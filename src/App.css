@@ -185,6 +185,7 @@ h4 {
     border: 1px solid skyblue;
     margin: 30px auto;
     color: white;
+    padding-bottom: 5%;
 }
 .demo-info  {
     text-align: left;
@@ -205,6 +206,10 @@ margin-left: 2.5%;
 .demo-account h6 {
     font-size: 1.2rem;
     margin: 30px auto 10px;
+}
+
+.demo-button {
+    
 }
 
 #medical-disclaimer {
