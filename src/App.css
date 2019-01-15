@@ -177,40 +177,6 @@ h4 {
     list-style: none;
     padding: 0;
 } */
-.demo-account {
-    width: 95%;
-    max-width: 600px;
-    margin: 10px auto;
-    text-align: center;
-    border: 1px solid skyblue;
-    margin: 30px auto;
-    color: white;
-    padding-bottom: 5%;
-}
-.demo-info  {
-    text-align: left;
-    width: 95%;
-    margin: 0 auto;
-    font-size: .95rem;
-    line-height: 2.5rem;
-}
-.demo-info p {
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-/*
-.demo-account p {
-margin-left: 2.5%;
-}
-*/
-.demo-account h6 {
-    font-size: 1.2rem;
-    margin: 30px auto 10px;
-}
-
-.demo-button {
-    
-}
 
 #medical-disclaimer {
     margin: 0 auto 30px;
@@ -242,81 +208,6 @@ margin-left: 2.5%;
     font-size: 1.2rem;
 }
 
-/*/////////////////////////////////////////////////////////////////////*/
-/*///////////Logs Section///////////*/
-
-#total-daily-dose {
-    background: rgba(125, 0, 125, 0.2);
-    border-radius: 10px;
-    min-width: 600px;
-    width: 50%;
-    margin: 0 auto;
-    padding-top: 10px;
-    padding-bottom: 5px;
-}
-#log-entries {
-    width: 100%;
-}
-.log-div {
-    width: 95%;
-    text-align: left;
-    margin: 10px auto;
-    font-size: .85rem;
-    background: rgba(90, 90, 90, .2);
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.log-col {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.type {
-    width: 16%;
-
-}
-
-.readings {
-    width: 39%;
-    vertical-align: top;
-}
-
-.readings span {
-    width: 100%;
-    display: block;
-    vertical-align: top;
-}
-
-.date-time {
-    width: 39%;
-    vertical-align: top;
-    text-align: left;
-}
-
-.date-time span {
-    width: 100%;
-    display: block;
-    vertical-align: top;
-}
-
-#log-sort-options span, p{
-    display: inline-block;
-}
-
-#log-sort-options span:hover{
-    cursor: pointer;
-    color: aquamarine;
-}
-
-#log-options span, p {
-    display: inline-block;
-}
-
-#log-options span:hover {
-    cursor: pointer;
-    color: aquamarine;
-}
 
 .info-button {
     font-family: Abril Fatface, sans-serif;
